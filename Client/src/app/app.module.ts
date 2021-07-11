@@ -15,10 +15,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatHeaderComponent } from './partials/mat-header/mat-header.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 //import components to display active surveys
 import { SurveyListComponent } from './partials/survey-list/survey-list.component';
 import { SurveyPreviewComponent } from './partials/survey-preview/survey-preview.component';
+import { MatFooterComponent } from './partials/mat-footer/mat-footer.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,8 @@ import { SurveyPreviewComponent } from './partials/survey-preview/survey-preview
     SurveyComponent,
     SurveyPreviewComponent,
     SurveyListComponent,
+    MatHeaderComponent,
+    MatFooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +46,9 @@ import { SurveyPreviewComponent } from './partials/survey-preview/survey-preview
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
