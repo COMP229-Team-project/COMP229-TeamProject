@@ -10,6 +10,11 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { SurveyComponent } from './pages/survey/survey.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { QuizPreviewComponent } from './partials/quiz-preview/quiz-preview.component';
+
+//import angular material support
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -19,14 +24,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    SurveyComponent
+    SurveyComponent,
+    QuizPreviewComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCardModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
