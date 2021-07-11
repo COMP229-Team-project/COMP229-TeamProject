@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'survey-preview',
@@ -9,6 +9,11 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class SurveyPreviewComponent implements OnInit {
+  @Input() post = {
+    title: '',
+    description: '',
+  };
+
   constructor() {}
 
   ngOnInit(): void {}
