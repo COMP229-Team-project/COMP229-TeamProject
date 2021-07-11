@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'quiz-preview',
-  templateUrl: './quiz-preview.component.html',
+  selector: 'survey-preview',
+  templateUrl: './survey-preview.component.html',
   styleUrls: [
-    './quiz-preview.component.css',
+    './survey-preview.component.css',
     '../../../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css',
   ],
 })
-export class QuizPreviewComponent implements OnInit {
+export class SurveyPreviewComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

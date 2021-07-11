@@ -10,7 +10,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { SurveyComponent } from './pages/survey/survey.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { QuizPreviewComponent } from './partials/quiz-preview/quiz-preview.component';
+import { SurveyPreviewComponent } from './partials/survey-preview/survey-preview.component';
 
 //import angular material support
 import { MatCardModule } from '@angular/material/card';
@@ -25,7 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
     AboutComponent,
     ContactComponent,
     SurveyComponent,
-    QuizPreviewComponent,
+    SurveyPreviewComponent,
   ],
   imports: [
     BrowserModule,
