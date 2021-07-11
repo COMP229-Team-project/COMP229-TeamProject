@@ -1,6 +1,5 @@
-<mat-grid-list cols="1" rowHeight="200px">
-  <mat-grid-tile><survey-preview></survey-preview></mat-grid-tile>
-  <mat-grid-tile><survey-preview></survey-preview></mat-grid-tile>
-  <mat-grid-tile><survey-preview></survey-preview></mat-grid-tile>
-  <mat-grid-tile><survey-preview></survey-preview></mat-grid-tile>
+<mat-grid-list cols="1" rowHeight="200px" *ngFor="let post of posts">
+  <mat-grid-tile>
+    <survey-preview [post]="post"></survey-preview>
+  </mat-grid-tile>
 </mat-grid-list>
