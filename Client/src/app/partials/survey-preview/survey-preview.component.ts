@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
   ],
 })
 export class SurveyPreviewComponent implements OnInit {
+  //input to accept post objects from a service
   @Input() post = {
     title: '',
     description: '',
