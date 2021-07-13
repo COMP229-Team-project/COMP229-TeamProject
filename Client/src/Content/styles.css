@@ -20,5 +20,3 @@ mat-footer,
 .push {
   height: 4em;
 }
-
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
