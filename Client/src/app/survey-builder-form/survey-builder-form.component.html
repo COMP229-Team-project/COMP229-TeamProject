@@ -11,8 +11,10 @@
         <mat-label>Survey Title</mat-label>
         <input
           matInput
+          type="text"
           placeholder="Enter survey title..."
           formControlName="title"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -21,8 +23,10 @@
         <mat-label>Survey Description</mat-label>
         <input
           matInput
+          type="text"
           placeholder="Enter a description..."
           formControlName="description"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -33,6 +37,7 @@
           matInput
           placeholder="Enter an avatar url"
           formControlName="avatarURL"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -53,6 +58,7 @@
           type="text"
           formControlName="question1"
           placeholder="Ex. What is the capital of Canada?"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -64,6 +70,7 @@
           type="text"
           formControlName="answer1"
           placeholder="Toronto"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -75,6 +82,7 @@
           type="text"
           formControlName="answer2"
           placeholder="Montreal"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -86,6 +94,7 @@
           type="text"
           formControlName="answer3"
           placeholder="Ottawa"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -97,6 +106,7 @@
           type="text"
           formControlName="answer4"
           placeholder="Vancouver"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -118,6 +128,7 @@
           type="text"
           formControlName="question1"
           placeholder="Ex. What is the capital of Canada?"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -129,6 +140,7 @@
           type="text"
           formControlName="answer1"
           placeholder="Toronto"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -140,6 +152,7 @@
           type="text"
           formControlName="answer2"
           placeholder="Montreal"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -151,6 +164,7 @@
           type="text"
           formControlName="answer3"
           placeholder="Ottawa"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -162,6 +176,7 @@
           type="text"
           formControlName="answer4"
           placeholder="Vancouver"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -174,8 +189,8 @@
   </mat-step>
 
   <!-- BUILD THRID QUESTION -->
-  <mat-step [stepControl]="secondFormGroup" label="Question 3">
-    <form [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="fourthFormGroup" label="Question 3">
+    <form [formGroup]="fourthFormGroup">
       <mat-form-field>
         <mat-label>Enter your first question!</mat-label>
         <input
@@ -183,6 +198,7 @@
           type="text"
           formControlName="question1"
           placeholder="Ex. What is the capital of Canada?"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -194,6 +210,7 @@
           type="text"
           formControlName="answer1"
           placeholder="Toronto"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -205,6 +222,7 @@
           type="text"
           formControlName="answer2"
           placeholder="Montreal"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -216,6 +234,7 @@
           type="text"
           formControlName="answer3"
           placeholder="Ottawa"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -227,6 +246,7 @@
           type="text"
           formControlName="answer4"
           placeholder="Vancouver"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -239,8 +259,8 @@
   </mat-step>
 
   <!-- BUILD FOURTH QUESTION -->
-  <mat-step [stepControl]="secondFormGroup" label="Question 4">
-    <form [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="fithFormGroup" label="Question 4">
+    <form [formGroup]="fithFormGroup">
       <mat-form-field>
         <mat-label>Enter your first question!</mat-label>
         <input
@@ -248,6 +268,7 @@
           type="text"
           formControlName="question1"
           placeholder="Ex. What is the capital of Canada?"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -259,6 +280,7 @@
           type="text"
           formControlName="answer1"
           placeholder="Toronto"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -270,6 +292,7 @@
           type="text"
           formControlName="answer2"
           placeholder="Montreal"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -281,6 +304,7 @@
           type="text"
           formControlName="answer3"
           placeholder="Ottawa"
+          autocomplete="off"
           required
         />
       </mat-form-field>
@@ -292,6 +316,7 @@
           type="text"
           formControlName="answer4"
           placeholder="Vancouver"
+          autocomplete="off"
           required
         />
       </mat-form-field>
