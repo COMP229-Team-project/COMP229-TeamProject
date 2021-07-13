@@ -25,6 +25,13 @@ import { SurveyListComponent } from './partials/survey-list/survey-list.componen
 import { SurveyPreviewComponent } from './partials/survey-preview/survey-preview.component';
 import { MatFooterComponent } from './partials/mat-footer/mat-footer.component';
 
+//import components for building survey builder
+import { SurveyBuilderFormComponent } from './survey-builder-form/survey-builder-form.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,17 +45,22 @@ import { MatFooterComponent } from './partials/mat-footer/mat-footer.component';
     SurveyListComponent,
     MatHeaderComponent,
     MatFooterComponent,
+    SurveyBuilderFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
