@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PostListService, Post } from 'src/app/post-list.service';
+import { SurveyRepository } from 'src/app/model/survey.repository';
+import { Survey } from 'src/app/model/survey.model';
 
 @Component({
   selector: 'survey-list',
@@ -8,11 +9,11 @@ import { PostListService, Post } from 'src/app/post-list.service';
 })
 export class SurveyListComponent implements OnInit {
   //get surveys from service by injecting service into constructor
-  posts: Post[];
+  surveys: Survey[];
 
   //initialize posts property with the data from PostListService
-  constructor(public postlist: PostListService) {
-    this.posts = postlist.posts;
+  constructor(public surveyList: SurveyRepository) {
+    this.surveys = surveyList.getSurveys();
   }
 
   ngOnInit(): void {}
