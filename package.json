@@ -1,5 +1,5 @@
 {
-  "name": "sdgsd",
+  "name": "survey-api-backend",
   "version": "0.0.2",
   "private": true,
   "scripts": {
@@ -50,8 +50,6 @@
   ],
   "author": "Your Name Goes Here",
   "license": "ISC",
-  "bugs": {
-    "url": ""
-  },
+  "bugs": {},
   "homepage": ""
 }
