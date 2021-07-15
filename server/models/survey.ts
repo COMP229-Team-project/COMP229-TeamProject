@@ -1,16 +1,7 @@
 import Mongoose from "mongoose";
-import { Interface } from "readline";
 
 //shorthand for mongoose schema
 const Schema = Mongoose.Schema;
-
-interface Question {
-  question: String;
-  answer1: String;
-  answer2: String;
-  answer3: String;
-  answer4: String;
-}
 
 //configure schema to interface with survey collection
 const SurveySchema = new Schema(
