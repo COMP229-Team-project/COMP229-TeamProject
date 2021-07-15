@@ -32,6 +32,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
+//import the module that communicates with the backend
+//GETS survey JSON data
+import { SurveyModule } from './model/model.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +65,7 @@ import { MatInputModule } from '@angular/material/input';
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
+    SurveyModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
