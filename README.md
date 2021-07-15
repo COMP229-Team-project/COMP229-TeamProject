@@ -1,34 +1,15 @@
 # COMP229-Team Project-Group20
 
-To install Angular
+### Development Notes:
 
-1. open a terminal window and run the following command:
-   npm install -g @angular/cli
+Currently the backend is capable of serving data from our MongoDB server
+Steps to run server locally:
 
-# Endeavours
+- from root project folder "COMP229-TEAMPROJECT" run a nodemon
+- type http://localhost:3000/api into your browser to view the JSON
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
+The front end is able to display previews of the survey in a local environment:
+Steps to view surveys via front end:
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- With the backend running (prior step), ng serve from the COMP229-TEAMPROJECT/Client folder
+- There is a bug written somewhere, but navigate around a bit and it should work
