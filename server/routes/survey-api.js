@@ -9,5 +9,6 @@ const survey_api_1 = require("../controllers/survey-api");
 router.get("/", survey_api_1.SendSurveyCatalogue);
 router.get("/surveys", survey_api_1.SendSurveyCatalogue);
 router.post("/add", survey_api_1.AddSurvey);
+router.get("/delete/:id", survey_api_1.DeleteSurvey);
 exports.default = router;
 //# sourceMappingURL=survey-api.js.map

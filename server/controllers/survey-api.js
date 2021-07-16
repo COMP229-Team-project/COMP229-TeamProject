@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddSurvey = exports.SendSurveyCatalogue = void 0;
+exports.DeleteSurvey = exports.AddSurvey = exports.SendSurveyCatalogue = void 0;
 const survey_1 = __importDefault(require("../models/survey"));
 function SendSurveyCatalogue(req, res, next) {
     survey_1.default.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
@@ -33,4 +33,14 @@ function AddSurvey(req, res, next) {
     });
 }
 exports.AddSurvey = AddSurvey;
+function DeleteSurvey(req, res, next) {
+    let id = req.params.id;
+    survey_1.default.remove({ _id: id }, (err) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+    });
+}
+exports.DeleteSurvey = DeleteSurvey;
 //# sourceMappingURL=survey-api.js.map
