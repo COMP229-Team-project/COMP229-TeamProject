@@ -8,5 +8,6 @@ const router = express_1.default.Router();
 const survey_api_1 = require("../controllers/survey-api");
 router.get("/", survey_api_1.SendSurveyCatalogue);
 router.get("/surveys", survey_api_1.SendSurveyCatalogue);
+router.post("/add", survey_api_1.AddSurvey);
 exports.default = router;
 //# sourceMappingURL=survey-api.js.map
