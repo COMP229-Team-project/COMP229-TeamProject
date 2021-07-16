@@ -36,7 +36,7 @@
         <input
           matInput
           placeholder="Enter an avatar url"
-          formControlName="avatarURL"
+          formControlName="avatar"
           autocomplete="off"
           required
         />
@@ -126,7 +126,7 @@
         <input
           matInput
           type="text"
-          formControlName="question1"
+          formControlName="question2"
           placeholder="Ex. What is the capital of Canada?"
           autocomplete="off"
           required
@@ -196,7 +196,7 @@
         <input
           matInput
           type="text"
-          formControlName="question1"
+          formControlName="question3"
           placeholder="Ex. What is the capital of Canada?"
           autocomplete="off"
           required
@@ -266,7 +266,7 @@
         <input
           matInput
           type="text"
-          formControlName="question1"
+          formControlName="question4"
           placeholder="Ex. What is the capital of Canada?"
           autocomplete="off"
           required
@@ -331,10 +331,15 @@
   <!-- SUBMIT FORM OR RESET -->
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
-    <p>Hit submit to finish</p>
+    <p>Hit create survey if your ready!</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button color="warn" (click)="stepper.reset()">Reset</button>
+      <button mat-stroked-button matStepperPrevious>Back</button>
+      <button mat-stroked-button color="warn" (click)="stepper.reset()">
+        Reset
+      </button>
+      <button mat-stroked-button color="primary" (click)="createSurvey()">
+        Create Survey
+      </button>
     </div>
   </mat-step>
 </mat-stepper>
