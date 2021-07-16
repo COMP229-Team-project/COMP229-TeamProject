@@ -100,7 +100,8 @@ export class SurveyBuilderFormComponent implements OnInit {
       this.firstFormGroup.value.title,
       this.firstFormGroup.value.description,
       this.firstFormGroup.value.avatar,
-      [question1, question2, question3, question4]
+      [question1, question2, question3, question4],
+      'placeholder'
     );
 
     if (!survey.avatar) {

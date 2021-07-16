@@ -38,6 +38,16 @@ export class RestDataSource {
       });
   }
 
+  DeleteSurvey(id: string): void {
+    this.http
+      .get(this.baseURL + 'api' + '/delete/' + id)
+      .toPromise()
+      .then((response) => console.log(response))
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   // private loadToken(): void {
   //   const token = localStorage.getItem('id_token');
   //   this.authToken = token;

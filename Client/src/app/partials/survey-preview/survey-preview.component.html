@@ -10,6 +10,8 @@
   </mat-card-header>
   <mat-card-actions>
     <button mat-raised-button color="primary">UPDATE</button>
-    <button mat-raised-button color="warn">DELETE</button>
+    <button (click)="DeleteSurvey(survey._id)" mat-raised-button color="warn">
+      DELETE
+    </button>
   </mat-card-actions>
 </mat-card>
