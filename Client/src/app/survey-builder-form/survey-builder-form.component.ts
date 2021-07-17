@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import {
   Question1,
   Question2,
@@ -21,16 +23,25 @@ export class SurveyBuilderFormComponent implements OnInit {
   thirdFormGroup!: FormGroup;
   fourthFormGroup!: FormGroup;
   fithFormGroup!: FormGroup;
+  survey!: Survey[];
 
   constructor(
     public _formBuilder: FormBuilder,
-    public restDataSource: RestDataSource
+    public restDataSource: RestDataSource,
+    private route: ActivatedRoute
   ) {}
 
   //// TODO:
   // Currently we can get data inputted from the in the console
   // Find a way to accept data and post to Database
   ngOnInit() {
+    if (this.route.snapshot.params['id']) {
+      let survey = this.restDataSource.GetSurveyToEdit(
+        this.route.snapshot.params['id']
+      );
+      console.log(survey.subscribe());
+    }
+
     this.firstFormGroup = this._formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],

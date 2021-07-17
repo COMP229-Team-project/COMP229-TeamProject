@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RestDataSource } from 'src/app/model/rest.datasource';
 
 @Component({
@@ -15,12 +16,17 @@ export class SurveyPreviewComponent implements OnInit {
     _id: '',
   };
 
-  constructor(public restDataSource: RestDataSource) {}
+  constructor(public restDataSource: RestDataSource, private router: Router) {}
 
   ngOnInit(): void {}
 
+  //function to delete a survey form the database
   DeleteSurvey(_id: string) {
     this.restDataSource.DeleteSurvey(_id);
     console.log({ buttonWorks: true, id: _id });
+  }
+
+  RouteToSurvey(_id: string) {
+    this.router.navigate(['survey/' + _id]);
   }
 }

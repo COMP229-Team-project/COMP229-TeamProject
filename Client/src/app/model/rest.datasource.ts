@@ -48,6 +48,10 @@ export class RestDataSource {
       });
   }
 
+  GetSurveyToEdit(id: string): Observable<Survey[]> {
+    return this.http.get<Survey[]>(this.baseURL + 'api' + '/edit/' + id);
+  }
+
   // private loadToken(): void {
   //   const token = localStorage.getItem('id_token');
   //   this.authToken = token;

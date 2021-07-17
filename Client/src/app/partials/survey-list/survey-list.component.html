@@ -1,5 +1,5 @@
 <mat-grid-list cols="3" rowHeight="170px">
-  <mat-grid-tile *ngFor="let survey of surveys">
+  <mat-grid-tile *ngFor="let survey of surveys | async">
     <survey-preview [survey]="survey"></survey-preview>
   </mat-grid-tile>
 </mat-grid-list>
