@@ -1,0 +1,345 @@
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
+</button>
+<!-- SURVEY BUILDER FORM -->
+<mat-stepper [linear]="isLinear" #stepper>
+  <!-- FORM BASICS -->
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Survey Basics</ng-template>
+      <mat-form-field>
+        <mat-label>Survey Title</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Enter survey title..."
+          formControlName="title"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Survey Description</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Enter a description..."
+          formControlName="description"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Survey Avatar URL</mat-label>
+        <input
+          matInput
+          placeholder="Enter an avatar url"
+          formControlName="avatar"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- BUILD FIRST QUESTION -->
+  <mat-step [stepControl]="secondFormGroup" label="Question 1">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field>
+        <mat-label>Enter your first question!</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="question1"
+          placeholder="Ex. What is the capital of Canada?"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the first possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer1"
+          placeholder="Toronto"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the second possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer2"
+          placeholder="Montreal"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the third possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer3"
+          placeholder="Ottawa"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the fourth possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer4"
+          placeholder="Vancouver"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- BUILD SECOND QUESTION -->
+  <mat-step [stepControl]="thirdFormGroup" label="Question 2">
+    <form [formGroup]="thirdFormGroup">
+      <mat-form-field>
+        <mat-label>Enter your first question!</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="question2"
+          placeholder="Ex. What is the capital of Canada?"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the first possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer1"
+          placeholder="Toronto"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the second possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer2"
+          placeholder="Montreal"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the third possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer3"
+          placeholder="Ottawa"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the fourth possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer4"
+          placeholder="Vancouver"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- BUILD THRID QUESTION -->
+  <mat-step [stepControl]="fourthFormGroup" label="Question 3">
+    <form [formGroup]="fourthFormGroup">
+      <mat-form-field>
+        <mat-label>Enter your first question!</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="question3"
+          placeholder="Ex. What is the capital of Canada?"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the first possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer1"
+          placeholder="Toronto"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the second possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer2"
+          placeholder="Montreal"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the third possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer3"
+          placeholder="Ottawa"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the fourth possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer4"
+          placeholder="Vancouver"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- BUILD FOURTH QUESTION -->
+  <mat-step [stepControl]="fithFormGroup" label="Question 4">
+    <form [formGroup]="fithFormGroup">
+      <mat-form-field>
+        <mat-label>Enter your first question!</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="question4"
+          placeholder="Ex. What is the capital of Canada?"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the first possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer1"
+          placeholder="Toronto"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the second possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer2"
+          placeholder="Montreal"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the third possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer3"
+          placeholder="Ottawa"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Enter the fourth possible answer</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="answer4"
+          placeholder="Vancouver"
+          autocomplete="off"
+          required
+        />
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- SUBMIT FORM OR RESET -->
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>Hit create survey if your ready!</p>
+    <div>
+      <button mat-stroked-button matStepperPrevious>Back</button>
+      <button mat-stroked-button color="warn" (click)="stepper.reset()">
+        Reset
+      </button>
+      <button mat-stroked-button color="primary" (click)="createSurvey()">
+        Create Survey
+      </button>
+    </div>
+  </mat-step>
+</mat-stepper>
