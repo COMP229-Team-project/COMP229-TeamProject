@@ -16,7 +16,12 @@
     >
       UPDATE
     </button>
-    <button (click)="DeleteSurvey(survey._id)" mat-raised-button color="warn">
+    <button
+      (click)="DeleteSurvey(survey._id)"
+      routerLink="/home"
+      mat-raised-button
+      color="warn"
+    >
       DELETE
     </button>
   </mat-card-actions>

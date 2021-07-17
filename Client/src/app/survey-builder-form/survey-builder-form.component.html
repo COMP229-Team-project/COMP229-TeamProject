@@ -337,7 +337,12 @@
       <button mat-stroked-button color="warn" (click)="stepper.reset()">
         Reset
       </button>
-      <button mat-stroked-button color="primary" (click)="createSurvey()">
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="createSurvey()"
+        routerLink="/home"
+      >
         Create Survey
       </button>
     </div>

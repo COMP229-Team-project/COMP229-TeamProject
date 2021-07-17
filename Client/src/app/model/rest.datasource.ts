@@ -48,8 +48,8 @@ export class RestDataSource {
       });
   }
 
-  GetSurveyToEdit(id: string): Observable<Survey[]> {
-    return this.http.get<Survey[]>(this.baseURL + 'api' + '/edit/' + id);
+  GetSurveyToEdit(id: string): Observable<any> {
+    return this.http.get(this.baseURL + 'api' + '/edit/' + id);
   }
 
   // private loadToken(): void {
