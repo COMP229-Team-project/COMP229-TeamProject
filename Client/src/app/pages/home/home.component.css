@@ -1,0 +1,30 @@
+header {
+  margin: 0;
+  padding: 2em 5em 4em;
+  color: #efefef;
+  overflow: hidden;
+  position: relative;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform: skewY(-4deg);
+  background: #3f51b5;
+  transform-origin: bottom left;
+  z-index: -1;
+}
+div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #3f51b5;
+  font-size: 1.2em;
+}
+img {
+  width: 400px;
+}

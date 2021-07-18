@@ -338,6 +338,7 @@
         Reset
       </button>
 
+      <!-- If the route DOES NOT have an id parameter, display the create survey button -->
       <button
         *ngIf="!this.route.snapshot.params['id']; else other_content"
         mat-stroked-button
@@ -346,7 +347,7 @@
       >
         Create Survey
       </button>
-
+      <!-- Otherwise, display the edit survey button -->
       <ng-template #other_content>
         <button mat-stroked-button color="primary" (click)="EditSurvey()">
           Edit Survey

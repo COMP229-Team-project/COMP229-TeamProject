@@ -8,7 +8,7 @@ import { RestDataSource } from 'src/app/model/rest.datasource';
   styleUrls: ['./survey-preview.component.css'],
 })
 export class SurveyPreviewComponent implements OnInit {
-  //input to accept post objects from a service
+  //input to accept survey objects from a service
   @Input() survey = {
     title: '',
     description: '',
@@ -16,6 +16,7 @@ export class SurveyPreviewComponent implements OnInit {
     _id: '',
   };
 
+  //dependency injections for our data source and router
   constructor(public restDataSource: RestDataSource, private router: Router) {}
 
   ngOnInit(): void {}
@@ -23,9 +24,9 @@ export class SurveyPreviewComponent implements OnInit {
   //function to delete a survey form the database
   DeleteSurvey(_id: string) {
     this.restDataSource.DeleteSurvey(_id);
-    console.log({ buttonWorks: true, id: _id });
   }
 
+  //function to navigate to the survey builder page with a specific survey id
   RouteToSurvey(_id: string) {
     this.router.navigate(['survey/' + _id]);
   }

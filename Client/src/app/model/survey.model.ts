@@ -1,5 +1,6 @@
 import { Question1, Question2, Question3, Question4 } from './question.model';
 
+//data models to build surveys with our form inputs
 export class Survey {
   constructor(
     public title: string,

@@ -1,3 +1,4 @@
+//data models to build objects with our survey inputs
 export class Question1 {
   constructor(
     public question1: string,

@@ -17,6 +17,7 @@ import { EditableSurvey, Survey } from '../model/survey.model';
   styleUrls: ['survey-builder-form.component.css'],
 })
 export class SurveyBuilderFormComponent implements OnInit {
+  //Properties to store form data
   isLinear = false;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
@@ -26,15 +27,14 @@ export class SurveyBuilderFormComponent implements OnInit {
   sub!: Subscription;
   survey: any = {};
 
+  //Injected dependencies
   constructor(
     public _formBuilder: FormBuilder,
     public restDataSource: RestDataSource,
     public route: ActivatedRoute
   ) {}
 
-  //// TODO:
-  // Currently we can get data inputted from the in the console
-  // Find a way to accept data and post to Database
+  //If there is an id param on the URL display the fields with data from a survey to be edited
   ngOnInit() {
     if (this.route.snapshot.params['id']) {
       let sub = this.restDataSource
@@ -79,6 +79,7 @@ export class SurveyBuilderFormComponent implements OnInit {
         });
     }
 
+    //if there is no id param then display form without prefilled data
     this.firstFormGroup = this._formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -114,6 +115,7 @@ export class SurveyBuilderFormComponent implements OnInit {
     });
   }
 
+  //create a survey and post it to the API for processing
   createSurvey(): void {
     let question1 = new Question1(
       this.secondFormGroup.value.question1,
@@ -157,16 +159,10 @@ export class SurveyBuilderFormComponent implements OnInit {
         'https://linustechtips.com/uploads/profile/photo-59449.png';
     }
 
-    console.log({
-      title: survey.title,
-      description: survey.description,
-      avatar: survey.avatar,
-      questions: survey.question,
-    });
-
     this.restDataSource.postNewSurvey(survey);
   }
 
+  //set new values for a survey that needs to be updated and post to API for processign.
   EditSurvey(): void {
     let question1 = new Question1(
       this.secondFormGroup.value.question1,
@@ -208,13 +204,6 @@ export class SurveyBuilderFormComponent implements OnInit {
       survey.avatar =
         'https://linustechtips.com/uploads/profile/photo-59449.png';
     }
-
-    console.log({
-      title: survey.title,
-      description: survey.description,
-      avatar: survey.avatar,
-      questions: survey.question,
-    });
 
     this.restDataSource.EditSurvey(this.route.snapshot.params['id'], survey);
   }

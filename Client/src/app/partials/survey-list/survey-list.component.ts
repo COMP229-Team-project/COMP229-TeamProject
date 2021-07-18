@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./survey-list.component.css'],
 })
 export class SurveyListComponent implements OnInit {
-  //get surveys from service by injecting service into constructor
   surveys: Observable<Survey[]>;
 
-  //initialize posts property with the data from PostListService
+  //get surveys from service by injecting service into constructor
   constructor(public surveyList: RestDataSource) {
     this.surveys = surveyList.getSurveys();
   }
 
+  //initialize posts property with the data from RestDataSource
   ngOnInit(): void {
     this.surveys = this.surveyList.getSurveys();
   }

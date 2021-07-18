@@ -25,7 +25,7 @@ export function AddSurvey(
   res: Response,
   next: NextFunction
 ): void {
-  // Create a new Order Object
+  // Create a new survey with mogoose model
   let newSurvey = new SurveyModel({
     title: req.body.title,
     description: req.body.description,
@@ -33,14 +33,14 @@ export function AddSurvey(
     question: req.body.question,
   });
 
-  // Add new Order Object to the Database
+  // Add new survey object to the Database
   SurveyModel.create(newSurvey, (err, SurveyModel) => {
     if (err) {
       console.log(err);
       res.end(err);
     } else {
       //respond with json if succesful
-      res.json({ success: true, msg: "New Survey is Posted" });
+      res.json({ success: true, msg: "New Survey is Created" });
     }
   });
 }
@@ -53,7 +53,7 @@ export function DeleteSurvey(
 ): void {
   //get the id property off the request objects parameters
   let id = req.params.id;
-  //use the id requested and the Mongoose books model to look for a match in the db and remove it
+  //use the id requested and the Mongoose Survey model to look for a match in the db and remove it
   SurveyModel.remove({ _id: id }, (err) => {
     if (err) {
       //if theres an error, log and respond with an error

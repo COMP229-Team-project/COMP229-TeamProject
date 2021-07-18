@@ -22,14 +22,17 @@ export class RestDataSource {
     }),
   };
 
+  //initialze service with the required objects and baseurl to perform routing and requests
   constructor(private http: HttpClient, private router: Router) {
     this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
   }
 
+  //get an observable array of surveys from our api
   getSurveys(): Observable<Survey[]> {
     return this.http.get<Survey[]>(this.baseURL + 'api');
   }
 
+  //post a survey to the api for processing
   postNewSurvey(survey: Survey): void {
     this.http
       .post(this.baseURL + 'api/add', survey)
@@ -40,23 +43,26 @@ export class RestDataSource {
       });
   }
 
+  //delete a specific survey from the database via the api
   DeleteSurvey(id: string): void {
     this.http
       .delete(this.baseURL + 'api' + '/delete/' + id)
       .toPromise()
       .then((response) => {
         console.log(response);
-        this.router.navigate(['home']);
+        location.reload();
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
+  //get a specific survey from the database
   GetSurveyToEdit(id: string): Observable<any> {
     return this.http.get(this.baseURL + 'api/edit/' + id);
   }
 
+  //update the values of a spcific survey
   EditSurvey(id: string, survey: EditableSurvey): void {
     this.http
       .post(this.baseURL + 'api/edit/' + id, survey)

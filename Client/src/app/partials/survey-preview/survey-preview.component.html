@@ -9,6 +9,7 @@
     <mat-card-subtitle>{{ survey.description }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions>
+    <!-- Update Button with bound click event -->
     <button
       (click)="RouteToSurvey(survey._id)"
       mat-raised-button
@@ -16,6 +17,7 @@
     >
       UPDATE
     </button>
+    <!-- Delete Button with bound click event -->
     <button (click)="DeleteSurvey(survey._id)" mat-raised-button color="warn">
       DELETE
     </button>
