@@ -9,3 +9,12 @@ export class Survey {
     public _id: string
   ) {}
 }
+
+export class EditableSurvey {
+  constructor(
+    public title: string,
+    public description: string,
+    public avatar: string,
+    public question: [Question1, Question2, Question3, Question4]
+  ) {}
+}

@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Survey } from './survey.model';
+import { EditableSurvey, Survey } from './survey.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 const PROTOCOL = 'http';
 const PORT = '3000';
@@ -21,7 +22,7 @@ export class RestDataSource {
     }),
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
   }
 
@@ -35,21 +36,35 @@ export class RestDataSource {
       .toPromise()
       .then((response) => {
         console.log(response);
+        this.router.navigate(['home']);
       });
   }
 
   DeleteSurvey(id: string): void {
     this.http
-      .get(this.baseURL + 'api' + '/delete/' + id)
+      .delete(this.baseURL + 'api' + '/delete/' + id)
       .toPromise()
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response);
+        this.router.navigate(['home']);
+      })
       .catch((error) => {
         console.error(error);
       });
   }
 
   GetSurveyToEdit(id: string): Observable<any> {
-    return this.http.get(this.baseURL + 'api' + '/edit/' + id);
+    return this.http.get(this.baseURL + 'api/edit/' + id);
+  }
+
+  EditSurvey(id: string, survey: EditableSurvey): void {
+    this.http
+      .post(this.baseURL + 'api/edit/' + id, survey)
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+        this.router.navigate(['home']);
+      });
   }
 
   // private loadToken(): void {

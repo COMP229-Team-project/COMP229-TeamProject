@@ -9,7 +9,7 @@ import {
   Question4,
 } from '../model/question.model';
 import { RestDataSource } from '../model/rest.datasource';
-import { Survey } from '../model/survey.model';
+import { EditableSurvey, Survey } from '../model/survey.model';
 
 @Component({
   selector: 'survey-builder-form',
@@ -29,7 +29,7 @@ export class SurveyBuilderFormComponent implements OnInit {
   constructor(
     public _formBuilder: FormBuilder,
     public restDataSource: RestDataSource,
-    private route: ActivatedRoute
+    public route: ActivatedRoute
   ) {}
 
   //// TODO:
@@ -165,5 +165,57 @@ export class SurveyBuilderFormComponent implements OnInit {
     });
 
     this.restDataSource.postNewSurvey(survey);
+  }
+
+  EditSurvey(): void {
+    let question1 = new Question1(
+      this.secondFormGroup.value.question1,
+      this.secondFormGroup.value.answer1,
+      this.secondFormGroup.value.answer2,
+      this.secondFormGroup.value.answer3,
+      this.secondFormGroup.value.answer4
+    );
+    let question2 = new Question2(
+      this.thirdFormGroup.value.question2,
+      this.thirdFormGroup.value.answer1,
+      this.thirdFormGroup.value.answer2,
+      this.thirdFormGroup.value.answer3,
+      this.thirdFormGroup.value.answer4
+    );
+    let question3 = new Question3(
+      this.fourthFormGroup.value.question3,
+      this.fourthFormGroup.value.answer1,
+      this.fourthFormGroup.value.answer2,
+      this.fourthFormGroup.value.answer3,
+      this.fourthFormGroup.value.answer4
+    );
+    let question4 = new Question4(
+      this.fithFormGroup.value.question4,
+      this.fithFormGroup.value.answer1,
+      this.fithFormGroup.value.answer2,
+      this.fithFormGroup.value.answer3,
+      this.fithFormGroup.value.answer4
+    );
+
+    let survey = new EditableSurvey(
+      this.firstFormGroup.value.title,
+      this.firstFormGroup.value.description,
+      this.firstFormGroup.value.avatar,
+      [question1, question2, question3, question4]
+    );
+
+    if (!survey.avatar) {
+      survey.avatar =
+        'https://linustechtips.com/uploads/profile/photo-59449.png';
+    }
+
+    console.log({
+      title: survey.title,
+      description: survey.description,
+      avatar: survey.avatar,
+      questions: survey.question,
+    });
+
+    this.restDataSource.EditSurvey(this.route.snapshot.params['id'], survey);
   }
 }

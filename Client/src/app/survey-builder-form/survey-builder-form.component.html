@@ -337,14 +337,21 @@
       <button mat-stroked-button color="warn" (click)="stepper.reset()">
         Reset
       </button>
+
       <button
+        *ngIf="!this.route.snapshot.params['id']; else other_content"
         mat-stroked-button
         color="primary"
         (click)="createSurvey()"
-        routerLink="/home"
       >
         Create Survey
       </button>
+
+      <ng-template #other_content>
+        <button mat-stroked-button color="primary" (click)="EditSurvey()">
+          Edit Survey
+        </button>
+      </ng-template>
     </div>
   </mat-step>
 </mat-stepper>
