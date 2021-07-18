@@ -39,12 +39,13 @@ export function AddSurvey(
       console.log(err);
       res.end(err);
     } else {
+      //respond with json if succesful
       res.json({ success: true, msg: "New Survey is Posted" });
     }
   });
 }
 
-// GET - process the delete by user id
+// Delete a survey form the database
 export function DeleteSurvey(
   req: Request,
   res: Response,
@@ -59,10 +60,11 @@ export function DeleteSurvey(
       console.error(err);
       res.end(err);
     }
+    res.json({ success: true, msg: "Survey has been deleted" });
   });
 }
 
-// GET the survey details page in order to edit an existing Book
+// get a single survey document from the database
 export function GetSurvey(
   req: Request,
   res: Response,
@@ -82,7 +84,7 @@ export function GetSurvey(
   });
 }
 
-// POST - process the information passed from the details form and update the document
+// update a specific document
 export function EditSurvey(
   req: Request,
   res: Response,
@@ -91,8 +93,9 @@ export function EditSurvey(
   //get the id property off the request objects parameters
   let id = req.params.id;
 
-  //create a new book document with the values from the form fields
+  //create a new survey document with the values from the form fields
   let updatedSurvey = new SurveyModel({
+    _id: id,
     title: req.body.title,
     description: req.body.description,
     avatar: req.body.avatar,
@@ -107,6 +110,6 @@ export function EditSurvey(
       res.end(err);
     }
     //respond with a message on successful post
-    res.json({ success: true, msg: "New Survey is Posted" });
+    res.json({ success: true, msg: "Survey has been updated" });
   });
 }

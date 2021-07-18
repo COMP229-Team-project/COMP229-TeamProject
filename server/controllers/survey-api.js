@@ -40,6 +40,7 @@ function DeleteSurvey(req, res, next) {
             console.error(err);
             res.end(err);
         }
+        res.json({ success: true, msg: "Survey has been deleted" });
     });
 }
 exports.DeleteSurvey = DeleteSurvey;
@@ -59,6 +60,7 @@ exports.GetSurvey = GetSurvey;
 function EditSurvey(req, res, next) {
     let id = req.params.id;
     let updatedSurvey = new survey_1.default({
+        _id: id,
         title: req.body.title,
         description: req.body.description,
         avatar: req.body.avatar,
@@ -69,7 +71,7 @@ function EditSurvey(req, res, next) {
             console.error(err);
             res.end(err);
         }
-        res.json({ success: true, msg: "New Survey is Posted" });
+        res.json({ success: true, msg: "Survey has been updated" });
     });
 }
 exports.EditSurvey = EditSurvey;

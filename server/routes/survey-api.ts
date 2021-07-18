@@ -17,7 +17,7 @@ router.get("/surveys", SendSurveyCatalogue);
 router.post("/add", AddSurvey);
 
 //DELETE survey from server
-router.get("/delete/:id", DeleteSurvey);
+router.delete("/delete/:id", DeleteSurvey);
 
 //GET the details of a particualr survey
 router.get("/edit/:id", GetSurvey);
