@@ -32,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 
 //import material components to impliment response collection modal
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 import {
   ResponseCollectionModalComponent,
   ResponseCollectionDialog,
@@ -72,6 +73,7 @@ import { SurveyModule } from './model/model.module';
     MatInputModule,
     SurveyModule,
     MatDialogModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

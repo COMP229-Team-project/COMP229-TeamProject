@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
@@ -6,12 +6,12 @@ import {
 } from '@angular/material/dialog';
 
 import { Survey } from 'src/app/model/survey.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'response-collection-modal-button',
   template:
     '<button mat-stroked-button color="primary" (click)="openDialog()">TAKE SURVEY</button>',
-  styleUrls: ['./response-collection-modal.component.css'],
 })
 export class ResponseCollectionModalComponent {
   @Input() survey = {
@@ -43,9 +43,11 @@ export class ResponseCollectionModalComponent {
 @Component({
   selector: 'dialog-content-example-dialog',
   templateUrl: './response-collection-modal-dialog.component.html',
+  styleUrls: ['./response-collection-modal.component.css'],
 })
-export class ResponseCollectionDialog {
+export class ResponseCollectionDialog implements OnInit {
   constructor(
+    public _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ResponseCollectionModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Survey
   ) {}
@@ -53,4 +55,6 @@ export class ResponseCollectionDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  ngOnInit() {}
 }

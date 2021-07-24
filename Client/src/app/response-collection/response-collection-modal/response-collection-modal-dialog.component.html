@@ -1,8 +1,76 @@
+<!-- Title of Survey and Description -->
 <h2 mat-dialog-title>{{ data.title }}</h2>
+<h3>{{ data.description }}</h3>
 <mat-dialog-content class="mat-typography">
-  <h3>{{ data.description }}</h3>
+  <!-- First Question -->
+  <mat-label>{{ data.question[0].question1 }}</mat-label>
+  <mat-radio-group class="radio-group" aria-label="Select an option">
+    <mat-radio-button class="radio-button" value="1">{{
+      data.question[0].answer1
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="2">{{
+      data.question[0].answer2
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="3">{{
+      data.question[0].answer3
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="4">{{
+      data.question[0].answer4
+    }}</mat-radio-button>
+  </mat-radio-group>
+
+  <!-- Second Question -->
+  <mat-label>{{ data.question[1].question2 }}</mat-label>
+  <mat-radio-group class="radio-group" aria-label="Select an option">
+    <mat-radio-button class="radio-button" value="1">{{
+      data.question[1].answer1
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="2">{{
+      data.question[1].answer2
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="3">{{
+      data.question[1].answer3
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="4">{{
+      data.question[1].answer4
+    }}</mat-radio-button>
+  </mat-radio-group>
+
+  <!-- Third Question -->
+  <mat-label>{{ data.question[2].question3 }}</mat-label>
+  <mat-radio-group class="radio-group" aria-label="Select an option">
+    <mat-radio-button class="radio-button" value="1">{{
+      data.question[2].answer1
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="2">{{
+      data.question[2].answer2
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="3">{{
+      data.question[2].answer3
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="4">{{
+      data.question[2].answer4
+    }}</mat-radio-button>
+  </mat-radio-group>
+
+  <!-- Fourth Question -->
+  <mat-label>{{ data.question[3].question4 }}</mat-label>
+  <mat-radio-group class="radio-group" aria-label="Select an option">
+    <mat-radio-button class="radio-button" value="1">{{
+      data.question[3].answer1
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="2">{{
+      data.question[3].answer2
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="3">{{
+      data.question[3].answer3
+    }}</mat-radio-button>
+    <mat-radio-button class="radio-button" value="4">{{
+      data.question[3].answer4
+    }}</mat-radio-button>
+  </mat-radio-group>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Submit</button>
 </mat-dialog-actions>
