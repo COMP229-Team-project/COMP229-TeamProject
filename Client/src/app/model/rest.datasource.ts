@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Survey } from './survey.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+import { User } from './user.model';
+
 const PROTOCOL = 'http';
 const PORT = '3000';
 
@@ -36,6 +38,11 @@ export class RestDataSource {
       .then((response) => {
         console.log(response);
       });
+  }
+
+  authenticate(user: User): Observable<any>
+  {
+    return this.http.post<any>(this.baseUrl + 'login', user, this.httpOptions);
   }
 
   // private loadToken(): void {
