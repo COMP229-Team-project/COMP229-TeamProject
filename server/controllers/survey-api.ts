@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import { Request, Response, NextFunction } from "express";
 import SurveyModel from "../models/survey";
 
@@ -112,4 +113,40 @@ export function EditSurvey(
     //respond with a message on successful post
     res.json({ success: true, msg: "Survey has been updated" });
   });
+}
+
+// push an object containing survey responses into a survey object
+export function AddResponse(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  //find everything in collection surveys is pointed to and sort in alphabetical order
+  //get the id property off the request objects parameters
+
+  let id = req.body.id;
+
+  let responses = {
+    response1: req.body.response1,
+    response2: req.body.response2,
+    response3: req.body.response3,
+    response4: req.body.response4,
+  };
+
+  console.log({ id: id, response: responses });
+  //use the id requested and Mongoose books model to look for a match in the db and update it
+  SurveyModel.updateOne(
+    { _id: id },
+    { $push: { responses: responses } },
+    {},
+    (err) => {
+      if (err) {
+        //if theres an error, log and end the request
+        console.error(err);
+        res.end(err);
+      }
+      //respond with a message on successful post
+      res.json({ success: true, msg: "Response has been added" });
+    }
+  );
 }

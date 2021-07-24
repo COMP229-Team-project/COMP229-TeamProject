@@ -126,7 +126,7 @@ passport.use(strategy);
 
 app.use("/", indexRouter);
 
-//define area to include buiness contacts
+//define endpoint for API
 app.use("/api", surveyRouterAPI);
 
 // catch 404 and forward to error handler

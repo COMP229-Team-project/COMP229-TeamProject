@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendSurveyCatalogue = void 0;
+exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendSurveyCatalogue = void 0;
 const survey_1 = __importDefault(require("../models/survey"));
 function SendSurveyCatalogue(req, res, next) {
     survey_1.default.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
@@ -28,7 +28,7 @@ function AddSurvey(req, res, next) {
             res.end(err);
         }
         else {
-            res.json({ success: true, msg: "New Survey is Posted" });
+            res.json({ success: true, msg: "New Survey is Created" });
         }
     });
 }
@@ -75,4 +75,22 @@ function EditSurvey(req, res, next) {
     });
 }
 exports.EditSurvey = EditSurvey;
+function AddResponse(req, res, next) {
+    let id = req.body.id;
+    let responses = {
+        response1: req.body.response1,
+        response2: req.body.response2,
+        response3: req.body.response3,
+        response4: req.body.response4,
+    };
+    console.log({ id: id, response: responses });
+    survey_1.default.updateOne({ _id: id }, { $push: { responses: responses } }, {}, (err) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.json({ success: true, msg: "Response has been added" });
+    });
+}
+exports.AddResponse = AddResponse;
 //# sourceMappingURL=survey-api.js.map

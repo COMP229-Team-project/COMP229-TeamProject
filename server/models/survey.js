@@ -10,6 +10,7 @@ const SurveySchema = new Schema({
     description: String,
     avatar: String,
     question: [],
+    responses: [],
 }, {
     collection: "surveys",
     timestamps: true,

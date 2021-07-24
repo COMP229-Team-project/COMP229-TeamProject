@@ -1,5 +1,5 @@
 import express from "express";
-const router = express.Router();
+let router = express.Router();
 
 import {
   SendSurveyCatalogue,
@@ -7,6 +7,7 @@ import {
   DeleteSurvey,
   GetSurvey,
   EditSurvey,
+  AddResponse,
 } from "../controllers/survey-api";
 
 //RESPOND with JSON representing survey objects
@@ -24,5 +25,7 @@ router.get("/edit/:id", GetSurvey);
 
 //POST the changes to the server
 router.post("/edit/:id", EditSurvey);
+
+router.post("/responses", AddResponse);
 
 export default router;
