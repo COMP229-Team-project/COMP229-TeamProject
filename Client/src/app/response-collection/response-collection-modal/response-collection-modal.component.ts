@@ -7,6 +7,8 @@ import {
 
 import { Survey } from 'src/app/model/survey.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RestDataSource } from 'src/app/model/rest.datasource';
+import { surveyResponse } from 'src/app/model/response.model';
 
 @Component({
   selector: 'response-collection-modal-button',
@@ -46,8 +48,12 @@ export class ResponseCollectionModalComponent {
   styleUrls: ['./response-collection-modal.component.css'],
 })
 export class ResponseCollectionDialog implements OnInit {
+  responseForm!: FormGroup;
+  submitted: boolean = false;
+
   constructor(
-    public _formBuilder: FormBuilder,
+    public restDataSource: RestDataSource,
+    private fb: FormBuilder,
     public dialogRef: MatDialogRef<ResponseCollectionModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Survey
   ) {}
@@ -56,5 +62,27 @@ export class ResponseCollectionDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit() {}
+  //initialize the form controls
+  ngOnInit() {
+    this.responseForm = this.fb.group({
+      response1: ['', Validators.required],
+      response2: ['', Validators.required],
+      response3: ['', Validators.required],
+      response4: ['', Validators.required],
+    });
+  }
+
+  //use the data source to add the current responses to the associated survey object
+  onSubmit() {
+    //create a payload that sends the current survey ID and user responses to the API
+    let responses: surveyResponse = {
+      id: this.data._id,
+      response1: this.responseForm.value.response1,
+      response2: this.responseForm.value.response2,
+      response3: this.responseForm.value.response3,
+      response4: this.responseForm.value.response4,
+    };
+    this.restDataSource.AddResponse(responses);
+    this.submitted = true;
+  }
 }
