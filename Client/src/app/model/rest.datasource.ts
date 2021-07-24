@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { EditableSurvey, Survey } from './survey.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { surveyResponse } from './response.model';
 
 const PROTOCOL = 'http';
 const PORT = '3000';
@@ -66,6 +67,16 @@ export class RestDataSource {
   EditSurvey(id: string, survey: EditableSurvey): void {
     this.http
       .post(this.baseURL + 'api/edit/' + id, survey)
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+        this.router.navigate(['home']);
+      });
+  }
+
+  AddResponse(response: surveyResponse): void {
+    this.http
+      .post(this.baseURL + 'api/responses', response)
       .toPromise()
       .then((response) => {
         console.log(response);
