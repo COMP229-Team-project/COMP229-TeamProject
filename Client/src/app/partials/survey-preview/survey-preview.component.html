@@ -10,6 +10,9 @@
   </mat-card-header>
   <mat-card-actions>
     <!-- Update Button with bound click event -->
+    <response-collection-modal-button
+      [survey]="survey"
+    ></response-collection-modal-button>
     <button
       (click)="RouteToSurvey(survey._id)"
       mat-raised-button

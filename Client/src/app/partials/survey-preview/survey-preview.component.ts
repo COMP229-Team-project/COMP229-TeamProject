@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestDataSource } from 'src/app/model/rest.datasource';
+import { Survey } from 'src/app/model/survey.model';
 
 @Component({
   selector: 'survey-preview',
@@ -9,10 +10,16 @@ import { RestDataSource } from 'src/app/model/rest.datasource';
 })
 export class SurveyPreviewComponent implements OnInit {
   //input to accept survey objects from a service
-  @Input() survey = {
+  @Input() survey: Survey = {
     title: '',
     description: '',
     avatar: '',
+    question: [
+      { question1: '', answer1: '', answer2: '', answer3: '', answer4: '' },
+      { question2: '', answer1: '', answer2: '', answer3: '', answer4: '' },
+      { question3: '', answer1: '', answer2: '', answer3: '', answer4: '' },
+      { question4: '', answer1: '', answer2: '', answer3: '', answer4: '' },
+    ],
     _id: '',
   };
 

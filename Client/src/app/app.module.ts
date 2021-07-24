@@ -30,6 +30,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
+//import material components to impliment response collection modal
+import { MatDialogModule } from '@angular/material/dialog';
+import {
+  ResponseCollectionModalComponent,
+  ResponseCollectionDialog,
+} from './response-collection/response-collection-modal/response-collection-modal.component';
+
 //import the module that communicates with the backend
 //GETS survey JSON data
 import { SurveyModule } from './model/model.module';
@@ -46,6 +53,8 @@ import { SurveyModule } from './model/model.module';
     MatHeaderComponent,
     MatFooterComponent,
     SurveyBuilderFormComponent,
+    ResponseCollectionModalComponent,
+    ResponseCollectionDialog,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +71,7 @@ import { SurveyModule } from './model/model.module';
     MatFormFieldModule,
     MatInputModule,
     SurveyModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
