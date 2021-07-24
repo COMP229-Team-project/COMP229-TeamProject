@@ -26,13 +26,14 @@ import { MatFooterComponent } from './partials/mat-footer/mat-footer.component';
 //import components for building survey builder
 import { SurveyBuilderFormComponent } from './survey-builder-form/survey-builder-form.component';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 //import material components to impliment response collection modal
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   ResponseCollectionModalComponent,
   ResponseCollectionDialog,
@@ -74,6 +75,8 @@ import { SurveyModule } from './model/model.module';
     SurveyModule,
     MatDialogModule,
     MatRadioModule,
+    MatDatepickerModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
