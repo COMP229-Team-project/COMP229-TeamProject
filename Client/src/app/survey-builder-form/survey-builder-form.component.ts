@@ -47,6 +47,8 @@ export class SurveyBuilderFormComponent implements OnInit {
             title: [this.survey.title, Validators.required],
             description: [this.survey.description, Validators.required],
             avatar: [this.survey.avatar, Validators.required],
+            startDate: [this.survey.startDate, Validators.required],
+            endDate: [this.survey.endDate, Validators.required],
           });
           this.secondFormGroup = this._formBuilder.group({
             question1: [this.survey.question[0].question1, Validators.required],
@@ -84,6 +86,8 @@ export class SurveyBuilderFormComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       avatar: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({
       question1: ['', Validators.required],
@@ -151,6 +155,8 @@ export class SurveyBuilderFormComponent implements OnInit {
       this.firstFormGroup.value.description,
       this.firstFormGroup.value.avatar,
       [question1, question2, question3, question4],
+      this.firstFormGroup.value.startDate,
+      this.firstFormGroup.value.endDate,
       'placeholder'
     );
 
@@ -158,6 +164,10 @@ export class SurveyBuilderFormComponent implements OnInit {
       survey.avatar =
         'https://linustechtips.com/uploads/profile/photo-59449.png';
     }
+    console.log({
+      startDate: this.firstFormGroup.value.startDate,
+      DateObject: this.firstFormGroup.value.startDate instanceof Date,
+    });
 
     this.restDataSource.postNewSurvey(survey);
   }
@@ -197,7 +207,9 @@ export class SurveyBuilderFormComponent implements OnInit {
       this.firstFormGroup.value.title,
       this.firstFormGroup.value.description,
       this.firstFormGroup.value.avatar,
-      [question1, question2, question3, question4]
+      [question1, question2, question3, question4],
+      this.firstFormGroup.value.startDate,
+      this.firstFormGroup.value.endDate
     );
 
     if (!survey.avatar) {

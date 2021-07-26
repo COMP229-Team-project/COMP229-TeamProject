@@ -29,11 +29,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 //import material components to impliment response collection modal
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   ResponseCollectionModalComponent,
   ResponseCollectionDialog,
@@ -42,6 +42,7 @@ import {
 //import the module that communicates with the backend
 //GETS survey JSON data
 import { SurveyModule } from './model/model.module';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { SurveyModule } from './model/model.module';
     MatRadioModule,
     MatDatepickerModule,
     FormsModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -20,6 +20,8 @@ export class SurveyPreviewComponent implements OnInit {
       { question3: '', answer1: '', answer2: '', answer3: '', answer4: '' },
       { question4: '', answer1: '', answer2: '', answer3: '', answer4: '' },
     ],
+    startDate: null,
+    endDate: null,
     _id: '',
   };
 
