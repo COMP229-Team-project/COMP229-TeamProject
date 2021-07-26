@@ -11,6 +11,8 @@ const SurveySchema = new Schema(
     avatar: String,
     question: [],
     responses: [],
+    startDate: Date,
+    endDate: Date,
   },
   {
     collection: "surveys",
