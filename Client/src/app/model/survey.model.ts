@@ -6,7 +6,7 @@ export class Survey {
     public title: string,
     public description: string,
     public avatar: string,
-    public question: [Question1, Question2, Question3, Question4],
+    public questions: [Question1, Question2, Question3, Question4],
     public startDate: Date | null,
     public endDate: Date | null,
     public _id: string
@@ -18,7 +18,7 @@ export class EditableSurvey {
     public title: string,
     public description: string,
     public avatar: string,
-    public question: [Question1, Question2, Question3, Question4],
+    public questions: [Question1, Question2, Question3, Question4],
     public startDate: Date,
     public endDate: Date
   ) {}

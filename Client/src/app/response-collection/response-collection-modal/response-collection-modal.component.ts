@@ -20,7 +20,7 @@ export class ResponseCollectionModalComponent {
     title: '',
     description: '',
     avatar: '',
-    question: [
+    questions: [
       { question1: '', answer1: '', answer2: '', answer3: '', answer4: '' },
       { question2: '', answer1: '', answer2: '', answer3: '', answer4: '' },
       { question3: '', answer1: '', answer2: '', answer3: '', answer4: '' },

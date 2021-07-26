@@ -51,32 +51,44 @@ export class SurveyBuilderFormComponent implements OnInit {
             endDate: [this.survey.endDate, Validators.required],
           });
           this.secondFormGroup = this._formBuilder.group({
-            question1: [this.survey.question[0].question1, Validators.required],
-            answer1: [this.survey.question[0].answer1, Validators.required],
-            answer2: [this.survey.question[0].answer2, Validators.required],
-            answer3: [this.survey.question[0].answer3, Validators.required],
-            answer4: [this.survey.question[0].answer4, Validators.required],
+            question1: [
+              this.survey.questions[0].question1,
+              Validators.required,
+            ],
+            answer1: [this.survey.questions[0].answer1, Validators.required],
+            answer2: [this.survey.questions[0].answer2, Validators.required],
+            answer3: [this.survey.questions[0].answer3, Validators.required],
+            answer4: [this.survey.questions[0].answer4, Validators.required],
           });
           this.thirdFormGroup = this._formBuilder.group({
-            question2: [this.survey.question[1].question2, Validators.required],
-            answer1: [this.survey.question[1].answer1, Validators.required],
-            answer2: [this.survey.question[1].answer2, Validators.required],
-            answer3: [this.survey.question[1].answer3, Validators.required],
-            answer4: [this.survey.question[1].answer4, Validators.required],
+            question2: [
+              this.survey.questions[1].question2,
+              Validators.required,
+            ],
+            answer1: [this.survey.questions[1].answer1, Validators.required],
+            answer2: [this.survey.questions[1].answer2, Validators.required],
+            answer3: [this.survey.questions[1].answer3, Validators.required],
+            answer4: [this.survey.questions[1].answer4, Validators.required],
           });
           this.fourthFormGroup = this._formBuilder.group({
-            question3: [this.survey.question[2].question3, Validators.required],
-            answer1: [this.survey.question[2].answer1, Validators.required],
-            answer2: [this.survey.question[2].answer2, Validators.required],
-            answer3: [this.survey.question[2].answer3, Validators.required],
-            answer4: [this.survey.question[2].answer4, Validators.required],
+            question3: [
+              this.survey.questions[2].question3,
+              Validators.required,
+            ],
+            answer1: [this.survey.questions[2].answer1, Validators.required],
+            answer2: [this.survey.questions[2].answer2, Validators.required],
+            answer3: [this.survey.questions[2].answer3, Validators.required],
+            answer4: [this.survey.questions[2].answer4, Validators.required],
           });
           this.fithFormGroup = this._formBuilder.group({
-            question4: [this.survey.question[3].question4, Validators.required],
-            answer1: [this.survey.question[3].answer1, Validators.required],
-            answer2: [this.survey.question[3].answer2, Validators.required],
-            answer3: [this.survey.question[3].answer3, Validators.required],
-            answer4: [this.survey.question[3].answer4, Validators.required],
+            question4: [
+              this.survey.questions[3].question4,
+              Validators.required,
+            ],
+            answer1: [this.survey.questions[3].answer1, Validators.required],
+            answer2: [this.survey.questions[3].answer2, Validators.required],
+            answer3: [this.survey.questions[3].answer3, Validators.required],
+            answer4: [this.survey.questions[3].answer4, Validators.required],
           });
         });
     }

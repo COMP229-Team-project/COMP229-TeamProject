@@ -30,7 +30,7 @@ export function AddSurvey(
     title: req.body.title,
     description: req.body.description,
     avatar: req.body.avatar,
-    question: req.body.question,
+    questions: req.body.questions,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
   });
@@ -101,7 +101,7 @@ export function EditSurvey(
     title: req.body.title,
     description: req.body.description,
     avatar: req.body.avatar,
-    question: req.body.question,
+    questions: req.body.questions,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
   });

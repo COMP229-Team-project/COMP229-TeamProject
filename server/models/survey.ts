@@ -9,7 +9,7 @@ const SurveySchema = new Schema(
     title: String,
     description: String,
     avatar: String,
-    question: [],
+    questions: [],
     responses: [],
     startDate: Date,
     endDate: Date,

@@ -20,7 +20,7 @@ function AddSurvey(req, res, next) {
         title: req.body.title,
         description: req.body.description,
         avatar: req.body.avatar,
-        question: req.body.question,
+        questions: req.body.questions,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
     });
@@ -66,7 +66,7 @@ function EditSurvey(req, res, next) {
         title: req.body.title,
         description: req.body.description,
         avatar: req.body.avatar,
-        question: req.body.question,
+        questions: req.body.questions,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
     });
