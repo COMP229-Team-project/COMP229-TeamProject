@@ -21,6 +21,8 @@ function AddSurvey(req, res, next) {
         description: req.body.description,
         avatar: req.body.avatar,
         question: req.body.question,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
     });
     survey_1.default.create(newSurvey, (err, SurveyModel) => {
         if (err) {
@@ -65,6 +67,8 @@ function EditSurvey(req, res, next) {
         description: req.body.description,
         avatar: req.body.avatar,
         question: req.body.question,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
     });
     survey_1.default.updateOne({ _id: id }, updatedSurvey, {}, (err) => {
         if (err) {

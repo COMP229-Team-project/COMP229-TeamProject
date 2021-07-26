@@ -1,4 +1,3 @@
-import bodyParser from "body-parser";
 import { Request, Response, NextFunction } from "express";
 import SurveyModel from "../models/survey";
 
@@ -32,6 +31,8 @@ export function AddSurvey(
     description: req.body.description,
     avatar: req.body.avatar,
     question: req.body.question,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
   });
 
   // Add new survey object to the Database
@@ -101,6 +102,8 @@ export function EditSurvey(
     description: req.body.description,
     avatar: req.body.avatar,
     question: req.body.question,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
   });
 
   //use the id requested and Mongoose books model to look for a match in the db and update it
