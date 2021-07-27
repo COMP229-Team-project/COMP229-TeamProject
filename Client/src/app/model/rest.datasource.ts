@@ -84,6 +84,19 @@ export class RestDataSource {
       });
   }
 
+  UpdateActiveDateRange(dateRange: any): void {
+    this.http
+      .post(this.baseURL + 'api/updatedaterange', dateRange)
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+        location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   // private loadToken(): void {
   //   const token = localStorage.getItem('id_token');
   //   this.authToken = token;
