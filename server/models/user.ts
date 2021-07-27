@@ -25,7 +25,7 @@ const UserSchema = new Schema(
       required: true,
       minlength: 2,
     },
-    username: {
+    userName: {
       type: String,
       trim: true,
       required: true,
@@ -51,7 +51,7 @@ declare global {
     firstName: String;
     lastName: String;
     email: String;
-    username: String;
+    userName: String;
   };
 }
 export default UserModel;

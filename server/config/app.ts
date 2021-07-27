@@ -76,6 +76,7 @@ app.use(express.static(path.join(__dirname, "../../client")));
 app.use(express.static(path.join(__dirname, "../../node_modules")));
 
 //add support for cors (Cross-Origin Resource Sharing)
+//sets up headers on the front end
 app.use(cors());
 
 //setup express session
