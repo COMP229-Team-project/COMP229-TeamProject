@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import SurveyModel from "../models/survey";
+import User from "../models/user";
+import passport from "passport";
+import jwt from "jsonwebtoken";
+import { DB } from "../Config/db";
 
 //READ the survey collection from database
 export function SendSurveyCatalogue(
@@ -178,4 +182,107 @@ export function UpdateActiveDateRange(
     //respond with a message on successful post
     res.json({ success: true, msg: "Lifetime has been updated!" });
   });
+}
+
+//Respond with a webtoken if a user authenticates successfully
+export function ProcessLogin(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  passport.authenticate("local", (err, user, info) => {
+    // server err?
+    if (err) {
+      return next(err);
+    }
+    // is there a user login error?
+    if (!user) {
+      req.flash("loginMessage", "Authentication Error");
+      return res.redirect("/login");
+    }
+    req.login(user, (err) => {
+      // server error?
+      if (err) {
+        return next(err);
+      }
+
+      const payload = {
+        id: user._id,
+        displayName: user.displayName,
+        username: user.username,
+        email: user.email,
+      };
+
+      const authToken = jwt.sign(payload, DB.Secret, {
+        expiresIn: 604800, // 1 week
+      });
+
+      return res.json({
+        success: true,
+        msg: "User Logged in Successfully!",
+        user: {
+          id: user._id,
+          displayName: user.displayName,
+          username: user.username,
+          email: user.email,
+        },
+        token: authToken,
+      });
+    });
+  })(req, res, next);
+}
+
+//Register a new user
+export function RegisterUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  // instantiate a user object
+  let newUser = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    userName: req.body.username,
+  });
+
+  let password = req.body.password;
+
+  User.register(newUser, password, (err) => {
+    if (err) {
+      console.log("Error: Inserting New User");
+      if (err.name == "UserExistsError") {
+        req.flash(
+          "registerMessage",
+          "Registration Error: User Already Exists!"
+        );
+        console.log("Error: User Already Exists!");
+      }
+      return res.render("auth/register", {
+        title: "Register",
+        messages: req.flash("registerMessage"),
+      });
+    } else {
+      // if no error exists, then registration is successful
+
+      // redirect the user and authenticate them
+
+      return res.json({ success: true, msg: "User Registered Successfully!" });
+
+      /*
+            return passport.authenticate('local')(req, res, () => {
+                res.redirect('/book-list')
+            });
+            */
+    }
+  });
+}
+
+export function ProcessLogout(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  req.logout();
+  res.json({ success: true, msg: "User Successfully Logged out!" });
 }

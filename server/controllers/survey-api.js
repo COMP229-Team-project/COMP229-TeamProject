@@ -3,8 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendSurveyCatalogue = void 0;
+exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendSurveyCatalogue = void 0;
 const survey_1 = __importDefault(require("../models/survey"));
+const user_1 = __importDefault(require("../models/user"));
+const passport_1 = __importDefault(require("passport"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const db_1 = require("../Config/db");
 function SendSurveyCatalogue(req, res, next) {
     survey_1.default.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
         if (err) {
@@ -110,4 +114,72 @@ function UpdateActiveDateRange(req, res, next) {
     });
 }
 exports.UpdateActiveDateRange = UpdateActiveDateRange;
+function ProcessLogin(req, res, next) {
+    passport_1.default.authenticate("local", (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            req.flash("loginMessage", "Authentication Error");
+            return res.redirect("/login");
+        }
+        req.login(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            const payload = {
+                id: user._id,
+                displayName: user.displayName,
+                username: user.username,
+                email: user.email,
+            };
+            const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
+                expiresIn: 604800,
+            });
+            return res.json({
+                success: true,
+                msg: "User Logged in Successfully!",
+                user: {
+                    id: user._id,
+                    displayName: user.displayName,
+                    username: user.username,
+                    email: user.email,
+                },
+                token: authToken,
+            });
+        });
+    })(req, res, next);
+}
+exports.ProcessLogin = ProcessLogin;
+function RegisterUser(req, res, next) {
+    let newUser = new user_1.default({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        userName: req.body.username,
+    });
+    let password = req.body.password;
+    user_1.default.register(newUser, password, (err) => {
+        if (err) {
+            console.log("Error: Inserting New User");
+            if (err.name == "UserExistsError") {
+                req.flash("registerMessage", "Registration Error: User Already Exists!");
+                console.log("Error: User Already Exists!");
+            }
+            return res.render("auth/register", {
+                title: "Register",
+                messages: req.flash("registerMessage"),
+            });
+        }
+        else {
+            return res.json({ success: true, msg: "User Registered Successfully!" });
+        }
+    });
+}
+exports.RegisterUser = RegisterUser;
+function ProcessLogout(req, res, next) {
+    req.logout();
+    res.json({ success: true, msg: "User Successfully Logged out!" });
+}
+exports.ProcessLogout = ProcessLogout;
 //# sourceMappingURL=survey-api.js.map
