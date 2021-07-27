@@ -1,7 +1,0 @@
-<!-- Survey List Layout Container -->
-<mat-grid-list cols="3" rowHeight="170px">
-  <mat-grid-tile *ngFor="let survey of surveys | async">
-    <!-- Survey Output -->
-    <survey-preview [survey]="survey"></survey-preview>
-  </mat-grid-tile>
-</mat-grid-list>
