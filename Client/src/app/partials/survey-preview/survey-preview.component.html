@@ -13,16 +13,8 @@
     <response-collection-modal-button
       [survey]="survey"
     ></response-collection-modal-button>
-    <button
-      (click)="RouteToSurvey(survey._id)"
-      mat-raised-button
-      color="primary"
-    >
-      UPDATE
-    </button>
+    <button mat-stroked-button color="warn">LIKE</button>
     <!-- Delete Button with bound click event -->
-    <button (click)="DeleteSurvey(survey._id)" mat-raised-button color="warn">
-      DELETE
-    </button>
+    <button mat-stroked-button color="accent">SHARE</button>
   </mat-card-actions>
 </mat-card>

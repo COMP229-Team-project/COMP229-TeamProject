@@ -5,3 +5,11 @@
 .example-header-image {
   background-size: cover;
 }
+
+mat-card-actions {
+  display: flex;
+}
+
+button {
+  flex: 1;
+}
