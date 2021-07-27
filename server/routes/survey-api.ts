@@ -8,6 +8,7 @@ import {
   GetSurvey,
   EditSurvey,
   AddResponse,
+  UpdateActiveDateRange,
 } from "../controllers/survey-api";
 
 //RESPOND with JSON representing survey objects
@@ -27,5 +28,7 @@ router.get("/edit/:id", GetSurvey);
 router.post("/edit/:id", EditSurvey);
 
 router.post("/responses", AddResponse);
+
+router.post("/updatedaterange", UpdateActiveDateRange);
 
 export default router;

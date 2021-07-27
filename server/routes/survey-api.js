@@ -13,5 +13,6 @@ router.delete("/delete/:id", survey_api_1.DeleteSurvey);
 router.get("/edit/:id", survey_api_1.GetSurvey);
 router.post("/edit/:id", survey_api_1.EditSurvey);
 router.post("/responses", survey_api_1.AddResponse);
+router.post("/updatedaterange", survey_api_1.UpdateActiveDateRange);
 exports.default = router;
 //# sourceMappingURL=survey-api.js.map
