@@ -43,6 +43,12 @@ import {
 //GETS survey JSON data
 import { SurveyModule } from './model/model.module';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+
+//Module to build user dashboard
+import { MatTableModule } from '@angular/material/table';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DatePickerComponent } from './user-dashboard/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +64,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     SurveyBuilderFormComponent,
     ResponseCollectionModalComponent,
     ResponseCollectionDialog,
+    UserDashboardComponent,
+    DashboardComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +88,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     FormsModule,
     MatNativeDateModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
