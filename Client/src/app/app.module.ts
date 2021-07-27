@@ -17,6 +17,8 @@ import { MatHeaderComponent } from './partials/mat-header/mat-header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 //import components to display active surveys
 import { SurveyListComponent } from './partials/survey-list/survey-list.component';
@@ -49,6 +51,8 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { MatTableModule } from '@angular/material/table';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DatePickerComponent } from './user-dashboard/date-picker/date-picker.component';
+import { ShellComponent } from './shell/shell.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -67,6 +71,7 @@ import { DatePickerComponent } from './user-dashboard/date-picker/date-picker.co
     UserDashboardComponent,
     DashboardComponent,
     DatePickerComponent,
+    ShellComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +94,9 @@ import { DatePickerComponent } from './user-dashboard/date-picker/date-picker.co
     FormsModule,
     MatNativeDateModule,
     MatTableModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

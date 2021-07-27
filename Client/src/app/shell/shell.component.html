@@ -1,0 +1,64 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" (click)="drawer.close()">🍯 Home</a>
+      <a mat-list-item routerLink="/dashboard" (click)="drawer.close()"
+        >👤 Dashboard</a
+      >
+      <a mat-list-item routerLink="/survey" (click)="drawer.close()"
+        >📜 Create Survey</a
+      >
+      <a mat-list-item routerLink="/about" (click)="drawer.close()"
+        >☎️ About Us</a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="logo" routerLink="/home">🍯 Survey Hive</span>
+
+      <span class="fill-space"></span>
+      <div *ngIf="!(isHandset$ | async)">
+        <a mat-button routerLink="/dashboard">👤 My Dashboard</a>
+        <a mat-button routerLink="/about">😀 About Us</a>
+
+        <a mat-button routerLink="/survey">📜 Create a Survey</a>
+        <a mat-button routerLink="/contact">☎️ Contact Us</a>
+      </div>
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item target="_blank" href="https://discord.gg/faxN8vHpXn">
+          <i>💬</i>
+          <span>Chat with us on Discord</span>
+        </a>
+      </mat-menu>
+    </mat-toolbar>
+
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
