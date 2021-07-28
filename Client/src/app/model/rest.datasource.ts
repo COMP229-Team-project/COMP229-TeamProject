@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EditableSurvey, Survey } from './survey.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { surveyResponse } from './response.model';
 import { User } from './user.model';
@@ -43,8 +42,10 @@ export class RestDataSource {
 
   //post a survey to the api for processing
   postNewSurvey(survey: Survey): void {
+    this.loadToken();
+    console.log({ headers: this.httpOptions });
     this.http
-      .post(this.baseURL + 'api/add', survey)
+      .post(this.baseURL + 'api/add', survey, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -54,8 +55,9 @@ export class RestDataSource {
 
   //delete a specific survey from the database via the api
   DeleteSurvey(id: string): void {
+    this.loadToken();
     this.http
-      .delete(this.baseURL + 'api' + '/delete/' + id)
+      .delete(this.baseURL + 'api' + '/delete/' + id, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -69,13 +71,16 @@ export class RestDataSource {
   //get a specific survey from the database
   GetSurveyToEdit(id: string): Observable<any> {
     this.loadToken();
-    return this.http.get(this.baseURL + 'api/edit/' + id);
+
+    return this.http.get(this.baseURL + 'api/edit/' + id, this.httpOptions);
   }
 
   //update the values of a spcific survey
   EditSurvey(id: string, survey: EditableSurvey): void {
+    this.loadToken();
+
     this.http
-      .post(this.baseURL + 'api/edit/' + id, survey)
+      .post(this.baseURL + 'api/edit/' + id, survey, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -94,8 +99,9 @@ export class RestDataSource {
   }
 
   UpdateActiveDateRange(dateRange: any): void {
+    this.loadToken();
     this.http
-      .post(this.baseURL + 'api/updatedaterange', dateRange)
+      .post(this.baseURL + 'api/updatedaterange', dateRange, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
