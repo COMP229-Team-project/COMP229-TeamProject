@@ -13,9 +13,9 @@ export class AuthService {
     this.user = new User();
   }
 
-  register(user: User): Observable<any> {
+  register(user: User): Promise<any> {
     console.log({ authService: user });
-    return this.restDataSource.register(user);
+    return this.restDataSource.register(user).toPromise();
   }
 
   authenticate(user: User): Observable<any> {

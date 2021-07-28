@@ -71,16 +71,18 @@ export class EmailPasswordAuthComponent implements OnInit {
   }
 
   //register a user with an account
-  register(form: FormGroup): void {
+  register(form: FormGroup): void | string {
     if (form.valid) {
       this.user.email = this.form.value.email;
       this.user.firstName = this.form.value.firstName;
       this.user.lastName = this.form.value.lastName;
       this.user.password = this.form.value.password;
       // perform authenticati
-      this.auth.register(this.user).subscribe((data) => {
+      this.auth.register(this.user).then((data) => {
         if (data.success) {
           this.router.navigateByUrl('dashboard');
+        } else {
+          this.serverMessage = data;
         }
       });
     }
@@ -99,9 +101,6 @@ export class EmailPasswordAuthComponent implements OnInit {
 
   async onSubmit() {
     this.loading = true;
-
-    const email = this.email?.value;
-    const password = this.password?.value;
 
     try {
       if (this.isLogin) {
