@@ -117,11 +117,10 @@ exports.UpdateActiveDateRange = UpdateActiveDateRange;
 function ProcessLogin(req, res, next) {
     passport_1.default.authenticate("local", (err, user, info) => {
         if (err) {
-            return next(err);
+            return res.json(err);
         }
         if (!user) {
-            req.flash("loginMessage", "Authentication Error");
-            return res.redirect("/login");
+            return res.json("Login Failed. Wrong Email and/or Password");
         }
         req.login(user, (err) => {
             if (err) {
@@ -129,8 +128,8 @@ function ProcessLogin(req, res, next) {
             }
             const payload = {
                 id: user._id,
-                displayName: user.displayName,
-                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 email: user.email,
             };
             const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
@@ -156,20 +155,22 @@ function RegisterUser(req, res, next) {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        userName: req.body.username,
     });
     let password = req.body.password;
-    user_1.default.register(newUser, password, (err) => {
+    console.log({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: password,
+    });
+    user_1.default.register(newUser, req.body.password, (err) => {
         if (err) {
-            console.log("Error: Inserting New User");
+            console.log({ passportmsg: newUser.get("email") });
+            console.log(err);
             if (err.name == "UserExistsError") {
-                req.flash("registerMessage", "Registration Error: User Already Exists!");
                 console.log("Error: User Already Exists!");
+                return res.json("Account with that email already exists!");
             }
-            return res.render("auth/register", {
-                title: "Register",
-                messages: req.flash("registerMessage"),
-            });
         }
         else {
             return res.json({ success: true, msg: "User Registered Successfully!" });

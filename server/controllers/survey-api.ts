@@ -193,12 +193,11 @@ export function ProcessLogin(
   passport.authenticate("local", (err, user, info) => {
     // server err?
     if (err) {
-      return next(err);
+      return res.json(err);
     }
     // is there a user login error?
     if (!user) {
-      req.flash("loginMessage", "Authentication Error");
-      return res.redirect("/login");
+      return res.json("Login Failed. Wrong Email and/or Password");
     }
     req.login(user, (err) => {
       // server error?
@@ -208,8 +207,8 @@ export function ProcessLogin(
 
       const payload = {
         id: user._id,
-        displayName: user.displayName,
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
       };
 
@@ -243,25 +242,25 @@ export function RegisterUser(
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    userName: req.body.username,
   });
 
   let password = req.body.password;
 
-  User.register(newUser, password, (err) => {
+  console.log({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: password,
+  });
+
+  User.register(newUser, req.body.password, (err) => {
     if (err) {
-      console.log("Error: Inserting New User");
+      console.log({ passportmsg: newUser.get("email") });
+      console.log(err);
       if (err.name == "UserExistsError") {
-        req.flash(
-          "registerMessage",
-          "Registration Error: User Already Exists!"
-        );
         console.log("Error: User Already Exists!");
+        return res.json("Account with that email already exists!");
       }
-      return res.render("auth/register", {
-        title: "Register",
-        messages: req.flash("registerMessage"),
-      });
     } else {
       // if no error exists, then registration is successful
 
