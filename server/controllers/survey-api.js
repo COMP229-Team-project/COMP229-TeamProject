@@ -124,7 +124,7 @@ function ProcessLogin(req, res, next) {
         }
         req.login(user, (err) => {
             if (err) {
-                return next(err);
+                return res.json(err);
             }
             const payload = {
                 id: user._id,
@@ -140,8 +140,8 @@ function ProcessLogin(req, res, next) {
                 msg: "User Logged in Successfully!",
                 user: {
                     id: user._id,
-                    displayName: user.displayName,
-                    username: user.username,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
                     email: user.email,
                 },
                 token: authToken,
@@ -173,7 +173,39 @@ function RegisterUser(req, res, next) {
             }
         }
         else {
-            return res.json({ success: true, msg: "User Registered Successfully!" });
+            passport_1.default.authenticate("local", (err, user, info) => {
+                if (err) {
+                    return res.json(err);
+                }
+                if (!user) {
+                    return res.json("Login Failed. Wrong Email and/or Password");
+                }
+                req.login(user, (err) => {
+                    if (err) {
+                        return res.json(err);
+                    }
+                    const payload = {
+                        id: user._id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                    };
+                    const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
+                        expiresIn: 604800,
+                    });
+                    return res.json({
+                        success: true,
+                        msg: "User Logged in Successfully!",
+                        user: {
+                            id: user._id,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                        },
+                        token: authToken,
+                    });
+                });
+            })(req, res, next);
         }
     });
 }

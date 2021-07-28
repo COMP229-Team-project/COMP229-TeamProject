@@ -202,7 +202,7 @@ export function ProcessLogin(
     req.login(user, (err) => {
       // server error?
       if (err) {
-        return next(err);
+        return res.json(err);
       }
 
       const payload = {
@@ -221,8 +221,8 @@ export function ProcessLogin(
         msg: "User Logged in Successfully!",
         user: {
           id: user._id,
-          displayName: user.displayName,
-          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
         },
         token: authToken,
@@ -265,14 +265,45 @@ export function RegisterUser(
       // if no error exists, then registration is successful
 
       // redirect the user and authenticate them
+      passport.authenticate("local", (err, user, info) => {
+        // server err?
+        if (err) {
+          return res.json(err);
+        }
+        // is there a user login error?
+        if (!user) {
+          return res.json("Login Failed. Wrong Email and/or Password");
+        }
+        req.login(user, (err) => {
+          // server error?
+          if (err) {
+            return res.json(err);
+          }
 
-      return res.json({ success: true, msg: "User Registered Successfully!" });
+          const payload = {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+          };
 
-      /*
-            return passport.authenticate('local')(req, res, () => {
-                res.redirect('/book-list')
-            });
-            */
+          const authToken = jwt.sign(payload, DB.Secret, {
+            expiresIn: 604800, // 1 week
+          });
+
+          return res.json({
+            success: true,
+            msg: "User Logged in Successfully!",
+            user: {
+              id: user._id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+            },
+            token: authToken,
+          });
+        });
+      })(req, res, next);
     }
   });
 }
