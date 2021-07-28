@@ -13,7 +13,7 @@ export class EmailPasswordAuthComponent implements OnInit {
   form!: FormGroup;
   user!: User;
 
-  type: 'login' | 'signup' | 'reset' = 'signup';
+  type: 'login' | 'signup' | 'reset' = 'login';
   loading = false;
 
   serverMessage?: string;
