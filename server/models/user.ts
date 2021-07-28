@@ -25,12 +25,6 @@ const UserSchema = new Schema(
       required: true,
       minlength: 2,
     },
-    userName: {
-      type: String,
-      trim: true,
-      required: true,
-      minlength: 2,
-    },
   },
   {
     collection: "users",
@@ -39,7 +33,7 @@ const UserSchema = new Schema(
 );
 
 //add passports local strategy functionality to the UserSchema
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
 //cast UserSchema as PassportLocalSchema
 const UserModel = Mongoose.model("User", UserSchema as PassportLocalSchema);
@@ -51,7 +45,6 @@ declare global {
     firstName: String;
     lastName: String;
     email: String;
-    userName: String;
   };
 }
 export default UserModel;

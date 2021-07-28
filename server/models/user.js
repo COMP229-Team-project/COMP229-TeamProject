@@ -25,17 +25,11 @@ const UserSchema = new Schema({
         required: true,
         minlength: 2,
     },
-    userName: {
-        type: String,
-        trim: true,
-        required: true,
-        minlength: 2,
-    },
 }, {
     collection: "users",
     timestamps: true,
 });
-UserSchema.plugin(passport_local_mongoose_1.default);
+UserSchema.plugin(passport_local_mongoose_1.default, { usernameField: "email" });
 const UserModel = mongoose_1.default.model("User", UserSchema);
 exports.default = UserModel;
 //# sourceMappingURL=user.js.map
