@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 let router = express.Router();
 
 import {
@@ -28,21 +29,41 @@ router.get("/", SendSurveyCatalogue);
 router.get("/surveys", SendSurveyCatalogue);
 
 //POST JSON  to server
-router.post("/add", AddSurvey);
+router.post(
+  "/add",
+  passport.authenticate("jwt", { session: false }),
+  AddSurvey
+);
 
 //DELETE survey from server
-router.delete("/delete/:id", DeleteSurvey);
+router.delete(
+  "/delete/:id",
+  passport.authenticate("jwt", { session: false }),
+  DeleteSurvey
+);
 
 //GET the details of a particualr survey
-router.get("/edit/:id", GetSurvey);
+router.get(
+  "/edit/:id",
+  passport.authenticate("jwt", { session: false }),
+  GetSurvey
+);
 
 //POST the changes to the server
-router.post("/edit/:id", EditSurvey);
+router.post(
+  "/edit/:id",
+  passport.authenticate("jwt", { session: false }),
+  EditSurvey
+);
 
 //POST responses to a specific survey
 router.post("/responses", AddResponse);
 
 //POST update to a surveys date range property
-router.post("/updatedaterange", UpdateActiveDateRange);
+router.post(
+  "/updatedaterange",
+  passport.authenticate("jwt", { session: false }),
+  UpdateActiveDateRange
+);
 
 export default router;

@@ -104,24 +104,20 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//
 let jwtOptions = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: DB.Secret,
 };
 
-let strategy = new JWTStrategy(
-  jwtOptions,
-  (jwt: any, jwt_payload: any, done: any) => {
-    User.findById(jwt_payload.id)
-      .then((user) => {
-        return done(null, user);
-      })
-      .catch((err) => {
-        return done(err, false);
-      });
-  }
-);
+let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
+  User.findById(jwt_payload.id)
+    .then((user) => {
+      return done(null, user);
+    })
+    .catch((err) => {
+      return done(err, false);
+    });
+});
 
 passport.use(strategy);
 

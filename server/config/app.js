@@ -54,7 +54,7 @@ let jwtOptions = {
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey: db_js_1.DB.Secret,
 };
-let strategy = new JWTStrategy(jwtOptions, (jwt, jwt_payload, done) => {
+let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
     user_js_1.default.findById(jwt_payload.id)
         .then((user) => {
         return done(null, user);
