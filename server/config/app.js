@@ -31,7 +31,6 @@ mongoDB.once("open", () => {
         console.log(`Connected to MongoDB at: ${connection.host} and DB: ${connection.name}`);
     }
 });
-const index_js_1 = __importDefault(require("../routes/index.js"));
 const survey_api_1 = __importDefault(require("../routes/survey-api"));
 let app = express_1.default();
 app.set("views", path_1.default.join(__dirname, "../views"));
@@ -64,7 +63,6 @@ let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
     });
 });
 passport_1.default.use(strategy);
-app.use("/", index_js_1.default);
 app.use("/api", survey_api_1.default);
 app.use(function (req, res, next) {
     next(http_errors_1.default(404));

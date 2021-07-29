@@ -48,9 +48,6 @@ mongoDB.once("open", () => {
   }
 });
 
-//routes for main top level site
-import indexRouter from "../routes/index.js";
-
 //routes for business contact db
 import surveyRouterAPI from "../routes/survey-api";
 
@@ -120,8 +117,6 @@ let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
 });
 
 passport.use(strategy);
-
-app.use("/", indexRouter);
 
 //define endpoint for API
 app.use("/api", surveyRouterAPI);
