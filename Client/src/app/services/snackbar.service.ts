@@ -10,7 +10,7 @@ export class SnackService {
   constructor(private snackBar: MatSnackBar, private router: Router) {}
 
   authError() {
-    this.snackBar.open('You must be logged in!', 'OK', {
+    this.snackBar.open('Please login first!', 'OK', {
       duration: 5000,
     });
 
