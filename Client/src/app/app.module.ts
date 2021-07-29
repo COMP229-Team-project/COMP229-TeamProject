@@ -33,6 +33,7 @@ import { SurveyComponent } from './pages/survey/survey.component';
 import { SharedModule } from './shared/shared.module';
 import { SurveyModule } from './model/model.module';
 import { AuthService } from './model/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export function jwtTokenGetter(): string | null {
   return localStorage.getItem('id_token');
@@ -66,7 +67,7 @@ export function jwtTokenGetter(): string | null {
       },
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, MatSnackBar],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
