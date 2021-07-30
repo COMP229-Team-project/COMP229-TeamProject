@@ -120,6 +120,9 @@ passport.use(strategy);
 
 //define endpoint for API
 app.use("/api", surveyRouterAPI);
+app.use("*", (req: express.Request, res: express.Response) => {
+  res.sendFile(path.join(__dirname, "../../public/index.html"));
+});
 
 // catch 404 and forward to error handler
 app.use(function (
