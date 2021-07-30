@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { surveyResponse } from './response.model';
 import { User } from './user.model';
 
-const PROTOCOL = 'https';
+const PROTOCOL = 'http';
 const PORT = '3000';
 const REMOTE = 'https://surveyhive.herokuapp.com/';
 
@@ -33,8 +33,8 @@ export class RestDataSource {
     private jwtHelperService: JwtHelperService
   ) {
     this.user = new User();
-    //:${PORT} temporarily removed for deployment
-    this.baseURL = `${PROTOCOL}://${location.hostname}/`;
+    // temporarily removed for deployment
+    this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
   }
 
   //get an observable array of surveys from our api
