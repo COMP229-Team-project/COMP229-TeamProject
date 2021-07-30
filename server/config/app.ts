@@ -118,6 +118,7 @@ let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
 
 passport.use(strategy);
 
+//./Server/Config/app.ts folder names MUST BE CAPS for heroku
 //define endpoint for API
 app.use("/api", surveyRouterAPI);
 app.use("*", (req: express.Request, res: express.Response) => {
