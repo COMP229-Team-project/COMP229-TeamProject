@@ -9,6 +9,7 @@ import { User } from './user.model';
 
 const PROTOCOL = 'http';
 const PORT = '3000';
+const REMOTE = 'https://surveyhive.herokuapp.com/';
 
 @Injectable()
 export class RestDataSource {
@@ -32,7 +33,8 @@ export class RestDataSource {
     private jwtHelperService: JwtHelperService
   ) {
     this.user = new User();
-    this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+    //:${PORT} temporarily removed for deployment
+    this.baseURL = `${PROTOCOL}://${location.hostname}/`;
   }
 
   //get an observable array of surveys from our api
