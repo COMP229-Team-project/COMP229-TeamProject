@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { surveyResponse } from './response.model';
 import { User } from './user.model';
 
-const PROTOCOL = 'http';
+const PROTOCOL = 'https';
 const PORT = '3000';
 const REMOTE = 'https://surveyhive.herokuapp.com/';
 
