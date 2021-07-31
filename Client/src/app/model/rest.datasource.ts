@@ -34,8 +34,8 @@ export class RestDataSource {
   ) {
     this.user = new User();
     // temporarily removed for deployment
-    // this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
-    this.baseURL = `${REMOTE}`;
+    this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+    // this.baseURL = `${REMOTE}`;
   }
 
   //get an observable array of surveys from our api
