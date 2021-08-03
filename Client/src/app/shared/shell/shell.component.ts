@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class ShellComponent implements OnInit {
   user!: User;
   isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe([Breakpoints.Handset])
+    .observe([Breakpoints.Small, Breakpoints.XSmall])
     .pipe(
       map((result) => result.matches),
       shareReplay()

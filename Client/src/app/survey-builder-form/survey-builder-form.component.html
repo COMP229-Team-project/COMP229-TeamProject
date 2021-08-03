@@ -2,7 +2,11 @@
   {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
 </button>
 <!-- SURVEY BUILDER FORM -->
-<mat-stepper [linear]="isLinear" #stepper>
+<mat-stepper
+  [linear]="isLinear"
+  #stepper
+  [orientation]="(isDesktop$ | async) ? 'vertical' : 'horizontal'"
+>
   <!-- FORM BASICS -->
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">

@@ -1,7 +1,9 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import {
   Question1,
   Question2,
@@ -27,11 +29,19 @@ export class SurveyBuilderFormComponent implements OnInit {
   sub!: Subscription;
   survey: any = {};
 
+  isDesktop$: Observable<boolean> = this.breakPointObserver
+    .observe([Breakpoints.Small, Breakpoints.XSmall])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
+
   //Injected dependencies
   constructor(
     public _formBuilder: FormBuilder,
     public restDataSource: RestDataSource,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private breakPointObserver: BreakpointObserver
   ) {}
 
   //If there is an id param on the URL display the fields with data from a survey to be edited
