@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EditableSurvey, Survey } from './survey.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -12,8 +12,8 @@ const PORT = '3000';
 const REMOTE = 'https://surveyhive.herokuapp.com/';
 
 @Injectable()
-export class RestDataSource {
-  user: User | null;
+export class RestDataSource implements OnInit {
+  user!: User | null;
   baseURL!: string;
   authToken!: any;
 
@@ -32,10 +32,12 @@ export class RestDataSource {
     private router: Router,
     private jwtHelperService: JwtHelperService
   ) {
+    this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+    // this.baseURL = `${REMOTE}`;
+  }
+
+  ngOnInit() {
     this.user = new User();
-    // temporarily removed for deployment
-    // this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
-    this.baseURL = `${REMOTE}`;
   }
 
   //get an observable array of surveys from our api
@@ -43,10 +45,20 @@ export class RestDataSource {
     return this.http.get<Survey[]>(this.baseURL + 'api');
   }
 
+  getUserSurveys(): Observable<Survey[]> {
+    this.loadToken();
+    let creatorId = JSON.parse(localStorage.getItem('user')!).id;
+    return this.http.post<Survey[]>(
+      this.baseURL + 'api/usersurveys',
+      { creatorId: creatorId },
+      this.httpOptions
+    );
+  }
+
   //post a survey to the api for processing
   postNewSurvey(survey: Survey): void {
     this.loadToken();
-    console.log({ headers: this.httpOptions });
+    survey.creatorId = JSON.parse(localStorage.getItem('user')!).id;
     this.http
       .post(this.baseURL + 'api/add', survey, this.httpOptions)
       .toPromise()
@@ -74,14 +86,12 @@ export class RestDataSource {
   //get a specific survey from the database
   GetSurveyToEdit(id: string): Observable<any> {
     this.loadToken();
-
     return this.http.get(this.baseURL + 'api/edit/' + id, this.httpOptions);
   }
 
   //update the values of a spcific survey
   EditSurvey(id: string, survey: EditableSurvey): void {
     this.loadToken();
-
     this.http
       .post(this.baseURL + 'api/edit/' + id, survey, this.httpOptions)
       .toPromise()

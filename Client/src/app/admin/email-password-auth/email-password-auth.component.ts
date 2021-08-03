@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/model/auth.service';
+import { RestDataSource } from 'src/app/model/rest.datasource';
 import { User } from 'src/app/model/user.model';
 
 @Component({
@@ -21,7 +22,8 @@ export class EmailPasswordAuthComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private restDataSoruce: RestDataSource
   ) {}
 
   ngOnInit() {
@@ -81,7 +83,7 @@ export class EmailPasswordAuthComponent implements OnInit {
       this.auth.register(this.user).subscribe((data) => {
         if (data.success) {
           console.log({ data: data, type: typeof data });
-          this.auth.storeUserData(data.token, data.user);
+          this.restDataSoruce.storeUserData(data.token, data.user);
           this.router.navigateByUrl('dashboard');
         } else {
           this.serverMessage = data;
@@ -97,7 +99,7 @@ export class EmailPasswordAuthComponent implements OnInit {
     this.auth.authenticate(this.user).subscribe((data) => {
       console.log({ data: data, type: typeof data });
       if (data.success) {
-        this.auth.storeUserData(data.token, data.user);
+        this.restDataSoruce.storeUserData(data.token, data.user);
         this.router.navigateByUrl('dashboard');
       } else {
         this.serverMessage = data;

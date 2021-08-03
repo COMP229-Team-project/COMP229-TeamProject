@@ -14,7 +14,6 @@ export class AuthService {
   }
 
   register(user: User): Observable<any> {
-    console.log({ authService: user });
     return this.restDataSource.register(user);
   }
 

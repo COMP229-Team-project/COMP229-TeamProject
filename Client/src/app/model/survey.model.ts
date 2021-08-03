@@ -9,7 +9,8 @@ export class Survey {
     public questions: [Question1, Question2, Question3, Question4],
     public startDate: Date | null,
     public endDate: Date | null,
-    public _id: string
+    public _id: string,
+    public creatorId?: string
   ) {}
 }
 

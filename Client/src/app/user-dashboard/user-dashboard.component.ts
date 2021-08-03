@@ -23,11 +23,11 @@ export class UserDashboardComponent implements OnInit {
   surveys: Observable<Survey[]>;
 
   constructor(public restDataSource: RestDataSource, private router: Router) {
-    this.surveys = restDataSource.getSurveys();
+    this.surveys = restDataSource.getUserSurveys();
   }
 
   ngOnInit(): void {
-    this.surveys = this.restDataSource.getSurveys();
+    this.surveys = this.restDataSource.getUserSurveys();
   }
 
   //function to navigate to the survey builder page with a specific survey id
