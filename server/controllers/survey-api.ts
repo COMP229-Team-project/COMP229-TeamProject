@@ -23,6 +23,29 @@ export function SendSurveyCatalogue(
   });
 }
 
+export function SendUserSurveys(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  //find everything in collection surveys is pointed to and sort in alphabetical order
+  console.log(req.body.creatorId);
+  SurveyModel.find(
+    { creatorId: req.body.creatorId },
+    {},
+    { sort: { name: 1 } },
+    (err, surveys) => {
+      if (err) {
+        console.error(err);
+      }
+
+      //respond with JSON
+      console.log(surveys);
+      res.json(surveys);
+    }
+  );
+}
+
 //Add a new surver to the database
 export function AddSurvey(
   req: Request,
@@ -37,6 +60,7 @@ export function AddSurvey(
     questions: req.body.questions,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
+    creatorId: req.body.creatorId,
   });
 
   // Add new survey object to the Database
@@ -245,13 +269,6 @@ export function RegisterUser(
   });
 
   let password = req.body.password;
-
-  console.log({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: password,
-  });
 
   User.register(newUser, req.body.password, (err) => {
     if (err) {

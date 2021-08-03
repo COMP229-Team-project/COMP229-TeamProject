@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendSurveyCatalogue = void 0;
+exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendUserSurveys = exports.SendSurveyCatalogue = void 0;
 const survey_1 = __importDefault(require("../models/survey"));
 const user_1 = __importDefault(require("../models/user"));
 const passport_1 = __importDefault(require("passport"));
@@ -19,6 +19,17 @@ function SendSurveyCatalogue(req, res, next) {
     });
 }
 exports.SendSurveyCatalogue = SendSurveyCatalogue;
+function SendUserSurveys(req, res, next) {
+    console.log(req.body.creatorId);
+    survey_1.default.find({ creatorId: req.body.creatorId }, {}, { sort: { name: 1 } }, (err, surveys) => {
+        if (err) {
+            console.error(err);
+        }
+        console.log(surveys);
+        res.json(surveys);
+    });
+}
+exports.SendUserSurveys = SendUserSurveys;
 function AddSurvey(req, res, next) {
     let newSurvey = new survey_1.default({
         title: req.body.title,
@@ -27,6 +38,7 @@ function AddSurvey(req, res, next) {
         questions: req.body.questions,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
+        creatorId: req.body.creatorId,
     });
     survey_1.default.create(newSurvey, (err, SurveyModel) => {
         if (err) {
@@ -157,12 +169,6 @@ function RegisterUser(req, res, next) {
         email: req.body.email,
     });
     let password = req.body.password;
-    console.log({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: password,
-    });
     user_1.default.register(newUser, req.body.password, (err) => {
         if (err) {
             console.log({ passportmsg: newUser.get("email") });

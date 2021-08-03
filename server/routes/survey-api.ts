@@ -13,6 +13,7 @@ import {
   RegisterUser,
   ProcessLogout,
   ProcessLogin,
+  SendUserSurveys,
 } from "../controllers/survey-api";
 
 /* POST Route for processing the Register page */
@@ -27,6 +28,13 @@ router.get("/logout", ProcessLogout);
 //RESPOND with JSON representing survey objects
 router.get("/", SendSurveyCatalogue);
 router.get("/surveys", SendSurveyCatalogue);
+
+//RESPOND with surveys for a particular user
+router.post(
+  "/usersurveys",
+  passport.authenticate("jwt", { session: false }),
+  SendUserSurveys
+);
 
 //POST JSON  to server
 router.post(

@@ -13,6 +13,7 @@ const SurveySchema = new Schema(
     responses: [],
     startDate: Date,
     endDate: Date,
+    creatorId: String,
   },
   {
     collection: "surveys",
