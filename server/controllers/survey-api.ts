@@ -240,17 +240,7 @@ export function ProcessLogin(
         expiresIn: 604800, // 1 week
       });
 
-      console.log({
-        success: true,
-        msg: "User Logged in Successfully!",
-        user: {
-          id: user._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-        },
-        token: authToken,
-      });
+      console.log({ backendLogin: "Response from the backend" });
 
       res.json({
         success: true,
