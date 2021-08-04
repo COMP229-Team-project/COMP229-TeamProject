@@ -9,7 +9,7 @@ import { User } from './user.model';
 
 const PROTOCOL = 'http';
 const PORT = '3000';
-const REMOTE = 'https://surveyhive.herokuapp.com/';
+const REMOTE = 'https://quizhive.herokuapp.com/';
 
 @Injectable()
 export class RestDataSource implements OnInit {
@@ -32,8 +32,8 @@ export class RestDataSource implements OnInit {
     private router: Router,
     private jwtHelperService: JwtHelperService
   ) {
-    this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
-    // this.baseURL = `${REMOTE}`;
+    // this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+    this.baseURL = `${REMOTE}`;
   }
 
   ngOnInit() {

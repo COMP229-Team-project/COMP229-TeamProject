@@ -27,7 +27,7 @@ const UserSchema = new Schema(
     },
   },
   {
-    collection: "users",
+    collection: "Users",
     timestamps: true,
   }
 );
@@ -36,7 +36,7 @@ const UserSchema = new Schema(
 UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
 //cast UserSchema as PassportLocalSchema
-const UserModel = Mongoose.model("User", UserSchema as PassportLocalSchema);
+const UserModel = Mongoose.model("Users", UserSchema as PassportLocalSchema);
 
 //declare a custom data type in the global namespace
 declare global {
