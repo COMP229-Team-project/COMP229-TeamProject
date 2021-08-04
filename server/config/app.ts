@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 
 //modules for authentication
-import session from "express-session";
 import passport from "passport";
 
 //bring in way to authenticate with JWT
@@ -22,9 +21,6 @@ import cors from "cors";
 //authentication objects
 let localStrategy = passportLocal.Strategy; // alias
 import User from "../models/user.js";
-
-//module for auth messaging and error management. Enables messages to persist during a redirect
-import flash from "connect-flash";
 
 //database setup
 import mongoose from "mongoose";
@@ -71,27 +67,10 @@ app.use(cookieParser());
 //this static route allows us to reference content generally without having to create a specific route
 app.use(express.static(path.join(__dirname, "../../client")));
 app.use(express.static(path.join(__dirname, "../../node_modules")));
-
+app.use(express.static(path.join(__dirname, "../../public")));
 //add support for cors (Cross-Origin Resource Sharing)
 //sets up headers on the front end
 app.use(cors());
-
-//setup express session
-//gives the ability to persist data across multiple http requests
-//uses a cookie and a server session. Cookie identifies user and the session data is accessed from the server for that user.
-app.use(
-  session({ secret: DB.Secret, saveUninitialized: false, resave: false })
-);
-
-//initialze flash
-// The flash is a special area of the session used for storing messages.
-// Messages are written to the flash and cleared after being displayed to the user.
-//The flash is typically used in combination with redirects, ensuring that the message is available to the next page that is to be rendered.
-app.use(flash());
-
-//initialize passport.  This middleware allows you to authenticate a user.
-app.use(passport.initialize());
-app.use(passport.session());
 
 //impliment an auth strategy
 passport.use(User.createStrategy());
