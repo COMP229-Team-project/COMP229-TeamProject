@@ -125,7 +125,7 @@ app.use("/api", surveyRouterAPI);
 const allowed = [".js", ".css", ".png", ".jpg"];
 
 // Catch all other routes and return the angular index file
-app.get("*", (req, res) => {
+app.use("*", (req, res) => {
   if (allowed.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
     res.sendFile(path.resolve(`../../public/${req.url}`));
   } else {

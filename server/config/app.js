@@ -65,7 +65,7 @@ let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
 passport_1.default.use(strategy);
 app.use("/api", survey_api_1.default);
 const allowed = [".js", ".css", ".png", ".jpg"];
-app.get("*", (req, res) => {
+app.use("*", (req, res) => {
     if (allowed.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
         res.sendFile(path_1.default.resolve(`../../public/${req.url}`));
     }
