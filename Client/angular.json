@@ -67,7 +67,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "none"
+              "outputHashing": "all"
             },
             "development": {
               "buildOptimizer": false,
