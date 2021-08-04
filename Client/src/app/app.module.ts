@@ -34,6 +34,7 @@ import { SharedModule } from './shared/shared.module';
 import { SurveyModule } from './model/model.module';
 import { AuthService } from './model/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
 
 export function jwtTokenGetter(): string | null {
   return localStorage.getItem('id_token');
@@ -54,6 +55,7 @@ export function jwtTokenGetter(): string | null {
     UserDashboardComponent,
     DashboardComponent,
     SurveyComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
