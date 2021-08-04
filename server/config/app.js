@@ -64,7 +64,7 @@ let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
 });
 passport_1.default.use(strategy);
 app.use("/api", survey_api_1.default);
-app.use("*", (req, res) => {
+app.get("*", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, "../../public/index.html"));
 });
 app.use(function (req, res, next) {
