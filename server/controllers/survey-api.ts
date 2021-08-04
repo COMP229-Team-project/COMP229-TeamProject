@@ -253,7 +253,7 @@ export function ProcessLogin(
         token: authToken,
       });
     });
-  })(req, res, next);
+  });
 }
 
 //Register a new user

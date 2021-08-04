@@ -160,7 +160,7 @@ function ProcessLogin(req, res, next) {
                 token: authToken,
             });
         });
-    })(req, res, next);
+    });
 }
 exports.ProcessLogin = ProcessLogin;
 function RegisterUser(req, res, next) {
