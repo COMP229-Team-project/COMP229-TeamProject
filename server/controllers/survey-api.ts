@@ -252,7 +252,7 @@ export function ProcessLogin(
         token: authToken,
       });
 
-      return res.json({
+      res.json({
         success: true,
         msg: "User Logged in Successfully!",
         user: {
@@ -331,7 +331,7 @@ export function RegisterUser(
             token: authToken,
           });
 
-          return res.json({
+          res.json({
             success: true,
             msg: "User Logged in Successfully!",
             user: {

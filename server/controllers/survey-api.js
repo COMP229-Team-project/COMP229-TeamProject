@@ -158,7 +158,7 @@ function ProcessLogin(req, res, next) {
                 },
                 token: authToken,
             });
-            return res.json({
+            res.json({
                 success: true,
                 msg: "User Logged in Successfully!",
                 user: {
@@ -221,7 +221,7 @@ function RegisterUser(req, res, next) {
                         },
                         token: authToken,
                     });
-                    return res.json({
+                    res.json({
                         success: true,
                         msg: "User Logged in Successfully!",
                         user: {
