@@ -64,16 +64,8 @@ let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
 });
 passport_1.default.use(strategy);
 app.use("/api", survey_api_1.default);
-const allowed = [".js", ".css", ".png", ".jpg"];
 app.use("*", (req, res) => {
-    if (req.url) {
-        console.log({ if: req.url });
-        res.sendFile(path_1.default.join(__dirname, `../../public/${req.url}`));
-    }
-    else {
-        console.log({ else: req.url });
-        res.sendFile(path_1.default.join(__dirname, "../../public/index.html"));
-    }
+    res.sendFile(path_1.default.join(__dirname, "../../public/index.html"));
 });
 app.use(function (req, res, next) {
     next(http_errors_1.default(404));
