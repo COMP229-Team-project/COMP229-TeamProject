@@ -121,27 +121,20 @@ passport.use(strategy);
 //./Server/Config/app.ts folder names MUST BE CAPS for heroku
 //define endpoint for API
 app.use("/api", surveyRouterAPI);
-app.use("*", (req: express.Request, res: express.Response) => {
-  res.sendFile(path.join(__dirname, "../../public/index.html"));
-});
-app.use(
-  "/runtime.d9146aeeff2a9fcc4b54.js",
-  (req: express.Request, res: express.Response) => {
-    res.sendFile(
-      path.join(__dirname, "../../public/runtime.d9146aeeff2a9fcc4b54.js")
-    );
+
+const allowed = [".js", ".css", ".png", ".jpg"];
+
+// Catch all other routes and return the angular index file
+app.use("*", (req, res) => {
+  if (allowed.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
+    res.sendFile(path.resolve(`../../public/${req.url}`));
+  } else {
+    res.sendFile(path.join(__dirname, "../../public/index.html"));
   }
-);
+});
 
-// const allowed = [".js", ".css", ".png", ".jpg"];
-
-// // Catch all other routes and return the angular index file
-// app.use("*", (req, res) => {
-//   if (allowed.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
-//     res.sendFile(path.resolve(`../../public/${req.url}`));
-//   } else {
-//     res.sendFile(path.join(__dirname, "../../public/index.html"));
-//   }
+// app.use("*", (req: express.Request, res: express.Response) => {
+//   res.sendFile(path.join(__dirname, "../../public/index.html"));
 // });
 
 // catch 404 and forward to error handler
