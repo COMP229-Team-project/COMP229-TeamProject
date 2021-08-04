@@ -241,19 +241,20 @@ export function ProcessLogin(
       });
 
       console.log({ backendLogin: "Response from the backend" });
-      res.json({
-        success: true,
-        msg: "User Logged in Successfully!",
-        user: {
-          id: user._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-        },
-        token: authToken,
-      });
+      return res.json({ response: "Server Has responded" });
+      // res.json({
+      //   success: true,
+      //   msg: "User Logged in Successfully!",
+      //   user: {
+      //     id: user._id,
+      //     firstName: user.firstName,
+      //     lastName: user.lastName,
+      //     email: user.email,
+      //   },
+      //   token: authToken,
+      // });
     });
-  });
+  })(req, res, next);
 }
 
 //Register a new user

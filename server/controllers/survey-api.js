@@ -148,19 +148,9 @@ function ProcessLogin(req, res, next) {
                 expiresIn: 604800,
             });
             console.log({ backendLogin: "Response from the backend" });
-            res.json({
-                success: true,
-                msg: "User Logged in Successfully!",
-                user: {
-                    id: user._id,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                },
-                token: authToken,
-            });
+            return res.json({ response: "Server Has responded" });
         });
-    });
+    })(req, res, next);
 }
 exports.ProcessLogin = ProcessLogin;
 function RegisterUser(req, res, next) {
