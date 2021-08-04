@@ -8,7 +8,7 @@ const survey_1 = __importDefault(require("../models/survey"));
 const user_1 = __importDefault(require("../models/user"));
 const passport_1 = __importDefault(require("passport"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const db_1 = require("../Config/db");
+const db_1 = require("../config/db");
 function SendSurveyCatalogue(req, res, next) {
     survey_1.default.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
         if (err) {

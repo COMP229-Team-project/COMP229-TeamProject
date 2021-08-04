@@ -3,7 +3,7 @@ import SurveyModel from "../models/survey";
 import User from "../models/user";
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import { DB } from "../Config/db";
+import { DB } from "../config/db";
 
 //READ the survey collection from database
 export function SendSurveyCatalogue(
