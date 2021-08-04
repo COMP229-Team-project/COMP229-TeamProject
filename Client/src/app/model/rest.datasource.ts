@@ -42,7 +42,7 @@ export class RestDataSource implements OnInit {
 
   //get an observable array of surveys from our api
   getSurveys(): Observable<Survey[]> {
-    return this.http.get<Survey[]>(this.baseURL + 'api');
+    return this.http.get<Survey[]>('/api');
   }
 
   getUserSurveys(): Observable<Survey[]> {
