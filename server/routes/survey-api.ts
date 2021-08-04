@@ -32,7 +32,7 @@ router.get("/surveys", SendSurveyCatalogue);
 //RESPOND with surveys for a particular user
 router.post(
   "/usersurveys",
-  passport.authenticate("jwt", { session: false }),
+  /* passport.authenticate("jwt", { session: false }),*/
   SendUserSurveys
 );
 

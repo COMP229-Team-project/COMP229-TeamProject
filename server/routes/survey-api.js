@@ -12,7 +12,7 @@ router.post("/login", survey_api_1.ProcessLogin);
 router.get("/logout", survey_api_1.ProcessLogout);
 router.get("/", survey_api_1.SendSurveyCatalogue);
 router.get("/surveys", survey_api_1.SendSurveyCatalogue);
-router.post("/usersurveys", passport_1.default.authenticate("jwt", { session: false }), survey_api_1.SendUserSurveys);
+router.post("/usersurveys", survey_api_1.SendUserSurveys);
 router.post("/add", passport_1.default.authenticate("jwt", { session: false }), survey_api_1.AddSurvey);
 router.delete("/delete/:id", passport_1.default.authenticate("jwt", { session: false }), survey_api_1.DeleteSurvey);
 router.get("/edit/:id", passport_1.default.authenticate("jwt", { session: false }), survey_api_1.GetSurvey);
