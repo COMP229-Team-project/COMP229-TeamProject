@@ -127,9 +127,10 @@ const allowed = [".js", ".css", ".png", ".jpg"];
 // Catch all other routes and return the angular index file
 app.use("*", (req, res) => {
   if (allowed.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
-    console.log({ REQUEST: req.url });
-    res.sendFile(path.resolve(`../../public/${req.url}`));
+    console.log({ if: req.url });
+    res.sendFile(path.join(__dirname, `../../public/${req.url}`));
   } else {
+    console.log({ else: req.url });
     res.sendFile(path.join(__dirname, "../../public/index.html"));
   }
 });

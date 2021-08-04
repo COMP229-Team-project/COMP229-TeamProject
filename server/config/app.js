@@ -67,10 +67,11 @@ app.use("/api", survey_api_1.default);
 const allowed = [".js", ".css", ".png", ".jpg"];
 app.use("*", (req, res) => {
     if (allowed.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
-        console.log({ REQUEST: req.url });
-        res.sendFile(path_1.default.resolve(`../../public/${req.url}`));
+        console.log({ if: req.url });
+        res.sendFile(path_1.default.join(__dirname, `../../public/${req.url}`));
     }
     else {
+        console.log({ else: req.url });
         res.sendFile(path_1.default.join(__dirname, "../../public/index.html"));
     }
 });
