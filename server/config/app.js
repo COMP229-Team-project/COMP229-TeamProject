@@ -67,11 +67,11 @@ app.use("/api", survey_api_1.default);
 const allowed = [".js", ".css", ".png", ".jpg"];
 app.use("*", (req, res) => {
     if (req.xhr) {
-        console.log({ if: req.xhr });
+        console.log({ if: req.query });
         res.sendFile(path_1.default.join(__dirname, `../../public/${req.url}`));
     }
     else {
-        console.log({ else: req.xhr });
+        console.log({ else: req.query });
         res.sendFile(path_1.default.join(__dirname, "../../public/index.html"));
     }
 });
