@@ -240,6 +240,18 @@ export function ProcessLogin(
         expiresIn: 604800, // 1 week
       });
 
+      console.log({
+        success: true,
+        msg: "User Logged in Successfully!",
+        user: {
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
+        token: authToken,
+      });
+
       return res.json({
         success: true,
         msg: "User Logged in Successfully!",
@@ -306,6 +318,17 @@ export function RegisterUser(
 
           const authToken = jwt.sign(payload, DB.Secret, {
             expiresIn: 604800, // 1 week
+          });
+          console.log({
+            success: true,
+            msg: "User Logged in Successfully!",
+            user: {
+              id: user._id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+            },
+            token: authToken,
           });
 
           return res.json({

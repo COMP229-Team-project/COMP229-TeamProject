@@ -147,6 +147,17 @@ function ProcessLogin(req, res, next) {
             const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
                 expiresIn: 604800,
             });
+            console.log({
+                success: true,
+                msg: "User Logged in Successfully!",
+                user: {
+                    id: user._id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                },
+                token: authToken,
+            });
             return res.json({
                 success: true,
                 msg: "User Logged in Successfully!",
@@ -198,6 +209,17 @@ function RegisterUser(req, res, next) {
                     };
                     const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
                         expiresIn: 604800,
+                    });
+                    console.log({
+                        success: true,
+                        msg: "User Logged in Successfully!",
+                        user: {
+                            id: user._id,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                        },
+                        token: authToken,
                     });
                     return res.json({
                         success: true,
