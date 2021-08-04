@@ -7,14 +7,9 @@ import { Router } from '@angular/router';
 import { surveyResponse } from './response.model';
 import { User } from './user.model';
 
-const PROTOCOL = 'http';
-const PORT = '3000';
-const REMOTE = 'https://quizhive.herokuapp.com/';
-
 @Injectable()
 export class RestDataSource implements OnInit {
   user!: User | null;
-  baseURL!: string;
   authToken!: any;
 
   private httpOptions = {
@@ -31,10 +26,7 @@ export class RestDataSource implements OnInit {
     private http: HttpClient,
     private router: Router,
     private jwtHelperService: JwtHelperService
-  ) {
-    // this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
-    this.baseURL = `${REMOTE}`;
-  }
+  ) {}
 
   ngOnInit() {
     this.user = new User();
@@ -49,7 +41,7 @@ export class RestDataSource implements OnInit {
     this.loadToken();
     let creatorId = JSON.parse(localStorage.getItem('user')!).id;
     return this.http.post<Survey[]>(
-      this.baseURL + 'api/usersurveys',
+      '/api/usersurveys',
       { creatorId: creatorId },
       this.httpOptions
     );
@@ -60,7 +52,7 @@ export class RestDataSource implements OnInit {
     this.loadToken();
     survey.creatorId = JSON.parse(localStorage.getItem('user')!).id;
     this.http
-      .post(this.baseURL + 'api/add', survey, this.httpOptions)
+      .post('/api/add', survey, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -72,7 +64,7 @@ export class RestDataSource implements OnInit {
   DeleteSurvey(id: string): void {
     this.loadToken();
     this.http
-      .delete(this.baseURL + 'api' + '/delete/' + id, this.httpOptions)
+      .delete('/api/delete/' + id, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -86,14 +78,14 @@ export class RestDataSource implements OnInit {
   //get a specific survey from the database
   GetSurveyToEdit(id: string): Observable<any> {
     this.loadToken();
-    return this.http.get(this.baseURL + 'api/edit/' + id, this.httpOptions);
+    return this.http.get('/api/edit/' + id, this.httpOptions);
   }
 
   //update the values of a spcific survey
   EditSurvey(id: string, survey: EditableSurvey): void {
     this.loadToken();
     this.http
-      .post(this.baseURL + 'api/edit/' + id, survey, this.httpOptions)
+      .post('/api/edit/' + id, survey, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -103,7 +95,7 @@ export class RestDataSource implements OnInit {
 
   AddResponse(response: surveyResponse): void {
     this.http
-      .post(this.baseURL + 'api/responses', response)
+      .post('/api/responses', response)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -114,7 +106,7 @@ export class RestDataSource implements OnInit {
   UpdateActiveDateRange(dateRange: any): void {
     this.loadToken();
     this.http
-      .post(this.baseURL + 'api/updatedaterange', dateRange, this.httpOptions)
+      .post('/api/updatedaterange', dateRange, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -129,19 +121,11 @@ export class RestDataSource implements OnInit {
   //authenticate a usre by posting to the API's login route with a user object and the headers set to httpOptions
   register(user: User): Observable<any> {
     console.log({ restDataSource: user });
-    return this.http.post<any>(
-      this.baseURL + 'api/register',
-      user,
-      this.httpOptions
-    );
+    return this.http.post<any>('/api/register', user, this.httpOptions);
   }
 
   authenticate(user: User): Observable<any> {
-    return this.http.post<any>(
-      this.baseURL + 'api/login',
-      user,
-      this.httpOptions
-    );
+    return this.http.post<any>('/api/login', user, this.httpOptions);
   }
 
   //store user data within the properties of this service and in local storage
@@ -159,7 +143,7 @@ export class RestDataSource implements OnInit {
     this.user = null;
     localStorage.clear();
 
-    return this.http.get<any>(this.baseURL + 'api/logout', this.httpOptions);
+    return this.http.get<any>('/api/logout', this.httpOptions);
   }
 
   //check if the user
