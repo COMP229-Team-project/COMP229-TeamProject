@@ -241,7 +241,6 @@ export function ProcessLogin(
       });
 
       console.log({ backendLogin: "Response from the backend" });
-
       res.json({
         success: true,
         msg: "User Logged in Successfully!",
