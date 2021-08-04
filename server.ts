@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 import createError from "http-errors";
-import app from "./Server/Config/app.js";
+import app from "./server/config/app.js";
 import debug from "debug";
 debug("assignment1-express-portfolio:server");
 import http from "http";
@@ -12,7 +12,7 @@ import http from "http";
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(process.env.PORT || "3000");
+let port = normalizePort(process.env.PORT || "8080");
 app.set("port", port);
 
 /**
