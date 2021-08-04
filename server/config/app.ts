@@ -124,6 +124,14 @@ app.use("/api", surveyRouterAPI);
 app.use("*", (req: express.Request, res: express.Response) => {
   res.sendFile(path.join(__dirname, "../../public/index.html"));
 });
+app.use(
+  "/runtime.d9146aeeff2a9fcc4b54.js",
+  (req: express.Request, res: express.Response) => {
+    res.sendFile(
+      path.join(__dirname, "../../public/runtime.d9146aeeff2a9fcc4b54.js")
+    );
+  }
+);
 
 // const allowed = [".js", ".css", ".png", ".jpg"];
 
