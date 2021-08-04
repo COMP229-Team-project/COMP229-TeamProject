@@ -66,12 +66,12 @@ passport_1.default.use(strategy);
 app.use("/api", survey_api_1.default);
 const allowed = [".js", ".css", ".png", ".jpg"];
 app.use("*", (req, res) => {
-    if (req.xhr) {
-        console.log({ if: req.query });
+    if (req.url) {
+        console.log({ if: req.url });
         res.sendFile(path_1.default.join(__dirname, `../../public/${req.url}`));
     }
     else {
-        console.log({ else: req.query });
+        console.log({ else: req.url });
         res.sendFile(path_1.default.join(__dirname, "../../public/index.html"));
     }
 });
