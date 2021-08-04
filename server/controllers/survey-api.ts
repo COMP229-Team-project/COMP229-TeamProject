@@ -215,15 +215,20 @@ export function ProcessLogin(
   next: NextFunction
 ): void {
   passport.authenticate("local", (err, user, info) => {
+    console.log({ authfunctionstart: "Response from the backend" });
     // server err?
     if (err) {
+      console.log({ serverError: err });
       return res.json(err);
     }
     // is there a user login error?
     if (!user) {
+      console.log({ loginError: "Response from the backend" });
       return res.json("Login Failed. Wrong Email and/or Password");
     }
+
     req.login(user, (err) => {
+      console.log({ reqloginstart: "Response from the backend" });
       // server error?
       if (err) {
         return res.json(err);
@@ -236,23 +241,23 @@ export function ProcessLogin(
         email: user.email,
       };
 
+      console.log({ payload: payload });
+
       const authToken = jwt.sign(payload, DB.Secret, {
         expiresIn: 604800, // 1 week
       });
 
-      console.log({ backendLogin: "Response from the backend" });
-      return res.json({ response: "Server Has responded" });
-      // res.json({
-      //   success: true,
-      //   msg: "User Logged in Successfully!",
-      //   user: {
-      //     id: user._id,
-      //     firstName: user.firstName,
-      //     lastName: user.lastName,
-      //     email: user.email,
-      //   },
-      //   token: authToken,
-      // });
+      return res.json({
+        success: true,
+        msg: "User Logged in Successfully!",
+        user: {
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        },
+        token: authToken,
+      });
     });
   })(req, res, next);
 }
@@ -321,7 +326,7 @@ export function RegisterUser(
             token: authToken,
           });
 
-          res.json({
+          return res.json({
             success: true,
             msg: "User Logged in Successfully!",
             user: {

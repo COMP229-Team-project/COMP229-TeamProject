@@ -39,6 +39,7 @@ export class RestDataSource implements OnInit {
 
   getUserSurveys(): Observable<Survey[]> {
     this.loadToken();
+    console.log({ isAuthTokenAtGetUserSurvey: this.httpOptions });
     let creatorId = JSON.parse(localStorage.getItem('user')!).id;
     return this.http.post<Survey[]>(
       '/api/usersurveys',
@@ -151,7 +152,7 @@ export class RestDataSource implements OnInit {
     return !this.jwtHelperService.isTokenExpired(this.authToken);
   }
 
-  private loadToken(): void {
+  public loadToken(): void {
     const token = localStorage.getItem('id_token');
     this.authToken = token;
     this.httpOptions.headers = this.httpOptions.headers.set(

@@ -128,13 +128,17 @@ function UpdateActiveDateRange(req, res, next) {
 exports.UpdateActiveDateRange = UpdateActiveDateRange;
 function ProcessLogin(req, res, next) {
     passport_1.default.authenticate("local", (err, user, info) => {
+        console.log({ authfunctionstart: "Response from the backend" });
         if (err) {
+            console.log({ serverError: err });
             return res.json(err);
         }
         if (!user) {
+            console.log({ loginError: "Response from the backend" });
             return res.json("Login Failed. Wrong Email and/or Password");
         }
         req.login(user, (err) => {
+            console.log({ reqloginstart: "Response from the backend" });
             if (err) {
                 return res.json(err);
             }
@@ -144,11 +148,21 @@ function ProcessLogin(req, res, next) {
                 lastName: user.lastName,
                 email: user.email,
             };
+            console.log({ payload: payload });
             const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
                 expiresIn: 604800,
             });
-            console.log({ backendLogin: "Response from the backend" });
-            return res.json({ response: "Server Has responded" });
+            return res.json({
+                success: true,
+                msg: "User Logged in Successfully!",
+                user: {
+                    id: user._id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                },
+                token: authToken,
+            });
         });
     })(req, res, next);
 }
@@ -201,7 +215,7 @@ function RegisterUser(req, res, next) {
                         },
                         token: authToken,
                     });
-                    res.json({
+                    return res.json({
                         success: true,
                         msg: "User Logged in Successfully!",
                         user: {

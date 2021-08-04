@@ -23,7 +23,7 @@ export class UserDashboardComponent implements OnInit {
   surveys: Observable<Survey[]>;
 
   constructor(public restDataSource: RestDataSource, private router: Router) {
-    this.surveys = restDataSource.getUserSurveys();
+    this.surveys = this.restDataSource.getUserSurveys();
   }
 
   ngOnInit(): void {
