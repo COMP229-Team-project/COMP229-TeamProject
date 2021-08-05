@@ -15,6 +15,7 @@ import {
   ProcessLogin,
   SendUserSurveys,
   UpdateUserProfile,
+  EmailSurveyDataToUser,
 } from "../controllers/survey-api";
 
 /* POST Route for processing the Register page */
@@ -81,5 +82,8 @@ router.post(
   // passport.authenticate("jwt", { session: false }),
   UpdateUserProfile
 );
+
+//POST user and survey information to server then email to user.
+router.post("/emailsurveydatatouser", EmailSurveyDataToUser);
 
 export default router;

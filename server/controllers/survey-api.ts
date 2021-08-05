@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import SurveyModel from "../models/survey";
 import User from "../models/user";
-import passport, { session } from "passport";
+import passport from "passport";
 import jwt from "jsonwebtoken";
 import { DB } from "../config/db";
 import UserModel from "../models/user";
+import nodemailer from "nodemailer";
+import { template } from "../models/email-template";
 
 //READ the survey collection from database
 export function SendSurveyCatalogue(
@@ -379,5 +381,36 @@ export function UpdateUserProfile(
     }
     //respond with a message on successful post
     res.json({ success: true, msg: "User has been updated!" });
+  });
+}
+
+export function EmailSurveyDataToUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  let transporter = nodemailer.createTransport({
+    service: "outlook",
+    auth: {
+      user: "kenpfowler@outlook.com",
+      pass: "Genesis89#!$",
+    },
+  });
+
+  let mailOptions = {
+    from: "kenpfowler@outlook.com",
+    to: "kenpfowler@gmail.com",
+    subject: "Sending Email using Node.js",
+    html: template,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+      res.json("There was a problem sending your report");
+    } else {
+      console.log("Email sent!");
+      res.json({ success: true, msg: "Your report was sent" });
+    }
   });
 }

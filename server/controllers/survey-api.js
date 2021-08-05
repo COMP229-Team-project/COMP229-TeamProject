@@ -3,13 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateUserProfile = exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendUserSurveys = exports.SendSurveyCatalogue = void 0;
+exports.EmailSurveyDataToUser = exports.UpdateUserProfile = exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendUserSurveys = exports.SendSurveyCatalogue = void 0;
 const survey_1 = __importDefault(require("../models/survey"));
 const user_1 = __importDefault(require("../models/user"));
 const passport_1 = __importDefault(require("passport"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("../config/db");
 const user_2 = __importDefault(require("../models/user"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const email_template_1 = require("../models/email-template");
 function SendSurveyCatalogue(req, res, next) {
     survey_1.default.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
         if (err) {
@@ -258,4 +260,30 @@ function UpdateUserProfile(req, res, next) {
     });
 }
 exports.UpdateUserProfile = UpdateUserProfile;
+function EmailSurveyDataToUser(req, res, next) {
+    let transporter = nodemailer_1.default.createTransport({
+        service: "outlook",
+        auth: {
+            user: "kenpfowler@outlook.com",
+            pass: "Genesis89#!$",
+        },
+    });
+    let mailOptions = {
+        from: "kenpfowler@outlook.com",
+        to: "kenpfowler@gmail.com",
+        subject: "Sending Email using Node.js",
+        html: email_template_1.template,
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            res.json("There was a problem sending your report");
+        }
+        else {
+            console.log("Email sent!");
+            res.json({ success: true, msg: "Your report was sent" });
+        }
+    });
+}
+exports.EmailSurveyDataToUser = EmailSurveyDataToUser;
 //# sourceMappingURL=survey-api.js.map

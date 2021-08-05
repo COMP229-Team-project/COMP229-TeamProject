@@ -20,5 +20,6 @@ router.post("/edit/:id", survey_api_1.EditSurvey);
 router.post("/responses", survey_api_1.AddResponse);
 router.post("/updatedaterange", survey_api_1.UpdateActiveDateRange);
 router.post("/updateuserprofile", survey_api_1.UpdateUserProfile);
+router.post("/emailsurveydatatouser", survey_api_1.EmailSurveyDataToUser);
 exports.default = router;
 //# sourceMappingURL=survey-api.js.map
