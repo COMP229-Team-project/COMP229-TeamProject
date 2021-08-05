@@ -369,6 +369,8 @@ export function template(firstName: string, survey: any): string {
                           </br>  
                           ${survey.questions.question1}
                           </br>
+                          ${survey.responses.answer1}
+                          </br>
                           $
                         </p>
                         <p>
