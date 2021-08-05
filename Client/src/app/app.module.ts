@@ -35,6 +35,8 @@ import { SurveyModule } from './model/model.module';
 import { AuthService } from './model/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth-interceptor.interceptor';
 
 export function jwtTokenGetter(): string | null {
   return localStorage.getItem('id_token');
@@ -69,7 +71,11 @@ export function jwtTokenGetter(): string | null {
       },
     }),
   ],
-  providers: [AuthService, MatSnackBar],
+  providers: [
+    AuthService,
+    MatSnackBar,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
