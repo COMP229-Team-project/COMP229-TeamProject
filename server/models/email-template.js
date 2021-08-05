@@ -370,9 +370,9 @@ function template(firstName, survey) {
                           </br>
                           The total number of responses is: ${survey.responses.length}
                           </br>  
-                          ${survey.questions["question1"]}
+                          ${survey.questions[0].question1}
                           </br>
-                          ${survey.responses["answer1"]}
+                          ${survey.responses[0].answer1}
                           </br>
                           $
                         </p>
