@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import SurveyModel from "../models/survey";
 import User from "../models/user";
-import passport from "passport";
+import passport, { session } from "passport";
 import jwt from "jsonwebtoken";
 import { DB } from "../config/db";
+import UserModel from "../models/user";
 
 //READ the survey collection from database
 export function SendSurveyCatalogue(
@@ -350,4 +351,30 @@ export function ProcessLogout(
 ): void {
   req.logout();
   res.json({ success: true, msg: "User Successfully Logged out!" });
+}
+
+export function UpdateUserProfile(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  let id = req.body._id;
+
+  let user = {
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+  };
+
+  console.log({ id: id, user: user });
+  //use the id requested and Mongoose books model to look for a match in the db and update it
+  UserModel.updateOne({ _id: id }, user, {}, (err) => {
+    if (err) {
+      //if theres an error, log and end the request
+      console.error(err);
+      res.end(err);
+    }
+    //respond with a message on successful post
+    res.json({ success: true, msg: "Lifetime has been updated!" });
+  });
 }

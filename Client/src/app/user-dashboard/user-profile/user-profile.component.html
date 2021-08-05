@@ -51,7 +51,9 @@
           Please Enter Your Last Name
         </mat-error>
       </mat-form-field>
-      <button mat-stroked-button color="warn">EDIT PROFILE</button>
+      <button mat-stroked-button color="warn" (click)="UpdateUserProfile()">
+        EDIT PROFILE
+      </button>
     </form>
   </mat-card-content>
   <!-- Update Button with bound click event -->

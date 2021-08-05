@@ -14,6 +14,7 @@ import {
   ProcessLogout,
   ProcessLogin,
   SendUserSurveys,
+  UpdateUserProfile,
 } from "../controllers/survey-api";
 
 /* POST Route for processing the Register page */
@@ -39,28 +40,28 @@ router.post(
 //POST JSON  to server
 router.post(
   "/add",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   AddSurvey
 );
 
 //DELETE survey from server
 router.delete(
   "/delete/:id",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   DeleteSurvey
 );
 
 //GET the details of a particualr survey
 router.get(
   "/edit/:id",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   GetSurvey
 );
 
 //POST the changes to the server
 router.post(
   "/edit/:id",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   EditSurvey
 );
 
@@ -70,8 +71,15 @@ router.post("/responses", AddResponse);
 //POST update to a surveys date range property
 router.post(
   "/updatedaterange",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   UpdateActiveDateRange
+);
+
+//POST update to a users profile
+router.post(
+  "/updateuserprofile",
+  // passport.authenticate("jwt", { session: false }),
+  UpdateUserProfile
 );
 
 export default router;

@@ -11,6 +11,7 @@ import { User } from './user.model';
 export class RestDataSource implements OnInit {
   user!: User | null;
   authToken!: any;
+  baseURL: String = 'https://quizhive.azurewebsites.net/';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -34,14 +35,26 @@ export class RestDataSource implements OnInit {
 
   //get an observable array of surveys from our api
   getSurveys(): Observable<Survey[]> {
-    return this.http.get<Survey[]>('/api');
+    //PRODUCTION
+    // return this.http.get<Survey[]>('/api');
+    //LOCAL
+    return this.http.get<Survey[]>(this.baseURL + '/api');
   }
 
   getUserSurveys(): Observable<Survey[]> {
+    this.loadToken();
     console.log({ isAuthTokenAtGetUserSurvey: this.httpOptions });
     let creatorId = JSON.parse(localStorage.getItem('user')!).id;
+    //PRODUCTION
+    // return this.http.post<Survey[]>(
+    //   '/api/usersurveys',
+    //   { creatorId: creatorId },
+    //   this.httpOptions
+    // );
+
+    //LOCAL
     return this.http.post<Survey[]>(
-      '/api/usersurveys',
+      this.baseURL + '/api/usersurveys',
       { creatorId: creatorId },
       this.httpOptions
     );
@@ -49,9 +62,21 @@ export class RestDataSource implements OnInit {
 
   //post a survey to the api for processing
   postNewSurvey(survey: Survey): void {
+    this.loadToken();
     survey.creatorId = JSON.parse(localStorage.getItem('user')!).id;
+
+    //PRODUCTION
+    // this.http
+    //   .post('/api/add', survey, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.router.navigate(['home']);
+    //   });
+
+    //LOCAL
     this.http
-      .post('/api/add', survey, this.httpOptions)
+      .post(this.baseURL + '/api/add', survey, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -61,8 +86,22 @@ export class RestDataSource implements OnInit {
 
   //delete a specific survey from the database via the api
   DeleteSurvey(id: string): void {
+    this.loadToken();
+    //PRODUCTION
+    // this.http
+    //   .delete('/api/delete/' + id, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     location.reload();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
+    //LOCAL
     this.http
-      .delete('/api/delete/' + id, this.httpOptions)
+      .delete(this.baseURL + '/api/delete/' + id, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -75,13 +114,28 @@ export class RestDataSource implements OnInit {
 
   //get a specific survey from the database
   GetSurveyToEdit(id: string): Observable<any> {
-    return this.http.get('/api/edit/' + id, this.httpOptions);
+    this.loadToken();
+    //PRODUCTION
+    // return this.http.get('/api/edit/' + id, this.httpOptions);
+    //LOCAL
+    return this.http.get(this.baseURL + '/api/edit/' + id, this.httpOptions);
   }
 
   //update the values of a spcific survey
   EditSurvey(id: string, survey: EditableSurvey): void {
+    this.loadToken();
+    //PRODUCTION
+    // this.http
+    //   .post('/api/edit/' + id, survey, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.router.navigate(['home']);
+    //   });
+
+    //LOCAL
     this.http
-      .post('/api/edit/' + id, survey, this.httpOptions)
+      .post(this.baseURL + '/api/edit/' + id, survey, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -90,8 +144,18 @@ export class RestDataSource implements OnInit {
   }
 
   AddResponse(response: surveyResponse): void {
+    //PRODUCTION
+    // this.http
+    //   .post('/api/responses', response)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.router.navigate(['home']);
+    //   });
+
+    //LOCAL
     this.http
-      .post('/api/responses', response)
+      .post(this.baseURL + '/api/responses', response)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -100,8 +164,22 @@ export class RestDataSource implements OnInit {
   }
 
   UpdateActiveDateRange(dateRange: any): void {
+    this.loadToken();
+    //PRODUCTION
+    // this.http
+    //   .post('/api/updatedaterange', dateRange, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     location.reload();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+    //LOCAL
+
     this.http
-      .post('/api/updatedaterange', dateRange, this.httpOptions)
+      .post(this.baseURL + '/api/updatedaterange', dateRange, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -113,14 +191,59 @@ export class RestDataSource implements OnInit {
   }
   //////////////////////////////////////////////////////////////////////////
 
+  UpdateUserProfile(updatedProfile: any): void {
+    this.loadToken();
+    //PRODUCTION
+    // this.http
+    //   .post('/api/updatedaterange', dateRange, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     location.reload();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+    //LOCAL
+
+    this.http
+      .post(
+        this.baseURL + '/api/updateuserprofile',
+        updatedProfile,
+        this.httpOptions
+      )
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+        location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   //authenticate a usre by posting to the API's login route with a user object and the headers set to httpOptions
   register(user: User): Observable<any> {
     console.log({ restDataSource: user });
-    return this.http.post<any>('/api/register', user, this.httpOptions);
+    //PRODUCTION
+    // return this.http.post<any>('/api/register', user, this.httpOptions);
+    //LOCAL
+    return this.http.post<any>(
+      this.baseURL + '/api/register',
+      user,
+      this.httpOptions
+    );
   }
 
   authenticate(user: User): Observable<any> {
-    return this.http.post<any>('/api/login', user, this.httpOptions);
+    //PRODUCTION
+    // return this.http.post<any>('/api/login', user, this.httpOptions);
+    //LOCAL
+    return this.http.post<any>(
+      this.baseURL + '/api/login',
+      user,
+      this.httpOptions
+    );
   }
 
   //store user data within the properties of this service and in local storage
@@ -137,8 +260,10 @@ export class RestDataSource implements OnInit {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
-
-    return this.http.get<any>('/api/logout', this.httpOptions);
+    //PRODUCTION
+    // return this.http.get<any>('/api/logout', this.httpOptions);
+    //LOCAL
+    return this.http.get<any>(this.baseURL + '/api/logout', this.httpOptions);
   }
 
   //check if the user

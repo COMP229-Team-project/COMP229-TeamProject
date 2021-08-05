@@ -37,4 +37,15 @@ export class UserProfileComponent implements OnInit {
   get lastName() {
     return this.form.get('lastName');
   }
+
+  UpdateUserProfile() {
+    let updatedProfile = {
+      _id: this.restDataSource.user?.id,
+      email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName,
+    };
+    console.log({ fromUserProfile: updatedProfile });
+    this.restDataSource.UpdateUserProfile(updatedProfile);
+  }
 }

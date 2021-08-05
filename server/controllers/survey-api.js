@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendUserSurveys = exports.SendSurveyCatalogue = void 0;
+exports.UpdateUserProfile = exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendUserSurveys = exports.SendSurveyCatalogue = void 0;
 const survey_1 = __importDefault(require("../models/survey"));
 const user_1 = __importDefault(require("../models/user"));
 const passport_1 = __importDefault(require("passport"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("../config/db");
+const user_2 = __importDefault(require("../models/user"));
 function SendSurveyCatalogue(req, res, next) {
     survey_1.default.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
         if (err) {
@@ -237,4 +238,21 @@ function ProcessLogout(req, res, next) {
     res.json({ success: true, msg: "User Successfully Logged out!" });
 }
 exports.ProcessLogout = ProcessLogout;
+function UpdateUserProfile(req, res, next) {
+    let id = req.body._id;
+    let user = {
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+    };
+    console.log({ id: id, user: user });
+    user_2.default.updateOne({ _id: id }, user, {}, (err) => {
+        if (err) {
+            console.error(err);
+            res.end(err);
+        }
+        res.json({ success: true, msg: "Lifetime has been updated!" });
+    });
+}
+exports.UpdateUserProfile = UpdateUserProfile;
 //# sourceMappingURL=survey-api.js.map
