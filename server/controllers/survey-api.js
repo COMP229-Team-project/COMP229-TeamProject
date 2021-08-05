@@ -270,9 +270,9 @@ function EmailSurveyDataToUser(req, res, next) {
     });
     let mailOptions = {
         from: "kenpfowler@outlook.com",
-        to: "kenpfowler@gmail.com",
-        subject: "Sending Email using Node.js",
-        html: email_template_1.template,
+        to: `${req.body.user.email}`,
+        subject: "Your QuizHive Report",
+        html: email_template_1.template(req.body.user.firstName, req.body.survey.questions),
     };
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
