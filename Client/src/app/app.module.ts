@@ -22,11 +22,6 @@ import {
 
 //Module to build user dashboard
 import { DatePickerComponent } from './user-dashboard/date-picker/date-picker.component';
-import {
-  JwtModule,
-  JwtHelperService,
-  JwtInterceptor,
-} from '@auth0/angular-jwt';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SurveyComponent } from './pages/survey/survey.component';
@@ -35,12 +30,8 @@ import { SurveyModule } from './model/model.module';
 import { AuthService } from './model/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './auth-interceptor.interceptor';
-
-export function jwtTokenGetter(): string | null {
-  return localStorage.getItem('id_token');
-}
+import { JwtModule } from '@auth0/angular-jwt';
+import { httpInterceptorProviders } from './http-interceptor';
 
 @NgModule({
   declarations: [
@@ -67,15 +58,14 @@ export function jwtTokenGetter(): string | null {
     SharedModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: jwtTokenGetter,
+        tokenGetter: () => {
+          return localStorage.getItem('id_token');
+        },
+        allowedDomains: ['quizhive.azurewebsites.net', 'localhost:3000'],
       },
     }),
   ],
-  providers: [
-    AuthService,
-    MatSnackBar,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
+  providers: [AuthService, MatSnackBar, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
