@@ -363,8 +363,13 @@ export function template(firstName: string, survey: any): string {
                       <td>
                         <p>Hi there ${firstName},</p>
                         <p>
-                          Here's the report you requested:
-                         ${survey}
+                          Here's the report you requested for: ${survey.title}
+                          </br>
+                          The total number of responses is: ${survey.responses.length}
+                          </br>  
+                          ${survey.questions.question1}
+                          </br>
+                          $
                         </p>
                         <p>
                         If you found this application interesting and would like to contact me with an opportunity please click the "Contact Me" button.
@@ -424,7 +429,7 @@ export function template(firstName: string, survey: any): string {
                 <tr>
                   <td class="content-block">
                     <span class="apple-link"
-                      >Made with ❤️ in Toronto, ON, Canada</span
+                      >Made with ⚡ in Toronto, ON, Canada</span
                     >
                   </td>
                 </tr>

@@ -261,6 +261,7 @@ function UpdateUserProfile(req, res, next) {
 }
 exports.UpdateUserProfile = UpdateUserProfile;
 function EmailSurveyDataToUser(req, res, next) {
+    console.log(req.body.data);
     let transporter = nodemailer_1.default.createTransport({
         service: "outlook",
         auth: {
@@ -270,9 +271,9 @@ function EmailSurveyDataToUser(req, res, next) {
     });
     let mailOptions = {
         from: "kenpfowler@outlook.com",
-        to: `${req.body.user.email}`,
+        to: `${req.body.data.user.email}`,
         subject: "Your QuizHive Report",
-        html: email_template_1.template(req.body.user.firstName, req.body.survey.questions),
+        html: email_template_1.template(req.body.data.user.firstName, req.body.data.survey),
     };
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {

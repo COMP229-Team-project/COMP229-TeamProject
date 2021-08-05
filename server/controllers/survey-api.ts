@@ -389,6 +389,7 @@ export function EmailSurveyDataToUser(
   res: Response,
   next: NextFunction
 ): void {
+  console.log(req.body.data);
   let transporter = nodemailer.createTransport({
     service: "outlook",
     auth: {
@@ -399,9 +400,9 @@ export function EmailSurveyDataToUser(
 
   let mailOptions = {
     from: "kenpfowler@outlook.com",
-    to: `${req.body.user.email}`,
+    to: `${req.body.data.user.email}`,
     subject: "Your QuizHive Report",
-    html: template(req.body.user.firstName, req.body.survey.questions),
+    html: template(req.body.data.user.firstName, req.body.data.survey),
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
