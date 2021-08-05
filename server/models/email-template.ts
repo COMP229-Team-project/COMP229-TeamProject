@@ -1,4 +1,5 @@
-export const template = `<!DOCTYPE html> 
+export function template(firstName: string, survey: any): string {
+  return `<!DOCTYPE html> 
   <html>
   <head>
     <meta name="viewport" content="width=device-width" />
@@ -360,12 +361,15 @@ export const template = `<!DOCTYPE html>
                   >
                     <tr>
                       <td>
-                        <p>Hi there,</p>
+                        <p>Hi there ${firstName},</p>
                         <p>
-                          Sometimes you just want to send a simple HTML email
-                          with a simple design and clear call to action. This is
-                          it.
+                          Here's the report you requested:
+                         ${survey}
                         </p>
+                        <p>
+                        If you found this application interesting and would like to contact me with an opportunity please click the "Contact Me" button.
+                        </p>
+
                         <table
                           role="presentation"
                           border="0"
@@ -386,9 +390,9 @@ export const template = `<!DOCTYPE html>
                                     <tr>
                                       <td>
                                         <a
-                                          href="http://htmlemail.io"
+                                          href="https://www.kennyf.ca"
                                           target="_blank"
-                                          >Call To Action</a
+                                          >Contact Me</a
                                         >
                                       </td>
                                     </tr>
@@ -398,12 +402,7 @@ export const template = `<!DOCTYPE html>
                             </tr>
                           </tbody>
                         </table>
-                        <p>
-                          This is a really simple email template. Its sole
-                          purpose is to get the recipient to click the button
-                          with no distractions.
-                        </p>
-                        <p>Good luck! Hope it works.</p>
+                        <p>Thanks! Tell your friends about QuizHive!</p>
                       </td>
                     </tr>
                   </table>
@@ -425,16 +424,13 @@ export const template = `<!DOCTYPE html>
                 <tr>
                   <td class="content-block">
                     <span class="apple-link"
-                      >Company Inc, 3 Abbey Road, San Francisco CA 94102</span
+                      >Made with ❤️ in Toronto, ON, Canada</span
                     >
-                    <br />
-                    Don't like these emails?
-                    <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
                   </td>
                 </tr>
                 <tr>
                   <td class="content-block powered-by">
-                    Powered by <a href="http://htmlemail.io">HTMLemail</a>.
+                    Powered by <a href="https://www.kennyf.ca">Ken Fowler</a>.
                   </td>
                 </tr>
               </table>
@@ -447,3 +443,4 @@ export const template = `<!DOCTYPE html>
     </table>
   </body>
 </html>`;
+}
