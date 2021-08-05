@@ -204,8 +204,8 @@ export class RestDataSource implements OnInit {
     //   .catch((error) => {
     //     console.error(error);
     //   });
-    //LOCAL
 
+    //LOCAL
     this.http
       .post(
         this.baseURL + '/api/updateuserprofile',
@@ -215,6 +215,7 @@ export class RestDataSource implements OnInit {
       .toPromise()
       .then((response) => {
         console.log(response);
+        localStorage.setItem('user', JSON.stringify(updatedProfile));
         location.reload();
       })
       .catch((error) => {

@@ -248,10 +248,13 @@ function UpdateUserProfile(req, res, next) {
     console.log({ id: id, user: user });
     user_2.default.updateOne({ _id: id }, user, {}, (err) => {
         if (err) {
-            console.error(err);
-            res.end(err);
+            console.log(err);
+            res.json({
+                success: false,
+                msg: "There was an error updating your proflie.",
+            });
         }
-        res.json({ success: true, msg: "Lifetime has been updated!" });
+        res.json({ success: true, msg: "User has been updated!" });
     });
 }
 exports.UpdateUserProfile = UpdateUserProfile;

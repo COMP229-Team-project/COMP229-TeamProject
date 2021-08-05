@@ -371,10 +371,13 @@ export function UpdateUserProfile(
   UserModel.updateOne({ _id: id }, user, {}, (err) => {
     if (err) {
       //if theres an error, log and end the request
-      console.error(err);
-      res.end(err);
+      console.log(err);
+      res.json({
+        success: false,
+        msg: "There was an error updating your proflie.",
+      });
     }
     //respond with a message on successful post
-    res.json({ success: true, msg: "Lifetime has been updated!" });
+    res.json({ success: true, msg: "User has been updated!" });
   });
 }

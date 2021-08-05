@@ -47,7 +47,7 @@ router.post(
 //DELETE survey from server
 router.delete(
   "/delete/:id",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   DeleteSurvey
 );
 

@@ -41,9 +41,9 @@ export class UserProfileComponent implements OnInit {
   UpdateUserProfile() {
     let updatedProfile = {
       _id: this.restDataSource.user?.id,
-      email: this.email,
-      firstName: this.firstName,
-      lastName: this.lastName,
+      email: this.form.value.email,
+      firstName: this.form.value.firstName,
+      lastName: this.form.value.lastName,
     };
     console.log({ fromUserProfile: updatedProfile });
     this.restDataSource.UpdateUserProfile(updatedProfile);
