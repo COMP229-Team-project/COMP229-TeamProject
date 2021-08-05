@@ -190,27 +190,28 @@ export class RestDataSource implements OnInit {
       });
   }
 
-  EmailSurveyDataToUser(): void {
+  EmailSurveyDataToUser(survey: Survey): Promise<void | Object> {
     this.loadToken();
     //PRODUCTION
-    // this.http
-    //   .post('/api/updatedaterange', dateRange, this.httpOptions)
+    // return this.http
+    //   .post('/api/emailsurveydatatouser', this.httpOptions)
     //   .toPromise()
     //   .then((response) => {
     //     console.log(response);
-    //     location.reload();
+    //     return response;
     //   })
     //   .catch((error) => {
     //     console.error(error);
     //   });
-    //LOCAL
 
-    this.http
-      .post(this.baseURL + '/api/emailsurveydatatouser', this.httpOptions)
+    let data = { survey: survey, user: this.user };
+    //LOCAL
+    return this.http
+      .post(this.baseURL + '/api/emailsurveydatatouser', data, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
-        location.reload();
+        return response;
       })
       .catch((error) => {
         console.error(error);

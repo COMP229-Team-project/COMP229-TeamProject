@@ -72,7 +72,7 @@
   <ng-container matColumnDef="report">
     <th mat-header-cell *matHeaderCellDef>Send Report</th>
     <td mat-cell *matCellDef="let survey">
-      <button (click)="SendReport()" mat-raised-button color="accent">
+      <button (click)="SendReport(survey)" mat-raised-button color="accent">
         SEND
       </button>
     </td>

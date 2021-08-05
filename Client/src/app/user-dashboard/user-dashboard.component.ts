@@ -3,6 +3,7 @@ import { RestDataSource } from '../model/rest.datasource';
 import { Survey } from '../model/survey.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { response } from 'express';
 
 @Component({
   selector: 'user-dashboard',
@@ -41,7 +42,8 @@ export class UserDashboardComponent implements OnInit {
     this.restDataSource.DeleteSurvey(_id);
   }
 
-  SendReport() {
-    this.restDataSource.EmailSurveyDataToUser();
+  SendReport(survey: Survey) {
+    console.log(survey);
+    this.restDataSource.EmailSurveyDataToUser(survey);
   }
 }
