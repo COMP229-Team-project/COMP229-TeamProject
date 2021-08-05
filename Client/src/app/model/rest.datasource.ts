@@ -38,7 +38,6 @@ export class RestDataSource implements OnInit {
   }
 
   getUserSurveys(): Observable<Survey[]> {
-    this.loadToken();
     console.log({ isAuthTokenAtGetUserSurvey: this.httpOptions });
     let creatorId = JSON.parse(localStorage.getItem('user')!).id;
     return this.http.post<Survey[]>(
@@ -50,7 +49,6 @@ export class RestDataSource implements OnInit {
 
   //post a survey to the api for processing
   postNewSurvey(survey: Survey): void {
-    this.loadToken();
     survey.creatorId = JSON.parse(localStorage.getItem('user')!).id;
     this.http
       .post('/api/add', survey, this.httpOptions)
@@ -63,7 +61,6 @@ export class RestDataSource implements OnInit {
 
   //delete a specific survey from the database via the api
   DeleteSurvey(id: string): void {
-    this.loadToken();
     this.http
       .delete('/api/delete/' + id, this.httpOptions)
       .toPromise()
@@ -78,13 +75,11 @@ export class RestDataSource implements OnInit {
 
   //get a specific survey from the database
   GetSurveyToEdit(id: string): Observable<any> {
-    this.loadToken();
     return this.http.get('/api/edit/' + id, this.httpOptions);
   }
 
   //update the values of a spcific survey
   EditSurvey(id: string, survey: EditableSurvey): void {
-    this.loadToken();
     this.http
       .post('/api/edit/' + id, survey, this.httpOptions)
       .toPromise()
@@ -105,7 +100,6 @@ export class RestDataSource implements OnInit {
   }
 
   UpdateActiveDateRange(dateRange: any): void {
-    this.loadToken();
     this.http
       .post('/api/updatedaterange', dateRange, this.httpOptions)
       .toPromise()
@@ -152,7 +146,7 @@ export class RestDataSource implements OnInit {
     return !this.jwtHelperService.isTokenExpired(this.authToken);
   }
 
-  public loadToken(): void {
+  private loadToken(): void {
     const token = localStorage.getItem('id_token');
     this.authToken = token;
     this.httpOptions.headers = this.httpOptions.headers.set(

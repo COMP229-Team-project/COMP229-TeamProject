@@ -109,7 +109,6 @@ export class EmailPasswordAuthComponent implements OnInit {
       console.log({ data: data, type: typeof data });
       if (data.success) {
         this.restDataSoruce.storeUserData(data.token, data.user);
-        this.restDataSoruce.loadToken();
         this.router.navigateByUrl('dashboard');
       } else {
         this.serverMessage = data;
