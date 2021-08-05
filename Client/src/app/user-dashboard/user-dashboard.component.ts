@@ -4,6 +4,7 @@ import { Survey } from '../model/survey.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { response } from 'express';
+import { AuthService } from '../model/auth.service';
 
 @Component({
   selector: 'user-dashboard',
@@ -11,6 +12,8 @@ import { response } from 'express';
   styleUrls: ['./user-dashboard.component.css'],
 })
 export class UserDashboardComponent implements OnInit {
+  serverMessage?: string;
+
   displayedColumns: string[] = [
     'title',
     'responses',
@@ -24,7 +27,11 @@ export class UserDashboardComponent implements OnInit {
 
   surveys: Observable<Survey[]>;
 
-  constructor(public restDataSource: RestDataSource, private router: Router) {
+  constructor(
+    public restDataSource: RestDataSource,
+    public authservice: AuthService,
+    private router: Router
+  ) {
     this.surveys = this.restDataSource.getUserSurveys();
   }
 
@@ -44,6 +51,12 @@ export class UserDashboardComponent implements OnInit {
 
   SendReport(survey: Survey) {
     console.log(survey);
-    this.restDataSource.EmailSurveyDataToUser(survey);
+    this.authservice.EmailSurveyDataToUser(survey).subscribe((data) => {
+      if (data.success) {
+        this.serverMessage = data.msg;
+      } else {
+        this.serverMessage = data.msg;
+      }
+    });
   }
 }

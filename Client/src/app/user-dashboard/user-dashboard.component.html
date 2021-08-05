@@ -72,9 +72,12 @@
   <ng-container matColumnDef="report">
     <th mat-header-cell *matHeaderCellDef>Send Report</th>
     <td mat-cell *matCellDef="let survey">
-      <button (click)="SendReport(survey)" mat-raised-button color="accent">
-        SEND
-      </button>
+      <div *ngIf="!serverMessage; else other_content">
+        <button (click)="SendReport(survey)" mat-raised-button color="accent">
+          SEND
+        </button>
+      </div>
+      <ng-template #other_content>{{ this.serverMessage }}</ng-template>
     </td>
   </ng-container>
 
