@@ -267,7 +267,7 @@ function EmailSurveyDataToUser(req, res, next) {
         service: "outlook",
         auth: {
             user: "kenpfowler@outlook.com",
-            pass: "Genesis89#!$",
+            pass: "ChickenNoodleSoup2#!$",
         },
     });
     let mailOptions = {

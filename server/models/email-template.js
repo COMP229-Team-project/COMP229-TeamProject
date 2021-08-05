@@ -372,7 +372,7 @@ function template(firstName, survey) {
                           </br>  
                           ${survey.questions[0].question1}
                           </br>
-                          ${survey.responses[0].answer1}
+                          ${survey.responses[0].response1}
                           </br>
                           $
                         </p>
