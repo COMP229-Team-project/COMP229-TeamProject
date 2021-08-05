@@ -369,9 +369,8 @@ export function template(firstName: string, survey: any): string {
                           </br>  
                           ${survey.questions[0].question1}
                           </br>
-                          ${survey.responses[0].response1}
+                          ${survey.responses[0].response1} user responded ${survey.questions[0].answer1}
                           </br>
-                          $
                         </p>
                         <p>
                         If you found this application interesting and would like to contact me with an opportunity please click the "Contact Me" button.

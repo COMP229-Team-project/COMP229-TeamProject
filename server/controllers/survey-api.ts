@@ -395,7 +395,7 @@ export function EmailSurveyDataToUser(
     service: "outlook",
     auth: {
       user: "kenpfowler@outlook.com",
-      pass: "ChickenNoodleSoup2#!$",
+      pass: "ChickenNoodleSoup1#!$",
     },
   });
 
