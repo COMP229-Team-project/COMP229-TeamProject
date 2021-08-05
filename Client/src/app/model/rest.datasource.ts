@@ -205,6 +205,7 @@ export class RestDataSource implements OnInit {
     //   });
 
     let data = { survey: survey, user: this.user };
+    console.log(data);
     //LOCAL
     return this.http
       .post(this.baseURL + '/api/emailsurveydatatouser', data, this.httpOptions)
