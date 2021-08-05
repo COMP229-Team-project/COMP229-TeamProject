@@ -18,6 +18,7 @@ export class UserDashboardComponent implements OnInit {
     'lifetime',
     'update',
     'delete',
+    'report',
   ];
 
   surveys: Observable<Survey[]>;
@@ -38,5 +39,9 @@ export class UserDashboardComponent implements OnInit {
   //function to delete a survey form the database
   DeleteSurvey(_id: string) {
     this.restDataSource.DeleteSurvey(_id);
+  }
+
+  SendReport() {
+    this.restDataSource.EmailSurveyDataToUser();
   }
 }
