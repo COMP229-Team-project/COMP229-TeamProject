@@ -32,6 +32,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { httpInterceptorProviders } from './http-interceptor';
+import { DetailedReportComponent } from './user-dashboard/detailed-report/detailed-report.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { httpInterceptorProviders } from './http-interceptor';
     DashboardComponent,
     SurveyComponent,
     UserProfileComponent,
+    DetailedReportComponent,
   ],
   imports: [
     BrowserModule,
