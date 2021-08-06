@@ -13,7 +13,10 @@ const user_2 = __importDefault(require("../models/user"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const email_template_1 = require("../models/email-template");
 function SendSurveyCatalogue(req, res, next) {
-    survey_1.default.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
+    survey_1.default.find({
+        startDate: { $lt: Date.now() },
+        endDate: { $gt: Date.now() },
+    }, {}, { sort: { name: 1 } }, (err, surveys) => {
         if (err) {
             console.error(err);
         }

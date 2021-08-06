@@ -15,15 +15,23 @@ export function SendSurveyCatalogue(
   next: NextFunction
 ): void {
   //find everything in collection surveys is pointed to and sort in alphabetical order
-  SurveyModel.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
-    if (err) {
-      console.error(err);
-    }
+  SurveyModel.find(
+    {
+      startDate: { $lt: Date.now() },
+      endDate: { $gt: Date.now() },
+    },
+    {},
+    { sort: { name: 1 } },
+    (err, surveys) => {
+      if (err) {
+        console.error(err);
+      }
 
-    //respond with JSON
-    console.log(surveys);
-    res.json(surveys);
-  });
+      //respond with JSON
+      console.log(surveys);
+      res.json(surveys);
+    }
+  );
 }
 
 export function SendUserSurveys(
