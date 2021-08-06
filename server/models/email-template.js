@@ -372,6 +372,7 @@ function template(firstName, survey) {
                           The total number of responses is: ${survey.responses.length}
                         </p>
                         ${response_processor_1.templateResponse(survey, response_processor_1.processResponses(survey))}
+                        </br>
                         <p>
                         If you found this application interesting and would like to contact me with an opportunity please click the "Contact Me" button.
                         </p>
@@ -385,7 +386,7 @@ function template(firstName, survey) {
                         >
                           <tbody>
                             <tr>
-                              <td align="left">
+                              <td align="center">
                                 <table
                                   role="presentation"
                                   border="0"

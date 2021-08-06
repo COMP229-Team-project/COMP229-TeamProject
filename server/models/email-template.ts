@@ -375,6 +375,7 @@ export function template(firstName: string, survey: any): string {
                           }
                         </p>
                         ${templateResponse(survey, processResponses(survey))}
+                        </br>
                         <p>
                         If you found this application interesting and would like to contact me with an opportunity please click the "Contact Me" button.
                         </p>
@@ -388,7 +389,7 @@ export function template(firstName: string, survey: any): string {
                         >
                           <tbody>
                             <tr>
-                              <td align="left">
+                              <td align="center">
                                 <table
                                   role="presentation"
                                   border="0"

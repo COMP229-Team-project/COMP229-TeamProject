@@ -38,7 +38,7 @@ export function templateResponse(survey: any, responseFrequency: any): any {
         </th>
        </tr>
        <tr>
-       <th>
+       <th align="left">
          Answer
        </th>
        <th>
