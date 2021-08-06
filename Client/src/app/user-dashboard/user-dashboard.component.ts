@@ -3,16 +3,33 @@ import { RestDataSource } from '../model/rest.datasource';
 import { Survey } from '../model/survey.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { response } from 'express';
 import { AuthService } from '../model/auth.service';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class UserDashboardComponent implements OnInit {
   serverMessage?: string;
+  expandedSurvey!: Survey | null;
 
   displayedColumns: string[] = [
     'title',
@@ -20,6 +37,7 @@ export class UserDashboardComponent implements OnInit {
     'activates',
     'expires',
     'lifetime',
+    'details',
     'update',
     'delete',
     'report',
@@ -59,4 +77,40 @@ export class UserDashboardComponent implements OnInit {
       }
     });
   }
+
+  GetDetails(survey: Survey): ResponseFrequency {
+    let responseFrequency: any = {
+      response1: [0, 0, 0, 0],
+      response2: [0, 0, 0, 0],
+      response3: [0, 0, 0, 0],
+      response4: [0, 0, 0, 0],
+    };
+
+    survey.responses.forEach((responseCollection: any) => {
+      for (const response in responseCollection) {
+        switch (responseCollection[response]) {
+          case '1':
+            responseFrequency[response][0] += 1;
+            break;
+          case '2':
+            responseFrequency[response][1] += 1;
+            break;
+          case '3':
+            responseFrequency[response][2] += 1;
+            break;
+          case '4':
+            responseFrequency[response][3] += 1;
+            break;
+        }
+      }
+    });
+    return responseFrequency;
+  }
+}
+
+export interface ResponseFrequency {
+  response1: [];
+  response2: [];
+  response3: [];
+  response4: [];
 }
