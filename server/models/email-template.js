@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.template = void 0;
+const response_processor_1 = require("../utilities/response-processor");
 function template(firstName, survey) {
     return `<!DOCTYPE html> 
   <html>
@@ -369,12 +370,8 @@ function template(firstName, survey) {
                           Here's the report you requested for: ${survey.title}
                           </br>
                           The total number of responses is: ${survey.responses.length}
-                          </br>  
-                          ${survey.questions[0].question1}
-                          </br>
-                          ${survey.responses[0].response1} user responded ${survey.questions[0].answer1}
-                          </br>
                         </p>
+                        ${response_processor_1.templateResponse(survey, response_processor_1.processResponses(survey))}
                         <p>
                         If you found this application interesting and would like to contact me with an opportunity please click the "Contact Me" button.
                         </p>
