@@ -15,9 +15,9 @@ const SurveySchema = new Schema({
     endDate: Date,
     creatorId: String,
 }, {
-    collection: "surveys",
+    collection: "Quizzes",
     timestamps: true,
 });
-const SurveyModel = mongoose_1.default.model("Surveys", SurveySchema);
+const SurveyModel = mongoose_1.default.model("Quizzes", SurveySchema);
 exports.default = SurveyModel;
 //# sourceMappingURL=survey.js.map

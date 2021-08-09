@@ -8,6 +8,8 @@ import logger from "morgan";
 //modules for authentication
 import session from "express-session";
 import passport from "passport";
+//module for auth messaging and error management. Enables messages to persist during a redirect
+import flash from "connect-flash";
 
 //bring in way to authenticate with JWT
 import passportJWT from "passport-jwt";
@@ -22,9 +24,6 @@ import cors from "cors";
 //authentication objects
 let localStrategy = passportLocal.Strategy; // alias
 import User from "../models/user.js";
-
-//module for auth messaging and error management. Enables messages to persist during a redirect
-import flash from "connect-flash";
 
 //database setup
 import mongoose from "mongoose";
@@ -71,11 +70,10 @@ app.use(cookieParser());
 //this static route allows us to reference content generally without having to create a specific route
 app.use(express.static(path.join(__dirname, "../../client")));
 app.use(express.static(path.join(__dirname, "../../node_modules")));
-
+app.use(express.static(path.join(__dirname, "../../public")));
 //add support for cors (Cross-Origin Resource Sharing)
 //sets up headers on the front end
 app.use(cors());
-
 //setup express session
 //gives the ability to persist data across multiple http requests
 //uses a cookie and a server session. Cookie identifies user and the session data is accessed from the server for that user.
@@ -121,7 +119,9 @@ passport.use(strategy);
 //./Server/Config/app.ts folder names MUST BE CAPS for heroku
 //define endpoint for API
 app.use("/api", surveyRouterAPI);
-app.use("*", (req: express.Request, res: express.Response) => {
+
+// Catch all other routes and return the angular index file
+app.get("*", (req: express.Request, res: express.Response) => {
   res.sendFile(path.join(__dirname, "../../public/index.html"));
 });
 

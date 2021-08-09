@@ -7,15 +7,11 @@ import { Router } from '@angular/router';
 import { surveyResponse } from './response.model';
 import { User } from './user.model';
 
-const PROTOCOL = 'http';
-const PORT = '3000';
-const REMOTE = 'https://surveyhive.herokuapp.com/';
-
 @Injectable()
 export class RestDataSource implements OnInit {
   user!: User | null;
-  baseURL!: string;
   authToken!: any;
+  baseURL: String = 'https://quizhive.azurewebsites.net/';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -31,10 +27,7 @@ export class RestDataSource implements OnInit {
     private http: HttpClient,
     private router: Router,
     private jwtHelperService: JwtHelperService
-  ) {
-    this.baseURL = `${PROTOCOL}://${location.hostname}:${PORT}/`;
-    // this.baseURL = `${REMOTE}`;
-  }
+  ) {}
 
   ngOnInit() {
     this.user = new User();
@@ -42,14 +35,26 @@ export class RestDataSource implements OnInit {
 
   //get an observable array of surveys from our api
   getSurveys(): Observable<Survey[]> {
-    return this.http.get<Survey[]>(this.baseURL + 'api');
+    //PRODUCTION
+    // return this.http.get<Survey[]>('/api');
+    //LOCAL
+    return this.http.get<Survey[]>(this.baseURL + '/api');
   }
 
   getUserSurveys(): Observable<Survey[]> {
     this.loadToken();
+    console.log({ isAuthTokenAtGetUserSurvey: this.httpOptions });
     let creatorId = JSON.parse(localStorage.getItem('user')!).id;
+    //PRODUCTION
+    // return this.http.post<Survey[]>(
+    //   '/api/usersurveys',
+    //   { creatorId: creatorId },
+    //   this.httpOptions
+    // );
+
+    //LOCAL
     return this.http.post<Survey[]>(
-      this.baseURL + 'api/usersurveys',
+      this.baseURL + '/api/usersurveys',
       { creatorId: creatorId },
       this.httpOptions
     );
@@ -59,8 +64,19 @@ export class RestDataSource implements OnInit {
   postNewSurvey(survey: Survey): void {
     this.loadToken();
     survey.creatorId = JSON.parse(localStorage.getItem('user')!).id;
+
+    //PRODUCTION
+    // this.http
+    //   .post('/api/add', survey, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.router.navigate(['home']);
+    //   });
+
+    //LOCAL
     this.http
-      .post(this.baseURL + 'api/add', survey, this.httpOptions)
+      .post(this.baseURL + '/api/add', survey, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -71,8 +87,21 @@ export class RestDataSource implements OnInit {
   //delete a specific survey from the database via the api
   DeleteSurvey(id: string): void {
     this.loadToken();
+    //PRODUCTION
+    // this.http
+    //   .delete('/api/delete/' + id, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     location.reload();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
+    //LOCAL
     this.http
-      .delete(this.baseURL + 'api' + '/delete/' + id, this.httpOptions)
+      .delete(this.baseURL + '/api/delete/' + id, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -86,14 +115,27 @@ export class RestDataSource implements OnInit {
   //get a specific survey from the database
   GetSurveyToEdit(id: string): Observable<any> {
     this.loadToken();
-    return this.http.get(this.baseURL + 'api/edit/' + id, this.httpOptions);
+    //PRODUCTION
+    // return this.http.get('/api/edit/' + id, this.httpOptions);
+    //LOCAL
+    return this.http.get(this.baseURL + '/api/edit/' + id, this.httpOptions);
   }
 
   //update the values of a spcific survey
   EditSurvey(id: string, survey: EditableSurvey): void {
     this.loadToken();
+    //PRODUCTION
+    // this.http
+    //   .post('/api/edit/' + id, survey, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.router.navigate(['home']);
+    //   });
+
+    //LOCAL
     this.http
-      .post(this.baseURL + 'api/edit/' + id, survey, this.httpOptions)
+      .post(this.baseURL + '/api/edit/' + id, survey, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -102,8 +144,18 @@ export class RestDataSource implements OnInit {
   }
 
   AddResponse(response: surveyResponse): void {
+    //PRODUCTION
+    // this.http
+    //   .post('/api/responses', response)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.router.navigate(['home']);
+    //   });
+
+    //LOCAL
     this.http
-      .post(this.baseURL + 'api/responses', response)
+      .post(this.baseURL + '/api/responses', response)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -113,8 +165,21 @@ export class RestDataSource implements OnInit {
 
   UpdateActiveDateRange(dateRange: any): void {
     this.loadToken();
+    //PRODUCTION
+    // this.http
+    //   .post('/api/updatedaterange', dateRange, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     location.reload();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+    //LOCAL
+
     this.http
-      .post(this.baseURL + 'api/updatedaterange', dateRange, this.httpOptions)
+      .post(this.baseURL + '/api/updatedaterange', dateRange, this.httpOptions)
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -124,21 +189,84 @@ export class RestDataSource implements OnInit {
         console.error(error);
       });
   }
+
+  EmailSurveyDataToUser(survey: Survey): Observable<any> {
+    this.loadToken();
+    //PRODUCTION
+    // return this.http
+    //   .post('/api/emailsurveydatatouser', this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     return response;
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
+    let data = { survey: survey, user: this.user };
+    console.log(data);
+    //LOCAL
+    return this.http.post(
+      this.baseURL + '/api/emailsurveydatatouser',
+      data,
+      this.httpOptions
+    );
+  }
+
   //////////////////////////////////////////////////////////////////////////
+
+  UpdateUserProfile(updatedProfile: any): void {
+    this.loadToken();
+    //PRODUCTION
+    // this.http
+    //   .post('/api/updatedaterange', dateRange, this.httpOptions)
+    //   .toPromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     location.reload();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
+    //LOCAL
+    this.http
+      .post(
+        this.baseURL + '/api/updateuserprofile',
+        updatedProfile,
+        this.httpOptions
+      )
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem('user', JSON.stringify(updatedProfile));
+        location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   //authenticate a usre by posting to the API's login route with a user object and the headers set to httpOptions
   register(user: User): Observable<any> {
     console.log({ restDataSource: user });
+    //PRODUCTION
+    // return this.http.post<any>('/api/register', user, this.httpOptions);
+    //LOCAL
     return this.http.post<any>(
-      this.baseURL + 'api/register',
+      this.baseURL + '/api/register',
       user,
       this.httpOptions
     );
   }
 
   authenticate(user: User): Observable<any> {
+    //PRODUCTION
+    // return this.http.post<any>('/api/login', user, this.httpOptions);
+    //LOCAL
     return this.http.post<any>(
-      this.baseURL + 'api/login',
+      this.baseURL + '/api/login',
       user,
       this.httpOptions
     );
@@ -158,8 +286,10 @@ export class RestDataSource implements OnInit {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
-
-    return this.http.get<any>(this.baseURL + 'api/logout', this.httpOptions);
+    //PRODUCTION
+    // return this.http.get<any>('/api/logout', this.httpOptions);
+    //LOCAL
+    return this.http.get<any>(this.baseURL + '/api/logout', this.httpOptions);
   }
 
   //check if the user

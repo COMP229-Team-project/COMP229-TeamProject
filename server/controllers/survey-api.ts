@@ -3,7 +3,10 @@ import SurveyModel from "../models/survey";
 import User from "../models/user";
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import { DB } from "../Config/db";
+import { DB } from "../config/db";
+import UserModel from "../models/user";
+import nodemailer from "nodemailer";
+import { template } from "../models/email-template";
 
 //READ the survey collection from database
 export function SendSurveyCatalogue(
@@ -12,15 +15,23 @@ export function SendSurveyCatalogue(
   next: NextFunction
 ): void {
   //find everything in collection surveys is pointed to and sort in alphabetical order
-  SurveyModel.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
-    if (err) {
-      console.error(err);
-    }
+  SurveyModel.find(
+    {
+      startDate: { $lt: Date.now() },
+      endDate: { $gt: Date.now() },
+    },
+    {},
+    { sort: { name: 1 } },
+    (err, surveys) => {
+      if (err) {
+        console.error(err);
+      }
 
-    //respond with JSON
-    console.log(surveys);
-    res.json(surveys);
-  });
+      //respond with JSON
+      console.log(surveys);
+      res.json(surveys);
+    }
+  );
 }
 
 export function SendUserSurveys(
@@ -215,15 +226,20 @@ export function ProcessLogin(
   next: NextFunction
 ): void {
   passport.authenticate("local", (err, user, info) => {
+    console.log({ authfunctionstart: "Response from the backend" });
     // server err?
     if (err) {
+      console.log({ serverError: err });
       return res.json(err);
     }
     // is there a user login error?
     if (!user) {
+      console.log({ loginError: "Response from the backend" });
       return res.json("Login Failed. Wrong Email and/or Password");
     }
+
     req.login(user, (err) => {
+      console.log({ reqloginstart: "Response from the backend" });
       // server error?
       if (err) {
         return res.json(err);
@@ -235,6 +251,8 @@ export function ProcessLogin(
         lastName: user.lastName,
         email: user.email,
       };
+
+      console.log({ payload: payload });
 
       const authToken = jwt.sign(payload, DB.Secret, {
         expiresIn: 604800, // 1 week
@@ -307,6 +325,17 @@ export function RegisterUser(
           const authToken = jwt.sign(payload, DB.Secret, {
             expiresIn: 604800, // 1 week
           });
+          console.log({
+            success: true,
+            msg: "User Logged in Successfully!",
+            user: {
+              id: user._id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+            },
+            token: authToken,
+          });
 
           return res.json({
             success: true,
@@ -332,4 +361,66 @@ export function ProcessLogout(
 ): void {
   req.logout();
   res.json({ success: true, msg: "User Successfully Logged out!" });
+}
+
+export function UpdateUserProfile(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  let id = req.body._id;
+
+  let user = {
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+  };
+
+  console.log({ id: id, user: user });
+  //use the id requested and Mongoose books model to look for a match in the db and update it
+  UserModel.updateOne({ _id: id }, user, {}, (err) => {
+    if (err) {
+      //if theres an error, log and end the request
+      console.log(err);
+      res.json({
+        success: false,
+        msg: "There was an error updating your proflie.",
+      });
+    }
+    //respond with a message on successful post
+    res.json({ success: true, msg: "User has been updated!" });
+  });
+}
+
+export function EmailSurveyDataToUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  console.log(req.body.user);
+  console.log(req.body.survey);
+  let transporter = nodemailer.createTransport({
+    service: "outlook",
+    auth: {
+      user: "kenpfowler@outlook.com",
+      pass: "ChickenNoodleSoup1#!$",
+    },
+  });
+
+  let mailOptions = {
+    from: "kenpfowler@outlook.com",
+    to: `${req.body.user.email}`,
+    subject: "Your QuizHive Report",
+    html: template(req.body.user.firstName, req.body.survey),
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+      res.json("There was a problem sending your report");
+    } else {
+      console.log("Email sent!");
+      res.json({ success: true, msg: "Your report was sent" });
+    }
+  });
 }

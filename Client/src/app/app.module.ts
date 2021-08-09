@@ -22,11 +22,6 @@ import {
 
 //Module to build user dashboard
 import { DatePickerComponent } from './user-dashboard/date-picker/date-picker.component';
-import {
-  JwtModule,
-  JwtHelperService,
-  JwtInterceptor,
-} from '@auth0/angular-jwt';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SurveyComponent } from './pages/survey/survey.component';
@@ -34,10 +29,10 @@ import { SharedModule } from './shared/shared.module';
 import { SurveyModule } from './model/model.module';
 import { AuthService } from './model/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export function jwtTokenGetter(): string | null {
-  return localStorage.getItem('id_token');
-}
+import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { httpInterceptorProviders } from './http-interceptor';
+import { DetailedReportComponent } from './user-dashboard/detailed-report/detailed-report.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +49,8 @@ export function jwtTokenGetter(): string | null {
     UserDashboardComponent,
     DashboardComponent,
     SurveyComponent,
+    UserProfileComponent,
+    DetailedReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,11 +60,14 @@ export function jwtTokenGetter(): string | null {
     SharedModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: jwtTokenGetter,
+        tokenGetter: () => {
+          return localStorage.getItem('id_token');
+        },
+        allowedDomains: ['quizhive.azurewebsites.net', 'localhost:3000'],
       },
     }),
   ],
-  providers: [AuthService, MatSnackBar],
+  providers: [AuthService, MatSnackBar, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -3,14 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendUserSurveys = exports.SendSurveyCatalogue = void 0;
+exports.EmailSurveyDataToUser = exports.UpdateUserProfile = exports.ProcessLogout = exports.RegisterUser = exports.ProcessLogin = exports.UpdateActiveDateRange = exports.AddResponse = exports.EditSurvey = exports.GetSurvey = exports.DeleteSurvey = exports.AddSurvey = exports.SendUserSurveys = exports.SendSurveyCatalogue = void 0;
 const survey_1 = __importDefault(require("../models/survey"));
 const user_1 = __importDefault(require("../models/user"));
 const passport_1 = __importDefault(require("passport"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const db_1 = require("../Config/db");
+const db_1 = require("../config/db");
+const user_2 = __importDefault(require("../models/user"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const email_template_1 = require("../models/email-template");
 function SendSurveyCatalogue(req, res, next) {
-    survey_1.default.find({}, {}, { sort: { name: 1 } }, (err, surveys) => {
+    survey_1.default.find({
+        startDate: { $lt: Date.now() },
+        endDate: { $gt: Date.now() },
+    }, {}, { sort: { name: 1 } }, (err, surveys) => {
         if (err) {
             console.error(err);
         }
@@ -128,13 +134,17 @@ function UpdateActiveDateRange(req, res, next) {
 exports.UpdateActiveDateRange = UpdateActiveDateRange;
 function ProcessLogin(req, res, next) {
     passport_1.default.authenticate("local", (err, user, info) => {
+        console.log({ authfunctionstart: "Response from the backend" });
         if (err) {
+            console.log({ serverError: err });
             return res.json(err);
         }
         if (!user) {
+            console.log({ loginError: "Response from the backend" });
             return res.json("Login Failed. Wrong Email and/or Password");
         }
         req.login(user, (err) => {
+            console.log({ reqloginstart: "Response from the backend" });
             if (err) {
                 return res.json(err);
             }
@@ -144,6 +154,7 @@ function ProcessLogin(req, res, next) {
                 lastName: user.lastName,
                 email: user.email,
             };
+            console.log({ payload: payload });
             const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
                 expiresIn: 604800,
             });
@@ -199,6 +210,17 @@ function RegisterUser(req, res, next) {
                     const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
                         expiresIn: 604800,
                     });
+                    console.log({
+                        success: true,
+                        msg: "User Logged in Successfully!",
+                        user: {
+                            id: user._id,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                        },
+                        token: authToken,
+                    });
                     return res.json({
                         success: true,
                         msg: "User Logged in Successfully!",
@@ -221,4 +243,52 @@ function ProcessLogout(req, res, next) {
     res.json({ success: true, msg: "User Successfully Logged out!" });
 }
 exports.ProcessLogout = ProcessLogout;
+function UpdateUserProfile(req, res, next) {
+    let id = req.body._id;
+    let user = {
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+    };
+    console.log({ id: id, user: user });
+    user_2.default.updateOne({ _id: id }, user, {}, (err) => {
+        if (err) {
+            console.log(err);
+            res.json({
+                success: false,
+                msg: "There was an error updating your proflie.",
+            });
+        }
+        res.json({ success: true, msg: "User has been updated!" });
+    });
+}
+exports.UpdateUserProfile = UpdateUserProfile;
+function EmailSurveyDataToUser(req, res, next) {
+    console.log(req.body.user);
+    console.log(req.body.survey);
+    let transporter = nodemailer_1.default.createTransport({
+        service: "outlook",
+        auth: {
+            user: "kenpfowler@outlook.com",
+            pass: "ChickenNoodleSoup1#!$",
+        },
+    });
+    let mailOptions = {
+        from: "kenpfowler@outlook.com",
+        to: `${req.body.user.email}`,
+        subject: "Your QuizHive Report",
+        html: email_template_1.template(req.body.user.firstName, req.body.survey),
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            res.json("There was a problem sending your report");
+        }
+        else {
+            console.log("Email sent!");
+            res.json({ success: true, msg: "Your report was sent" });
+        }
+    });
+}
+exports.EmailSurveyDataToUser = EmailSurveyDataToUser;
 //# sourceMappingURL=survey-api.js.map

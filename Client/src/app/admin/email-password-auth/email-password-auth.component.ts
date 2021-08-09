@@ -56,6 +56,15 @@ export class EmailPasswordAuthComponent implements OnInit {
   get email() {
     return this.form.get('email');
   }
+
+  get firstName() {
+    return this.form.get('firstName');
+  }
+
+  get lastName() {
+    return this.form.get('lastName');
+  }
+
   get password() {
     return this.form.get('password');
   }

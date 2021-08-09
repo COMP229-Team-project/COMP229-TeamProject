@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { RestDataSource } from './rest.datasource';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../model/user.model';
+import { Survey } from './survey.model';
 
 //service will handle all of our
 @Injectable()
@@ -31,5 +32,9 @@ export class AuthService {
 
   logout(): Observable<any> {
     return this.restDataSource.logout();
+  }
+
+  EmailSurveyDataToUser(survey: Survey): Observable<any> {
+    return this.restDataSource.EmailSurveyDataToUser(survey);
   }
 }

@@ -16,12 +16,12 @@ const SurveySchema = new Schema(
     creatorId: String,
   },
   {
-    collection: "surveys",
+    collection: "Quizzes",
     timestamps: true,
   }
 );
 
-const SurveyModel = Mongoose.model("Surveys", SurveySchema);
+const SurveyModel = Mongoose.model("Quizzes", SurveySchema);
 
 export default SurveyModel;
 // {
