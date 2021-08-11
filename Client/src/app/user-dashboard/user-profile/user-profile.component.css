@@ -8,6 +8,22 @@ mat-form-field {
   flex: 1;
 }
 
+mat-panel-description {
+  justify-content: flex-end;
+}
+
 button {
   flex: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  form {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 800px) and (min-width: 601px) {
+  form {
+    gap: 10px;
+  }
 }
