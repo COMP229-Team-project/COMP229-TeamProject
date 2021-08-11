@@ -1,138 +1,172 @@
 <user-profile></user-profile>
-<table
-  multiTemplateDataRows
-  mat-table
-  [dataSource]="surveys"
-  class="mat-elevation-z8"
->
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Title Column -->
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef>Title</th>
-    <td mat-cell *matCellDef="let survey">
-      {{ survey.title }}
-    </td>
-  </ng-container>
-
-  <!-- Responses Column -->
-  <ng-container matColumnDef="responses">
-    <th mat-header-cell *matHeaderCellDef>Responses</th>
-    <td mat-cell *matCellDef="let survey">{{ survey.responses.length }}</td>
-  </ng-container>
-
-  <!-- Activates Column -->
-  <ng-container matColumnDef="activates">
-    <th mat-header-cell *matHeaderCellDef>Activates</th>
-    <td mat-cell *matCellDef="let survey">{{ survey.startDate | date }}</td>
-  </ng-container>
-
-  <!-- Expiriry Date Column -->
-  <ng-container matColumnDef="expires">
-    <th mat-header-cell *matHeaderCellDef>Expires</th>
-    <td mat-cell *matCellDef="let survey">{{ survey.endDate | date }}</td>
-  </ng-container>
-
-  <!-- Survey Lifetime Column -->
-  <ng-container matColumnDef="lifetime">
-    <th mat-header-cell *matHeaderCellDef>Survey Lifetime</th>
-    <td mat-cell *matCellDef="let survey">
-      <date-picker
-        [dateRange]="{
-          id: survey._id,
-          startDate: survey.startDate,
-          endDate: survey.endDate
-        }"
-      >
-      </date-picker>
-    </td>
-  </ng-container>
-
-  <!-- Detailed Statistics Column -->
-  <ng-container matColumnDef="details">
-    <th mat-header-cell *matHeaderCellDef>Detailed Statistics</th>
-    <td mat-cell *matCellDef="let survey">
-      <button (click)="GetDetails(survey)" mat-raised-button color="accent">
-        DETAILS
-      </button>
-    </td>
-  </ng-container>
-
-  <!-- Update Column -->
-  <ng-container matColumnDef="update">
-    <th mat-header-cell *matHeaderCellDef>Update Survey</th>
-    <td mat-cell *matCellDef="let survey">
-      <button
-        (click)="RouteToSurvey(survey._id)"
-        mat-raised-button
-        color="primary"
-      >
-        UPDATE
-      </button>
-    </td>
-  </ng-container>
-
-  <!-- Delete Column -->
-  <ng-container matColumnDef="delete">
-    <th mat-header-cell *matHeaderCellDef>Delete Survey</th>
-    <td mat-cell *matCellDef="let survey">
-      <button (click)="DeleteSurvey(survey._id)" mat-raised-button color="warn">
-        DELETE
-      </button>
-    </td>
-  </ng-container>
-
-  <!-- Send Report -->
-  <ng-container matColumnDef="report">
-    <th mat-header-cell *matHeaderCellDef>Send Report</th>
-    <td mat-cell *matCellDef="let survey">
-      <div *ngIf="!serverMessage; else other_content">
-        <button (click)="SendReport(survey)" mat-raised-button color="accent">
-          SEND
-        </button>
-      </div>
-      <ng-template #other_content>{{ this.serverMessage }}</ng-template>
-    </td>
-  </ng-container>
-
-  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-  <ng-container matColumnDef="expandedDetail">
-    <td
-      mat-cell
-      *matCellDef="let survey"
-      [attr.colspan]="displayedColumns.length"
+<div class="prompt" *ngIf="noSurveys; else elseBlock">
+  <h4>You haven't created any surveys yet.</h4>
+  <button mat-raised-button color="primary">
+    <a mat-button routerLink="../survey"
+      ><mat-icon>content_paste</mat-icon> Create a Survey
+    </a>
+  </button>
+</div>
+<ng-template #elseBlock>
+  <div class="container">
+    <table
+      multiTemplateDataRows
+      mat-table
+      [dataSource]="surveys"
+      class="mat-elevation-z8"
     >
-      <div
-        class="example-element-detail"
-        [@detailExpand]="survey == expandedSurvey ? 'expanded' : 'collapsed'"
-      >
-        <div class="example-element-diagram">
-          <div class="example-element-position">
-            {{ GetDetails(survey).response1 }}
-          </div>
-        </div>
-        <div class="example-element-description">
-          {{ survey.description }}
-          <span class="example-element-description-attribution">
-            -- Wikipedia
-          </span>
-        </div>
-      </div>
-    </td>
-  </ng-container>
+      <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr
-    mat-row
-    *matRowDef="let row; columns: displayedColumns"
-    class="example-element-row"
-    [class.example-expanded-row]="expandedSurvey === row"
-    (click)="expandedSurvey = expandedSurvey === row ? null : row"
-  ></tr>
-  <tr
-    mat-row
-    *matRowDef="let row; columns: ['expandedDetail']"
-    class="example-detail-row"
-  ></tr>
-</table>
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let survey">
+          {{ survey.title }}
+        </td>
+      </ng-container>
+
+      <!-- Responses Column -->
+      <ng-container matColumnDef="responses">
+        <th mat-header-cell *matHeaderCellDef>Responses</th>
+        <td mat-cell *matCellDef="let survey">{{ survey.responses.length }}</td>
+      </ng-container>
+
+      <!-- Activates Column -->
+      <ng-container matColumnDef="activates">
+        <th mat-header-cell *matHeaderCellDef>Activates</th>
+        <td mat-cell *matCellDef="let survey">{{ survey.startDate | date }}</td>
+      </ng-container>
+
+      <!-- Expiriry Date Column -->
+      <ng-container matColumnDef="expires">
+        <th mat-header-cell *matHeaderCellDef>Expires</th>
+        <td mat-cell *matCellDef="let survey">{{ survey.endDate | date }}</td>
+      </ng-container>
+
+      <!-- Survey Lifetime Column -->
+      <ng-container matColumnDef="lifetime">
+        <th mat-header-cell *matHeaderCellDef>Survey Lifetime</th>
+        <td mat-cell *matCellDef="let survey">
+          <date-picker
+            [dateRange]="{
+              id: survey._id,
+              startDate: survey.startDate,
+              endDate: survey.endDate
+            }"
+          >
+          </date-picker>
+        </td>
+      </ng-container>
+
+      <!-- Detailed Statistics Column -->
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef>Detailed Statistics</th>
+        <td mat-cell *matCellDef="let survey">
+          <button (click)="GetDetails(survey)" mat-raised-button color="accent">
+            DETAILS
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Update Column -->
+      <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef>Update Survey</th>
+        <td mat-cell *matCellDef="let survey">
+          <button
+            (click)="RouteToSurvey(survey._id)"
+            mat-raised-button
+            color="primary"
+          >
+            UPDATE
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>Delete Survey</th>
+        <td mat-cell *matCellDef="let survey">
+          <button
+            (click)="DeleteSurvey(survey._id)"
+            mat-raised-button
+            color="warn"
+          >
+            DELETE
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Send Report -->
+      <ng-container matColumnDef="report">
+        <th mat-header-cell *matHeaderCellDef>Send Report</th>
+        <td mat-cell *matCellDef="let survey">
+          <div *ngIf="!serverMessage; else other_content">
+            <button
+              (click)="SendReport(survey)"
+              mat-raised-button
+              color="accent"
+            >
+              SEND
+            </button>
+          </div>
+          <ng-template #other_content>{{ this.serverMessage }}</ng-template>
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let survey"
+          [attr.colspan]="
+            (isSmall$ | async)
+              ? displayedColumnsSmall.length
+              : displayedColumns.length
+          "
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              survey == expandedSurvey ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-diagram">
+              <div class="example-element-position">
+                {{ GetDetails(survey).response1 }}
+              </div>
+            </div>
+            <div class="example-element-description">
+              {{ survey.description }}
+              <span class="example-element-description-attribution">
+                -- Wikipedia
+              </span>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="
+          (isSmall$ | async) ? displayedColumnsSmall : displayedColumns
+        "
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: (isSmall$ | async) ? displayedColumnsSmall : displayedColumns
+        "
+        class="example-element-row"
+        [class.example-expanded-row]="expandedSurvey === row"
+        (click)="expandedSurvey = expandedSurvey === row ? null : row"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+  </div>
+</ng-template>

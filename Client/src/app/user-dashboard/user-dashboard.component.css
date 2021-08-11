@@ -1,5 +1,24 @@
+.container {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.prompt {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+h4 {
+  text-align: center;
+}
+
 table {
   width: 100%;
+}
+
+td {
+  min-width: 100px;
 }
 
 tr.example-detail-row {
