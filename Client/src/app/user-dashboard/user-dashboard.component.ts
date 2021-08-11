@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RestDataSource } from '../model/rest.datasource';
 import { Survey } from '../model/survey.model';
 import { Observable } from 'rxjs';
