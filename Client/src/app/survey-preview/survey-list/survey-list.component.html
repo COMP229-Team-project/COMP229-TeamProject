@@ -1,7 +1,22 @@
 <!-- Survey List Layout Container -->
-<mat-grid-list cols="3" rowHeight="170px">
+<mat-grid-list
+  *ngIf="isSmall | async; else other_content"
+  cols="1"
+  rowHeight="170"
+  class=""
+>
   <mat-grid-tile *ngFor="let survey of surveys | async">
     <!-- Survey Output -->
     <survey-preview [survey]="survey"></survey-preview>
   </mat-grid-tile>
 </mat-grid-list>
+
+<!-- Survey List Layout Container -->
+<ng-template #other_content>
+  <mat-grid-list cols="3" rowHeight="170">
+    <mat-grid-tile *ngFor="let survey of surveys | async">
+      <!-- Survey Output -->
+      <survey-preview [survey]="survey"></survey-preview>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
