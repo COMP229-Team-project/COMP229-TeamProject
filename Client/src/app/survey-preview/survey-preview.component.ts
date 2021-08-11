@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { RestDataSource } from 'src/app/model/rest.datasource';
 import { Survey } from 'src/app/model/survey.model';
 
 @Component({

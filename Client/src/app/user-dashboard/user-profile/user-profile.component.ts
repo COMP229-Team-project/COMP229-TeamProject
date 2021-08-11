@@ -1,5 +1,8 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { RestDataSource } from 'src/app/model/rest.datasource';
 import { User } from 'src/app/model/user.model';
 
@@ -11,10 +14,17 @@ import { User } from 'src/app/model/user.model';
 export class UserProfileComponent implements OnInit {
   form!: FormGroup;
   user!: User;
+  isSmall$: Observable<boolean> = this.breakPointObserver
+    .observe([Breakpoints.Medium, Breakpoints.Small, Breakpoints.XSmall])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
 
   constructor(
     private fb: FormBuilder,
-    private restDataSource: RestDataSource
+    private restDataSource: RestDataSource,
+    public breakPointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +55,6 @@ export class UserProfileComponent implements OnInit {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
     };
-    console.log({ fromUserProfile: updatedProfile });
     this.restDataSource.UpdateUserProfile(updatedProfile);
   }
 }

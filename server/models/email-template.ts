@@ -339,8 +339,7 @@ export function template(firstName: string, survey: any): string {
   </head>
   <body class="">
     <span class="preheader"
-      >This is preheader text. Some clients will show this text as a
-      preview.</span
+      >Your quiz report from QuizHive!</span
     >
     <table
       role="presentation"

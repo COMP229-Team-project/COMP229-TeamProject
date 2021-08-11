@@ -4,8 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
-import { ContactComponent } from './pages/contact/contact.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //import components to display active surveys
@@ -31,15 +29,12 @@ import { AuthService } from './model/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
 import { JwtModule } from '@auth0/angular-jwt';
-import { httpInterceptorProviders } from './http-interceptor';
 import { DetailedReportComponent } from './user-dashboard/detailed-report/detailed-report.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
-    ContactComponent,
     SurveyPreviewComponent,
     SurveyListComponent,
     SurveyBuilderFormComponent,
@@ -63,11 +58,15 @@ import { DetailedReportComponent } from './user-dashboard/detailed-report/detail
         tokenGetter: () => {
           return localStorage.getItem('id_token');
         },
-        allowedDomains: ['quizhive.azurewebsites.net', 'localhost:3000'],
+        allowedDomains: [
+          'quizhive.azurewebsites.net',
+          'localhost:3000',
+          'localhost:4200',
+        ],
       },
     }),
   ],
-  providers: [AuthService, MatSnackBar, httpInterceptorProviders],
+  providers: [AuthService, MatSnackBar],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

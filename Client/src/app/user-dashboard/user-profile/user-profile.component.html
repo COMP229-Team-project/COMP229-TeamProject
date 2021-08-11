@@ -1,60 +1,60 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title
-      >WELCOME {{ user.firstName }} {{ user.lastName }}</mat-card-title
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      WELCOME {{ user.firstName }} {{ user.lastName }}
+    </mat-panel-title>
+    <mat-panel-description>
+      <mat-icon>settings</mat-icon></mat-panel-description
     >
-  </mat-card-header>
-  <mat-card-content>
-    <!-- Enter Email Address -->
-    <form [formGroup]="form">
-      <mat-form-field [color]="email?.valid && 'primary'">
-        <input
-          matInput
-          formControlName="email"
-          type="email"
-          placeholder="Email"
-          autocomplete="off"
-        />
-        <!-- Error Message -->
-        <mat-error *ngIf="email?.invalid && email?.dirty">
-          You must enter a valid email address
-        </mat-error>
-      </mat-form-field>
+  </mat-expansion-panel-header>
 
-      <!-- Enter First Name -->
-      <mat-form-field [color]="firstName?.valid && 'primary'">
-        <input
-          matInput
-          formControlName="firstName"
-          type="text"
-          placeholder="First Name"
-          autocomplete="off"
-        />
-        <!-- Error Message -->
-        <mat-error *ngIf="firstName?.invalid && firstName?.dirty">
-          Please Enter Your First Name
-        </mat-error>
-      </mat-form-field>
+  <!-- Enter Email Address -->
+  <form [formGroup]="form">
+    <mat-form-field [color]="email?.valid && 'primary'">
+      <input
+        matInput
+        formControlName="email"
+        type="email"
+        placeholder="Email"
+        autocomplete="off"
+      />
+      <!-- Error Message -->
+      <mat-error *ngIf="email?.invalid && email?.dirty">
+        You must enter a valid email address
+      </mat-error>
+    </mat-form-field>
 
-      <!-- Enter Last Name -->
-      <mat-form-field [color]="lastName?.valid && 'primary'">
-        <input
-          matInput
-          formControlName="lastName"
-          type="text"
-          placeholder="Last Name"
-          autocomplete="off"
-        />
-        <!-- Error Message -->
-        <mat-error *ngIf="lastName?.invalid && lastName?.dirty">
-          Please Enter Your Last Name
-        </mat-error>
-      </mat-form-field>
-      <button mat-stroked-button color="warn" (click)="UpdateUserProfile()">
-        EDIT PROFILE
-      </button>
-    </form>
-  </mat-card-content>
-  <!-- Update Button with bound click event -->
-</mat-card>
+    <!-- Enter First Name -->
+    <mat-form-field [color]="firstName?.valid && 'primary'">
+      <input
+        matInput
+        formControlName="firstName"
+        type="text"
+        placeholder="First Name"
+        autocomplete="off"
+      />
+      <!-- Error Message -->
+      <mat-error *ngIf="firstName?.invalid && firstName?.dirty">
+        Please Enter Your First Name
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Enter Last Name -->
+    <mat-form-field [color]="lastName?.valid && 'primary'">
+      <input
+        matInput
+        formControlName="lastName"
+        type="text"
+        placeholder="Last Name"
+        autocomplete="off"
+      />
+      <!-- Error Message -->
+      <mat-error *ngIf="lastName?.invalid && lastName?.dirty">
+        Please Enter Your Last Name
+      </mat-error>
+    </mat-form-field>
+    <button mat-stroked-button color="warn" (click)="UpdateUserProfile()">
+      EDIT PROFILE
+    </button>
+  </form>
+</mat-expansion-panel>

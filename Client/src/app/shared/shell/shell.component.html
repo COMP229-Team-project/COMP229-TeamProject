@@ -7,34 +7,37 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="false"
   >
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar><mat-icon>polymer</mat-icon> Menu</mat-toolbar>
     <mat-nav-list>
       <a
         mat-button
         *ngIf="!isLoggedIn()"
         routerLink="login"
         (click)="drawer.close()"
-        >🔑 Login</a
-      >
-      <a mat-button routerLink="about" (click)="drawer.close()">😀 About Us</a>
-      <a mat-button routerLink="contact" (click)="drawer.close()"
-        >☎️ Contact Us</a
+        ><mat-icon>login</mat-icon> Login</a
       >
       <a
         mat-button
         routerLink="survey"
         *ngIf="isLoggedIn()"
         (click)="drawer.close()"
-        >📜 Create a Survey</a
-      >
+        ><mat-icon>content_paste</mat-icon> Create a Survey
+      </a>
       <a
         mat-button
         routerLink="dashboard"
         *ngIf="isLoggedIn()"
         (click)="drawer.close()"
-        >💻 {{ user.firstName }}'s Dashboard</a
       >
-      <a mat-button *ngIf="isLoggedIn()" (click)="logout()">👤 Logout</a>
+        <mat-icon>dashboard</mat-icon> {{ user.firstName }}'s Dashboard</a
+      >
+      <a mat-button *ngIf="isLoggedIn()" (click)="logout()"
+        ><mat-icon>logout</mat-icon> Logout</a
+      >
+      <a mat-button target="_blank" href="https://discord.gg/faxN8vHpXn">
+        <mat-icon>chat_bubble_outline</mat-icon>
+        Chat with us on Discord
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -48,20 +51,23 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="logo" routerLink="home">🍯 Survey Hive</span>
+      <mat-icon>polymer</mat-icon
+      ><span class="logo" routerLink="home"> Survey Hive</span>
 
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
-        <a mat-button *ngIf="!isLoggedIn()" routerLink="login">🔑 Login</a>
-        <a mat-button routerLink="about">😀 About Us</a>
-        <a mat-button routerLink="contact">☎️ Contact Us</a>
-        <a mat-button routerLink="survey" *ngIf="isLoggedIn()"
-          >📜 Create a Survey</a
+        <a mat-button *ngIf="!isLoggedIn()" routerLink="login"
+          ><mat-icon>login</mat-icon> Login
+        </a>
+        <a mat-button routerLink="survey" *ngIf="isLoggedIn()">
+          <mat-icon>content_paste</mat-icon> Create a Survey
+        </a>
+        <a mat-button routerLink="dashboard" *ngIf="isLoggedIn()">
+          <mat-icon>dashboard</mat-icon> {{ user.firstName }}'s Dashboard</a
         >
-        <a mat-button routerLink="dashboard" *ngIf="isLoggedIn()"
-          >💻 {{ user.firstName }}'s Dashboard</a
+        <a mat-button *ngIf="isLoggedIn()" (click)="logout()"
+          ><mat-icon>logout</mat-icon> Logout</a
         >
-        <a mat-button *ngIf="isLoggedIn()" (click)="logout()">👤 Logout</a>
       </div>
 
       <button
@@ -74,7 +80,7 @@
 
       <mat-menu #menu="matMenu">
         <a mat-menu-item target="_blank" href="https://discord.gg/faxN8vHpXn">
-          <i>💬</i>
+          <mat-icon>chat_bubble_outline</mat-icon>
           <span>Chat with us on Discord</span>
         </a>
       </mat-menu>
