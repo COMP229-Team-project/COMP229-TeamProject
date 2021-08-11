@@ -11,6 +11,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'user-dashboard',
@@ -30,6 +32,10 @@ import {
 export class UserDashboardComponent implements OnInit {
   serverMessage?: string;
   expandedSurvey!: Survey | null;
+  noSurveys!: boolean;
+  isSmall$: Observable<boolean> = this.breakPointObserver
+    .observe([Breakpoints.Medium, Breakpoints.Small, Breakpoints.XSmall])
+    .pipe(map((result) => result.matches));
 
   displayedColumns: string[] = [
     'title',
@@ -43,18 +49,40 @@ export class UserDashboardComponent implements OnInit {
     'report',
   ];
 
+  displayedColumnsSmall: string[] = [
+    'title',
+    'lifetime',
+    'details',
+    'update',
+    'delete',
+    'report',
+  ];
+
   surveys: Observable<Survey[]>;
 
   constructor(
     public restDataSource: RestDataSource,
     public authservice: AuthService,
-    private router: Router
+    private router: Router,
+    public breakPointObserver: BreakpointObserver
   ) {
     this.surveys = this.restDataSource.getUserSurveys();
   }
 
   ngOnInit(): void {
     this.surveys = this.restDataSource.getUserSurveys();
+    this.AtLeastOneSurvey();
+  }
+
+  //Method monitors if there is at least 1 survey
+  AtLeastOneSurvey() {
+    this.surveys.subscribe((data) => {
+      if (!data.length) {
+        this.noSurveys = true;
+      } else {
+        this.noSurveys = false;
+      }
+    });
   }
 
   //function to navigate to the survey builder page with a specific survey id
@@ -68,7 +96,6 @@ export class UserDashboardComponent implements OnInit {
   }
 
   SendReport(survey: Survey) {
-    console.log(survey);
     this.authservice.EmailSurveyDataToUser(survey).subscribe((data) => {
       if (data.success) {
         this.serverMessage = data.msg;
@@ -109,8 +136,8 @@ export class UserDashboardComponent implements OnInit {
 }
 
 export interface ResponseFrequency {
-  response1: [];
-  response2: [];
-  response3: [];
-  response4: [];
+  response1: [number, number, number, number];
+  response2: [number, number, number, number];
+  response3: [number, number, number, number];
+  response4: [number, number, number, number];
 }

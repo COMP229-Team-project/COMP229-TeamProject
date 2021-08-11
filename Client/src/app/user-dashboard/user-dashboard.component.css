@@ -1,5 +1,33 @@
+.container {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.prompt {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+h4 {
+  text-align: center;
+}
+
 table {
   width: 100%;
+}
+
+.example-element-description {
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.expansionTable {
+  width: 50%;
+}
+td {
+  min-width: 100px;
 }
 
 tr.example-detail-row {
@@ -36,10 +64,6 @@ tr.example-element-row:not(.example-expanded-row):active {
   font-weight: bold;
   font-size: 40px;
   line-height: normal;
-}
-
-.example-element-description {
-  padding: 16px;
 }
 
 .example-element-description-attribution {
