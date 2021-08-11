@@ -20,7 +20,7 @@ import { EditableSurvey, Survey } from '../model/survey.model';
 })
 export class SurveyBuilderFormComponent implements OnInit {
   //Properties to store form data
-  isLinear = false;
+  isLinear = true;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   thirdFormGroup!: FormGroup;

@@ -1,6 +1,58 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
-</button>
+<mat-list role="list">
+  <h2>Creating a survey is simple!</h2>
+  <mat-list-item role="listitem">
+    <strong>Survey Basics: </strong>
+  </mat-list-item>
+  <mat-list-item role="listitem">
+    This will appear on the front page. Give your quiz an interesting title and
+    description.
+  </mat-list-item>
+
+  <mat-list-item role="listitem">
+    <strong>Survey lifetime:</strong>
+  </mat-list-item>
+
+  <mat-list-item role="listitem"
+    >You can also choose when it will activate and disappear by setting the
+    lifetime.
+  </mat-list-item>
+
+  <mat-list-item role="listitem">
+    <strong>Questions:</strong>
+  </mat-list-item>
+
+  <mat-list-item role="listitem">
+    Enter the Questions you want to ask and the possible answers your users can
+    give.</mat-list-item
+  >
+
+  <mat-list-item role="listitem">
+    <strong>Done:</strong>
+  </mat-list-item>
+
+  <mat-list-item role="listitem"
+    >That's it! Click create survey to activate it. You can always change things
+    via your dashboard.</mat-list-item
+  >
+  <mat-list-item role="listitem">
+    <strong
+      >Move more freely through the creation process by disabling linear
+      mode:</strong
+    >
+  </mat-list-item>
+
+  <mat-list-item role="listitem">
+    <button
+      position="center"
+      mat-raised-button
+      (click)="isLinear = !isLinear"
+      id="toggle-linear"
+    >
+      {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
+    </button>
+  </mat-list-item>
+</mat-list>
+
 <!-- SURVEY BUILDER FORM -->
 <mat-stepper
   [linear]="isLinear"
