@@ -131,16 +131,112 @@
               survey == expandedSurvey ? 'expanded' : 'collapsed'
             "
           >
-            <div class="example-element-diagram">
-              <div class="example-element-position">
-                {{ GetDetails(survey).response1 }}
-              </div>
-            </div>
             <div class="example-element-description">
-              {{ survey.description }}
-              <span class="example-element-description-attribution">
-                -- Wikipedia
-              </span>
+              <!-- Response Details -->
+              <table class="expansionTable">
+                <!-- Response Analysis 1 -->
+                <tr>
+                  <th colspan="2">{{ survey.questions[0].question1 }}</th>
+                </tr>
+                <tr>
+                  <th align="left">Answer</th>
+                  <th>Frequency</th>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[0].answer1 }}</td>
+                  <td align="center">{{ GetDetails(survey).response1[0] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[0].answer2 }}</td>
+                  <td align="center">{{ GetDetails(survey).response1[1] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[0].answer3 }}</td>
+                  <td align="center">{{ GetDetails(survey).response1[2] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[0].answer4 }}</td>
+                  <td align="center">{{ GetDetails(survey).response1[3] }}</td>
+                </tr>
+              </table>
+              <!-- Response Analysis 2 -->
+              <table class="expansionTable">
+                <tr>
+                  <th colspan="2">{{ survey.questions[1].question2 }}</th>
+                </tr>
+                <tr>
+                  <th align="left">Answer</th>
+                  <th>Frequency</th>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[1].answer1 }}</td>
+                  <td align="center">{{ GetDetails(survey).response2[0] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[1].answer2 }}</td>
+                  <td align="center">{{ GetDetails(survey).response2[1] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[1].answer3 }}</td>
+                  <td align="center">{{ GetDetails(survey).response2[2] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[1].answer4 }}</td>
+                  <td align="center">{{ GetDetails(survey).response2[3] }}</td>
+                </tr>
+              </table>
+              <!-- Response Analysis 3-->
+              <table class="expansionTable">
+                <tr>
+                  <th colspan="2">{{ survey.questions[2].question3 }}</th>
+                </tr>
+                <tr>
+                  <th align="left">Answer</th>
+                  <th>Frequency</th>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[2].answer1 }}</td>
+                  <td align="center">{{ GetDetails(survey).response3[0] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[2].answer2 }}</td>
+                  <td align="center">{{ GetDetails(survey).response3[1] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[2].answer3 }}</td>
+                  <td align="center">{{ GetDetails(survey).response3[2] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[3].answer4 }}</td>
+                  <td align="center">{{ GetDetails(survey).response3[3] }}</td>
+                </tr>
+              </table>
+              <table class="expansionTable">
+                <!-- Response Analysis 4 -->
+                <tr>
+                  <th colspan="2">{{ survey.questions[3].question4 }}</th>
+                </tr>
+                <tr>
+                  <th align="left">Answer</th>
+                  <th>Frequency</th>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[3].answer1 }}</td>
+                  <td align="center">{{ GetDetails(survey).response4[0] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[3].answer2 }}</td>
+                  <td align="center">{{ GetDetails(survey).response4[1] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[3].answer3 }}</td>
+                  <td align="center">{{ GetDetails(survey).response4[2] }}</td>
+                </tr>
+                <tr>
+                  <td>{{ survey.questions[3].answer4 }}</td>
+                  <td align="center">{{ GetDetails(survey).response4[3] }}</td>
+                </tr>
+              </table>
             </div>
           </div>
         </td>

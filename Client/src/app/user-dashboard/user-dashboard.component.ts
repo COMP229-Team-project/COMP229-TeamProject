@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RestDataSource } from '../model/rest.datasource';
 import { Survey } from '../model/survey.model';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'user-dashboard',
@@ -136,8 +136,8 @@ export class UserDashboardComponent implements OnInit {
 }
 
 export interface ResponseFrequency {
-  response1: [];
-  response2: [];
-  response3: [];
-  response4: [];
+  response1: [number, number, number, number];
+  response2: [number, number, number, number];
+  response3: [number, number, number, number];
+  response4: [number, number, number, number];
 }
