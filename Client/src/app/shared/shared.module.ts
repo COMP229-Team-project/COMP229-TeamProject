@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ShellComponent } from './shell/shell.component';
 import { RouterModule } from '@angular/router';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const components = [ShellComponent];
 const modules = [
@@ -45,6 +46,7 @@ const modules = [
   MatSidenavModule,
   MatListModule,
   MatExpansionModule,
+  MatProgressBarModule,
   RouterModule,
 ];
 @NgModule({
