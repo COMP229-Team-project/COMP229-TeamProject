@@ -1,7 +1,35 @@
-<header>
+<!-- <header>
   <h2>Click here and watch your survey rise to the top!</h2>
   <a routerLink="../survey">
     <button mat-raised-button color="accent">Create Now</button></a
   >
-</header>
+</header> -->
+<div class="container">
+  <section class="intro">
+    <h1>Master any subject</h1>
+    <div>
+      <p>Improve your knowledge with each quiz</p>
+      <p>Click "Get Started" to create or scroll down to take</p>
+    </div>
+    <a routerLink="../login">
+      <button mat-raised-button color="accent">Get Started</button></a
+    >
+  </section>
+  <section class="carousel">
+    <div class="tile">
+      <img [src]="currentImage" alt="girl sunbathing" />
+    </div>
+    <div class="tile">
+      <h3>Why QuizHive?</h3>
+      <p>{{ currentQuote }}</p>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="progressBarValue"
+        color="accent"
+      ></mat-progress-bar>
+    </div>
+  </section>
+</div>
+
+<h2 align="center">Search for a Challenge!</h2>
 <survey-list></survey-list>

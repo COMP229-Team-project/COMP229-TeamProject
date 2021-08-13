@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+
 import {
   Question1,
   Question2,
@@ -235,8 +236,7 @@ export class SurveyBuilderFormComponent implements OnInit {
     );
 
     if (!survey.avatar) {
-      survey.avatar =
-        'https://linustechtips.com/uploads/profile/photo-59449.png';
+      survey.avatar = 'https://vectorified.com/images/java-logo-icon-19.png';
     }
 
     this.restDataSource.EditSurvey(this.route.snapshot.params['id'], survey);

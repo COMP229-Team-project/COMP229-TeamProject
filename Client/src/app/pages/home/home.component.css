@@ -1,4 +1,4 @@
-header {
+/* header {
   margin: 0;
   padding: 2em 5em 4em;
   color: #efefef;
@@ -24,7 +24,79 @@ div {
   align-items: center;
   color: #3f51b5;
   font-size: 1.2em;
-}
-img {
+} */
+/* img {
   width: 400px;
+} */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background-color: #3f51b5;
+}
+
+section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 0;
+}
+.carousel {
+  justify-content: space-between;
+  align-content: space-between;
+}
+mat-progress-bar {
+  height: 13px;
+}
+
+image {
+  transition: ease-in-out;
+}
+p {
+  padding: 1rem;
+}
+
+h1 {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin-top: 2rem;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .container {
+    flex-direction: row;
+    height: 50vh;
+  }
+  section {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .container {
+    flex-direction: row;
+    height: 90vh;
+  }
+  section {
+    width: 50%;
+  }
+
+  h1 {
+    font-size: 44px;
+  }
+  .intro {
+    background-color: #3b4c9b;
+  }
 }

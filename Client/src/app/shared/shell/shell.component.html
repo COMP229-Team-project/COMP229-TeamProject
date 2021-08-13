@@ -7,8 +7,12 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="false"
   >
-    <mat-toolbar><mat-icon>polymer</mat-icon> Menu</mat-toolbar>
+    <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
+      <a mat-button routerLink="home" (click)="drawer.close()"
+        ><mat-icon>polymer</mat-icon> Home Page</a
+      >
+
       <a
         mat-button
         *ngIf="!isLoggedIn()"
