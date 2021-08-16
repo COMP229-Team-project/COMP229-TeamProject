@@ -20,18 +20,15 @@ function SendSurveyCatalogue(req, res, next) {
         if (err) {
             console.error(err);
         }
-        console.log(surveys);
         res.json(surveys);
     });
 }
 exports.SendSurveyCatalogue = SendSurveyCatalogue;
 function SendUserSurveys(req, res, next) {
-    console.log(req.body.creatorId);
     survey_1.default.find({ creatorId: req.body.creatorId }, {}, { sort: { name: 1 } }, (err, surveys) => {
         if (err) {
             console.error(err);
         }
-        console.log(surveys);
         res.json(surveys);
     });
 }
@@ -109,7 +106,6 @@ function AddResponse(req, res, next) {
         response3: req.body.response3,
         response4: req.body.response4,
     };
-    console.log({ id: id, response: responses });
     survey_1.default.updateOne({ _id: id }, { $push: { responses: responses } }, {}, (err) => {
         if (err) {
             console.error(err);
@@ -122,7 +118,6 @@ exports.AddResponse = AddResponse;
 function UpdateActiveDateRange(req, res, next) {
     let id = req.body.id;
     let update = { startDate: req.body.startDate, endDate: req.body.endDate };
-    console.log({ id: id, update: update });
     survey_1.default.updateOne({ _id: id }, update, {}, (err) => {
         if (err) {
             console.error(err);
@@ -134,17 +129,14 @@ function UpdateActiveDateRange(req, res, next) {
 exports.UpdateActiveDateRange = UpdateActiveDateRange;
 function ProcessLogin(req, res, next) {
     passport_1.default.authenticate("local", (err, user, info) => {
-        console.log({ authfunctionstart: "Response from the backend" });
         if (err) {
             console.log({ serverError: err });
             return res.json(err);
         }
         if (!user) {
-            console.log({ loginError: "Response from the backend" });
             return res.json("Login Failed. Wrong Email and/or Password");
         }
         req.login(user, (err) => {
-            console.log({ reqloginstart: "Response from the backend" });
             if (err) {
                 return res.json(err);
             }
@@ -154,7 +146,6 @@ function ProcessLogin(req, res, next) {
                 lastName: user.lastName,
                 email: user.email,
             };
-            console.log({ payload: payload });
             const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
                 expiresIn: 604800,
             });
@@ -182,7 +173,6 @@ function RegisterUser(req, res, next) {
     let password = req.body.password;
     user_1.default.register(newUser, req.body.password, (err) => {
         if (err) {
-            console.log({ passportmsg: newUser.get("email") });
             console.log(err);
             if (err.name == "UserExistsError") {
                 console.log("Error: User Already Exists!");
@@ -209,17 +199,6 @@ function RegisterUser(req, res, next) {
                     };
                     const authToken = jsonwebtoken_1.default.sign(payload, db_1.DB.Secret, {
                         expiresIn: 604800,
-                    });
-                    console.log({
-                        success: true,
-                        msg: "User Logged in Successfully!",
-                        user: {
-                            id: user._id,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            email: user.email,
-                        },
-                        token: authToken,
                     });
                     return res.json({
                         success: true,
@@ -250,7 +229,6 @@ function UpdateUserProfile(req, res, next) {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
     };
-    console.log({ id: id, user: user });
     user_2.default.updateOne({ _id: id }, user, {}, (err) => {
         if (err) {
             console.log(err);
@@ -264,8 +242,6 @@ function UpdateUserProfile(req, res, next) {
 }
 exports.UpdateUserProfile = UpdateUserProfile;
 function EmailSurveyDataToUser(req, res, next) {
-    console.log(req.body.user);
-    console.log(req.body.survey);
     let transporter = nodemailer_1.default.createTransport({
         service: "outlook",
         auth: {

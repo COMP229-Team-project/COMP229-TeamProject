@@ -28,7 +28,6 @@ export function SendSurveyCatalogue(
       }
 
       //respond with JSON
-      console.log(surveys);
       res.json(surveys);
     }
   );
@@ -40,7 +39,6 @@ export function SendUserSurveys(
   next: NextFunction
 ): void {
   //find everything in collection surveys is pointed to and sort in alphabetical order
-  console.log(req.body.creatorId);
   SurveyModel.find(
     { creatorId: req.body.creatorId },
     {},
@@ -51,7 +49,6 @@ export function SendUserSurveys(
       }
 
       //respond with JSON
-      console.log(surveys);
       res.json(surveys);
     }
   );
@@ -175,7 +172,6 @@ export function AddResponse(
     response4: req.body.response4,
   };
 
-  console.log({ id: id, response: responses });
   //use the id requested and Mongoose books model to look for a match in the db and update it
   SurveyModel.updateOne(
     { _id: id },
@@ -206,7 +202,6 @@ export function UpdateActiveDateRange(
 
   let update = { startDate: req.body.startDate, endDate: req.body.endDate };
 
-  console.log({ id: id, update: update });
   //use the id requested and Mongoose books model to look for a match in the db and update it
   SurveyModel.updateOne({ _id: id }, update, {}, (err) => {
     if (err) {
@@ -226,7 +221,6 @@ export function ProcessLogin(
   next: NextFunction
 ): void {
   passport.authenticate("local", (err, user, info) => {
-    console.log({ authfunctionstart: "Response from the backend" });
     // server err?
     if (err) {
       console.log({ serverError: err });
@@ -234,12 +228,10 @@ export function ProcessLogin(
     }
     // is there a user login error?
     if (!user) {
-      console.log({ loginError: "Response from the backend" });
       return res.json("Login Failed. Wrong Email and/or Password");
     }
 
     req.login(user, (err) => {
-      console.log({ reqloginstart: "Response from the backend" });
       // server error?
       if (err) {
         return res.json(err);
@@ -251,8 +243,6 @@ export function ProcessLogin(
         lastName: user.lastName,
         email: user.email,
       };
-
-      console.log({ payload: payload });
 
       const authToken = jwt.sign(payload, DB.Secret, {
         expiresIn: 604800, // 1 week
@@ -290,7 +280,6 @@ export function RegisterUser(
 
   User.register(newUser, req.body.password, (err) => {
     if (err) {
-      console.log({ passportmsg: newUser.get("email") });
       console.log(err);
       if (err.name == "UserExistsError") {
         console.log("Error: User Already Exists!");
@@ -324,17 +313,6 @@ export function RegisterUser(
 
           const authToken = jwt.sign(payload, DB.Secret, {
             expiresIn: 604800, // 1 week
-          });
-          console.log({
-            success: true,
-            msg: "User Logged in Successfully!",
-            user: {
-              id: user._id,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
-            },
-            token: authToken,
           });
 
           return res.json({
@@ -376,7 +354,6 @@ export function UpdateUserProfile(
     lastName: req.body.lastName,
   };
 
-  console.log({ id: id, user: user });
   //use the id requested and Mongoose books model to look for a match in the db and update it
   UserModel.updateOne({ _id: id }, user, {}, (err) => {
     if (err) {
@@ -397,8 +374,6 @@ export function EmailSurveyDataToUser(
   res: Response,
   next: NextFunction
 ): void {
-  console.log(req.body.user);
-  console.log(req.body.survey);
   let transporter = nodemailer.createTransport({
     service: "outlook",
     auth: {

@@ -46,11 +46,7 @@ router.post(
 );
 
 //DELETE survey from server
-router.delete(
-  "/delete/:id",
-  passport.authenticate("jwt", { session: false }),
-  DeleteSurvey
-);
+router.delete("/delete/:id", DeleteSurvey);
 
 //GET the details of a particualr survey
 router.get(
