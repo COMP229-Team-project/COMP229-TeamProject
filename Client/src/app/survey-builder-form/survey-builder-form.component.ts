@@ -53,7 +53,6 @@ export class SurveyBuilderFormComponent implements OnInit {
         .toPromise()
         .then((res) => {
           this.survey = res;
-          console.log(this.survey);
           this.firstFormGroup = this._formBuilder.group({
             title: [this.survey.title, Validators.required],
             description: [this.survey.description, Validators.required],
@@ -187,10 +186,6 @@ export class SurveyBuilderFormComponent implements OnInit {
       survey.avatar =
         'https://linustechtips.com/uploads/profile/photo-59449.png';
     }
-    console.log({
-      startDate: this.firstFormGroup.value.startDate,
-      DateObject: this.firstFormGroup.value.startDate instanceof Date,
-    });
 
     this.restDataSource.postNewSurvey(survey);
   }

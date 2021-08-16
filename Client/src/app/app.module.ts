@@ -30,6 +30,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { DetailedReportComponent } from './user-dashboard/detailed-report/detailed-report.component';
+import {
+  DialogComponent,
+  DialogContent,
+} from './user-dashboard/dialogue/dialogue.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +50,8 @@ import { DetailedReportComponent } from './user-dashboard/detailed-report/detail
     SurveyComponent,
     UserProfileComponent,
     DetailedReportComponent,
+    DialogComponent,
+    DialogContent,
   ],
   imports: [
     BrowserModule,

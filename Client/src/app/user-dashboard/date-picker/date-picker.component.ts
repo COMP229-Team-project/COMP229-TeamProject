@@ -31,7 +31,6 @@ export class DatePickerComponent implements OnInit {
       startDate: this.firstFormGroup.value.startDate,
       endDate: this.firstFormGroup.value.endDate,
     };
-    console.log(updateData);
     this.restDataSource.UpdateActiveDateRange(updateData);
   }
 }

@@ -43,7 +43,6 @@ export class RestDataSource implements OnInit {
 
   getUserSurveys(): Observable<Survey[]> {
     this.loadToken();
-    console.log({ isAuthTokenAtGetUserSurvey: this.httpOptions });
     let creatorId = JSON.parse(localStorage.getItem('user')!).id;
     //PRODUCTION
     // return this.http.post<Survey[]>(
@@ -70,7 +69,6 @@ export class RestDataSource implements OnInit {
     //   .post('/api/add', survey, this.httpOptions)
     //   .toPromise()
     //   .then((response) => {
-    //     console.log(response);
     //     this.router.navigate(['home']);
     //   });
 
@@ -79,7 +77,6 @@ export class RestDataSource implements OnInit {
       .post(this.baseURL + '/api/add', survey, this.httpOptions)
       .toPromise()
       .then((response) => {
-        console.log(response);
         this.router.navigate(['home']);
       });
   }
@@ -92,7 +89,6 @@ export class RestDataSource implements OnInit {
     //   .delete('/api/delete/' + id, this.httpOptions)
     //   .toPromise()
     //   .then((response) => {
-    //     console.log(response);
     //     location.reload();
     //   })
     //   .catch((error) => {
@@ -104,7 +100,6 @@ export class RestDataSource implements OnInit {
       .delete(this.baseURL + '/api/delete/' + id, this.httpOptions)
       .toPromise()
       .then((response) => {
-        console.log(response);
         location.reload();
       })
       .catch((error) => {
@@ -129,7 +124,6 @@ export class RestDataSource implements OnInit {
     //   .post('/api/edit/' + id, survey, this.httpOptions)
     //   .toPromise()
     //   .then((response) => {
-    //     console.log(response);
     //     this.router.navigate(['home']);
     //   });
 
@@ -138,7 +132,6 @@ export class RestDataSource implements OnInit {
       .post(this.baseURL + '/api/edit/' + id, survey, this.httpOptions)
       .toPromise()
       .then((response) => {
-        console.log(response);
         this.router.navigate(['home']);
       });
   }
@@ -149,7 +142,6 @@ export class RestDataSource implements OnInit {
     //   .post('/api/responses', response)
     //   .toPromise()
     //   .then((response) => {
-    //     console.log(response);
     //     this.router.navigate(['home']);
     //   });
 
@@ -158,7 +150,6 @@ export class RestDataSource implements OnInit {
       .post(this.baseURL + '/api/responses', response)
       .toPromise()
       .then((response) => {
-        console.log(response);
         this.router.navigate(['home']);
       });
   }
@@ -170,7 +161,6 @@ export class RestDataSource implements OnInit {
     //   .post('/api/updatedaterange', dateRange, this.httpOptions)
     //   .toPromise()
     //   .then((response) => {
-    //     console.log(response);
     //     location.reload();
     //   })
     //   .catch((error) => {
@@ -182,7 +172,6 @@ export class RestDataSource implements OnInit {
       .post(this.baseURL + '/api/updatedaterange', dateRange, this.httpOptions)
       .toPromise()
       .then((response) => {
-        console.log(response);
         location.reload();
       })
       .catch((error) => {
@@ -197,7 +186,6 @@ export class RestDataSource implements OnInit {
     //   .post('/api/emailsurveydatatouser', this.httpOptions)
     //   .toPromise()
     //   .then((response) => {
-    //     console.log(response);
     //     return response;
     //   })
     //   .catch((error) => {
@@ -205,7 +193,6 @@ export class RestDataSource implements OnInit {
     //   });
 
     let data = { survey: survey, user: this.user };
-    console.log(data);
     //LOCAL
     return this.http.post(
       this.baseURL + '/api/emailsurveydatatouser',
@@ -223,7 +210,6 @@ export class RestDataSource implements OnInit {
     //   .post('/api/updatedaterange', dateRange, this.httpOptions)
     //   .toPromise()
     //   .then((response) => {
-    //     console.log(response);
     //     location.reload();
     //   })
     //   .catch((error) => {
@@ -239,7 +225,8 @@ export class RestDataSource implements OnInit {
       )
       .toPromise()
       .then((response) => {
-        console.log(response);
+        let creatorId = JSON.parse(localStorage.getItem('user')!).id;
+        updatedProfile.id = creatorId;
         localStorage.setItem('user', JSON.stringify(updatedProfile));
         location.reload();
       })
@@ -250,7 +237,6 @@ export class RestDataSource implements OnInit {
 
   //authenticate a usre by posting to the API's login route with a user object and the headers set to httpOptions
   register(user: User): Observable<any> {
-    console.log({ restDataSource: user });
     //PRODUCTION
     // return this.http.post<any>('/api/register', user, this.httpOptions);
     //LOCAL

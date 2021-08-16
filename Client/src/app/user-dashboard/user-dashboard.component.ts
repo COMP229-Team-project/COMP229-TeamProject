@@ -30,7 +30,7 @@ import { map } from 'rxjs/operators';
   ],
 })
 export class UserDashboardComponent implements OnInit {
-  serverMessage?: string;
+  serverMessage?: String | undefined = 'Your report has been sent!';
   expandedSurvey!: Survey | null;
   noSurveys!: boolean;
   isSmall$: Observable<boolean> = this.breakPointObserver
