@@ -1,8 +1,8 @@
 <div *ngIf="!submitted; else other_content">
   <!-- Title of Survey and Description -->
-  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <h2 backgroundColor="primary" mat-dialog-title>{{ data.title }}</h2>
   <h3>{{ data.description }}</h3>
-  <form [formGroup]="responseForm">
+  <form [formGroup]="responseForm" (ngSubmit)="onSubmit()">
     <mat-dialog-content class="mat-typography">
       <!-- First Question -->
       <mat-label>{{ data.questions[0].question1 }}</mat-label>
@@ -89,8 +89,8 @@
       </mat-radio-group>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button (click)="onSubmit()">Submit</button>
+      <button color="warn" mat-button mat-dialog-close>Cancel</button>
+      <button color="accent" mat-button type="submit">Submit</button>
     </mat-dialog-actions>
   </form>
 </div>

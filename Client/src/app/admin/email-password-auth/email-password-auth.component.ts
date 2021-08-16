@@ -39,6 +39,7 @@ export class EmailPasswordAuthComponent implements OnInit {
 
   changeType(val: any) {
     this.type = val;
+    this.serverMessage = '';
   }
 
   get isLogin() {
@@ -91,7 +92,6 @@ export class EmailPasswordAuthComponent implements OnInit {
       // perform authenticati
       this.auth.register(this.user).subscribe((data) => {
         if (data.success) {
-          console.log({ data: data, type: typeof data });
           this.restDataSoruce.storeUserData(data.token, data.user);
           this.router.navigateByUrl('dashboard');
         } else {
@@ -102,11 +102,9 @@ export class EmailPasswordAuthComponent implements OnInit {
   }
 
   authenticate(form: FormGroup): void | string {
-    console.log({ fromComponent: this.user });
     this.user.email = this.form.value.email;
     this.user.password = this.form.value.password;
     this.auth.authenticate(this.user).subscribe((data) => {
-      console.log({ data: data, type: typeof data });
       if (data.success) {
         this.restDataSoruce.storeUserData(data.token, data.user);
         this.router.navigateByUrl('dashboard');
@@ -127,7 +125,6 @@ export class EmailPasswordAuthComponent implements OnInit {
         this.register(this.form);
       }
       if (this.isPasswordReset) {
-        console.log('hello');
         this.serverMessage = 'Check your email';
       }
     } catch (err) {

@@ -7,3 +7,14 @@
 .radio-button {
   margin: 5px;
 }
+
+button {
+  flex: 1;
+  width: 100%;
+}
+
+h2 {
+  background-color: #4257b2;
+  color: white;
+  text-align: center;
+}

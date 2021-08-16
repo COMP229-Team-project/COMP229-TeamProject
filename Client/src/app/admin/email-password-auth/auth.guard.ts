@@ -18,10 +18,8 @@ export class AuthGuard {
     state: RouterStateSnapshot
   ): boolean {
     if (this.auth.authenticated) {
-      console.log('authenticated');
       return true;
     } else {
-      console.log('cannot authenticate');
       this.router.navigate(['/login']);
       return false;
     }

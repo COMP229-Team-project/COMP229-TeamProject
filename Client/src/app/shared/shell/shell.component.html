@@ -44,7 +44,7 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="container">
     <mat-toolbar color="primary">
       <button
         type="button"
@@ -89,7 +89,11 @@
         </a>
       </mat-menu>
     </mat-toolbar>
-
-    <ng-content></ng-content>
+    <div class="container">
+      <ng-content></ng-content>
+    </div>
+    <mat-toolbar class="footer"
+      ><p><small>&copy; copyright</small> Team Endeavours</p></mat-toolbar
+    >
   </mat-sidenav-content>
 </mat-sidenav-container>

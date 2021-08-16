@@ -47,7 +47,11 @@
       <!-- Survey Lifetime Column -->
       <ng-container matColumnDef="lifetime">
         <th mat-header-cell *matHeaderCellDef>Survey Lifetime</th>
-        <td mat-cell *matCellDef="let survey">
+        <td
+          (click)="$event.stopPropagation()"
+          mat-cell
+          *matCellDef="let survey"
+        >
           <date-picker
             [dateRange]="{
               id: survey._id,
@@ -74,6 +78,7 @@
         <th mat-header-cell *matHeaderCellDef>Update Survey</th>
         <td mat-cell *matCellDef="let survey">
           <button
+            (click)="$event.stopPropagation()"
             (click)="RouteToSurvey(survey._id)"
             mat-raised-button
             color="primary"
@@ -88,6 +93,7 @@
         <th mat-header-cell *matHeaderCellDef>Delete Survey</th>
         <td mat-cell *matCellDef="let survey">
           <button
+            (click)="$event.stopPropagation()"
             (click)="DeleteSurvey(survey._id)"
             mat-raised-button
             color="warn"
@@ -101,16 +107,12 @@
       <ng-container matColumnDef="report">
         <th mat-header-cell *matHeaderCellDef>Send Report</th>
         <td mat-cell *matCellDef="let survey">
-          <div *ngIf="!serverMessage; else other_content">
-            <button
-              (click)="SendReport(survey)"
-              mat-raised-button
-              color="accent"
-            >
-              SEND
-            </button>
-          </div>
-          <ng-template #other_content>{{ this.serverMessage }}</ng-template>
+          <report-button-dialog
+            (click)="$event.stopPropagation()"
+            (click)="SendReport(survey)"
+            [msg]="this.serverMessage"
+          >
+          </report-button-dialog>
         </td>
       </ng-container>
 

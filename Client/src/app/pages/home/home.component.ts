@@ -7,10 +7,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   currentImage: String = '../../../assets/banner-girlsunbathing.png';
-  currentQuote: String = '“Creating Quizzes helps you learn.”';
+  currentQuote: String =
+    'Creating Surveys helps you understand what important.';
   bannerQuotes: String[] = [
-    'Creating quizzes helps you learn.',
-    'Take quizzes created by other users.',
+    'Creating surveys helps you learn.',
+    'Take surveys created by other users.',
     'Challenge yourself to learn more.',
   ];
   bannerImages: String[] = [
